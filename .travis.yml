@@ -1,4 +1,8 @@
-language: ruby
-rvm:
- - 2.2
- - jruby
+dist: trusty
+language: c
+compiler: gcc
+
+# build all branches
+branches:
+  only:
+  - /.*/
