@@ -1,0 +1,9 @@
+*.mex*
+*.slxc
+.DS_Store
+
+*.gcda
+*.gcno
+*.o
+*.out
+*.exe
