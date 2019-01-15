@@ -98,17 +98,19 @@ static ECI_Msg_t ECI_MsgRcv[] = {
 #define ECI_EVENT_TABLE_DEFINED        1
 
 /* Defined so that we can pass pointer to them to match ECI interface */
-uint8 line1FailEvent = 1;
-uint8 line2FailEvent = 2;
+uint8 line1FailEventID = 1;
+extern line_check_t line1Check;
+uint8 line2FailEventID = 2;
+extern line_check_t line2Check;
 uint8 errorEventType = CFE_EVS_ERROR;
 uint32 filterOneEvent = CFE_EVS_FIRST_ONE_STOP;
 
 /* Create array of structures with error type, pointer to observable signal location,
    the location comment, and the event message */
 static const ECI_Evs_t ECI_Events[] = {
-  { EVENT_message0_ID,                          /* Macro defining type of ECI event, 
+  { EVENT_message2_ID,                          /* Macro defining type of ECI event, 
                                                 * in this case, event with no data points*/
-    &line1FailEvent,
+    &line1FailEventID,
     &errorEventType,                           /* Type of event */
     &filterOneEvent,                           /* Event mask - Ask CFE to filter all but the first
                                                 * instance of this event since the checksumPassed flag
@@ -116,22 +118,25 @@ static const ECI_Evs_t ECI_Events[] = {
                                                 * validation is run, which would result in constantly
                                                 * sending this event 
                                                 */
-    &checksum1Passed,                          /* Pointer to flag */
-    "Checksum for line 1 failed to validate",  /* fprintf-style format string */
+    (boolean*)&line1Check.passed,                          /* Pointer to flag */
+    "Checksum for line 1 failed to validate, computed %d does not match expected %d",  /* fprintf-style format string */
     "validateTLE()",                           /* (Optional) Location in code where event originated*/
-    0,  0,  0,  0,  0                          /* Data values (not used here) */
+    (double*)&line1Check.computed,             /* Data values (not used here) */
+    (double*)&line1Check.expected,  
+    0,  0,  0                          
   },
 
-  { EVENT_message0_ID,                         
-    &line2FailEvent,
+  { EVENT_message2_ID,                         
+    &line2FailEventID,
     &errorEventType,
     &filterOneEvent,
-    &checksum2Passed,
-    "Checksum for line 2 failed to validate",  
+    (boolean*)&line2Check.passed,
+    "Checksum for line 2 failed to validate, computed %d does not match expected %d",  /* fprintf-style format string */
     "validateTLE()",                           
-    0,  0,  0,  0,  0
+    (double*)&line2Check.computed,             /* Data values (not used here) */
+    (double*)&line2Check.expected,  
+    0,  0,  0   
   },
-
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }       /* The table is null-terminated */
 };
 

@@ -11,8 +11,8 @@ extern ECI_TimeStamp_t SL_Step_TimeStamp;
 /* Internal */
 TLE tle;
 double mins = 0;
-bool checksum1Passed = TRUE;
-bool checksum2Passed = TRUE;
+line_check_t line1Check;
+line_check_t line2Check;
 
 /* Outputs */
 propState_t propState;
@@ -94,14 +94,6 @@ int computeTLEChecksum(char line[70]){
     return checksum % 10;
 }
 
-bool validateTLEChecksum(char line[70]){
-/* Computes a TLE checksum and returns if the computed checksum 
- * matches the one given in the TLE. */
-    
-    /* checksum is stored in last character/digit in the TLE line */
-    return computeTLEChecksum(line) == digitToInt(line[68]);
-}
-
 int32_t validateTLE(tle_lines_t * TblPtr){
 /* Validates that each of the TLE lines match their built-in 
  * checksums.
@@ -111,9 +103,15 @@ int32_t validateTLE(tle_lines_t * TblPtr){
  * and return a negative value if the table should fail validation.
  */
  
+    /* Initialize checks */
+    line1Check.computed = computeTLEChecksum(TblPtr->line1);
+    line1Check.expected = digitToInt(TblPtr->line1[68]);
+    line1Check.passed =  line1Check.computed == line1Check.expected;
+
     /* Each line is validated independently */
-    checksum1Passed = validateTLEChecksum(TblPtr->line1);
-    checksum2Passed = validateTLEChecksum(TblPtr->line2);
+    line2Check.computed = computeTLEChecksum(TblPtr->line2);
+    line2Check.expected = digitToInt(TblPtr->line2[68]);
+    line2Check.passed =  line2Check.computed == line2Check.expected;
 
     /* Additional validation of the format of the TLE could also be
      * done, but is not relevant to this example.
@@ -130,5 +128,5 @@ int32_t validateTLE(tle_lines_t * TblPtr){
      * which meets the requirement of a negative return value to 
      * fail the table.
      */
-    return ((int) checksum1Passed - 1) + ((int) checksum1Passed - 1);
+    return ((int) line1Check.passed - 1) + ((int) line2Check.passed - 1);
 }

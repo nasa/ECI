@@ -13,8 +13,8 @@ void OP_App_Test_AddTestCases(void) {
 	UtTest_Add(OP_Test_computeTLEChecksum, OP_Test_Setup,
               OP_Test_TearDown, "Checksum for TLE is computed correctly");
               
-	UtTest_Add(OP_Test_validateTLEChecksum, OP_Test_Setup,
-              OP_Test_TearDown, "TLE checksum is validated correctly");
+	UtTest_Add(OP_Test_validateTLE, OP_Test_Setup,
+              OP_Test_TearDown, "TLE is validated correctly");
 
 	UtTest_Add(OP_Test_tableValidate, OP_Test_Setup,
               OP_Test_TearDown, "TLE table validates");

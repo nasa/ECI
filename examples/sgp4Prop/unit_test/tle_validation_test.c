@@ -19,6 +19,7 @@
 
 /* Provide prototypes */
 CFE_TIME_SysTime_t Spoof_CFE_TIME_GetTime(void);
+void op_AppMain(void);
 
 /* Setup message framework */
 #define UT_CFE_SB_MAX_PIPES 32
@@ -78,26 +79,6 @@ void OP_Test_computeTLEChecksum(void) {
     
 }
 
-void OP_Test_validateTLEChecksum(void) {
-/* Validates that the validateTLEChecksum() function returns
- * true if the checksum validated and false otherwise. The 
- * examples shown here are also from
- * http://www.stltracker.com/resources/tle 
- * which contains several example TLE's with known-good 
- * checksums.
- */
-
-    /* Line 1 */
-    /* Modified checksum from example above to make checksum incorrect */
-    char lineWBadChecksum[] = "1 27843U 03031D   14297.79709235  .00000190  00000-0  10887-3 0   705";
-    UtAssert_True(!validateTLEChecksum(lineWBadChecksum), "Detected incorrect checksum");
-    
-    /* Line 2 */
-    char lineWGoodChecksum[] = "2 27843  98.7177 303.6579 0008799 278.1894 134.1004 14.20414232586768";
-    UtAssert_True(validateTLEChecksum(lineWGoodChecksum), "Detected correct checksum");
-
-}
-
 void OP_Test_validateTLE(void) {
 /* Validates that the validateTLE() function returns a 
  * non-negative value if the validated. The examples 
@@ -108,16 +89,23 @@ void OP_Test_validateTLE(void) {
  */
 
     tle_lines_t tle_lines;
+    extern line_check_t line1Check;
+    extern line_check_t line2Check;
 
-    /* Modified checksum from example above to make checksum incorrect */
+    /* Modified checksum from example above to make checksum incorrect 
+     * Modified from 3 (original) to 5 (for intentional failure)*/
     strcpy(tle_lines.line1, "1 27843U 03031D   14297.79709235  .00000190  00000-0  10887-3 0   705");
     strcpy(tle_lines.line2, "2 27843  98.7177 303.6579 0008799 278.1894 134.1004 14.20414232586768");
     UtAssert_True(validateTLE(&tle_lines) < 0, "Detected incorrect checksum");
-    
+    UtPrintf("Line1 Passed: %d, computed: %d, expected: %d\n", line1Check.passed, line1Check.computed, line1Check.expected);
+    UtPrintf("Line2 Passed: %d, computed: %d, expected: %d\n", line2Check.passed, line2Check.computed, line2Check.expected);
+
     /* Example with correct checksum */
     strcpy(tle_lines.line1, "1 27843U 03031D   14297.79709235  .00000190  00000-0  10887-3 0   703");
     strcpy(tle_lines.line2, "2 27843  98.7177 303.6579 0008799 278.1894 134.1004 14.20414232586768");
     UtAssert_True(validateTLE(&tle_lines) >= 0 , "Detected correct checksum");
+    UtPrintf("Line1 Passed: %d, computed: %d, expected: %d\n", line1Check.passed, line1Check.computed, line1Check.expected);
+    UtPrintf("Line2 Passed: %d, computed: %d, expected: %d\n", line2Check.passed, line2Check.computed, line2Check.expected);
 
 }
 
@@ -127,6 +115,8 @@ void OP_Test_tableValidate(){
     /* Initalize a param table with a test TLE */
     
     tle_lines_t test_tle_tbl;
+    extern line_check_t line1Check;
+    extern line_check_t line2Check;
 
     /* TEME example from test_TLEs.data */
     strncpy(test_tle_tbl.line1, "1 00005U 58002B   00179.78495062  .00000023  00000-0  28098-4 0  4753", 69);
@@ -149,6 +139,8 @@ void OP_Test_tableValidate(){
      */
     UtAssert_True(Ut_CFE_EVS_GetEventCount(1, CFE_EVS_ERROR, "") == 0, "Event for TLE Line1 failing validation did not increment");
     UtAssert_True(Ut_CFE_EVS_GetEventCount(2, CFE_EVS_ERROR, "") == 0, "Event for TLE Line2 failing validation did not increment");
+    UtPrintf("Line1 Passed: %d, computed: %d, expected: %d\n", line1Check.passed, line1Check.computed, line1Check.expected);
+    UtPrintf("Line2 Passed: %d, computed: %d, expected: %d\n", line2Check.passed, line2Check.computed, line2Check.expected);
     //UtAssert_True(Ut_CFE_EVS_GetEventCount(ECI_PARAM_TBL_LOAD_ERR_EID, CFE_EVS_ERROR, "") == 0, "ECI_PARAM_TBL_LOAD_ERR_EID Event Counter did not increment");
 
 }

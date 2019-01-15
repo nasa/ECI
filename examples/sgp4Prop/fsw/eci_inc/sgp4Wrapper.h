@@ -20,6 +20,12 @@ typedef struct  {
     char line2[70];
 } tle_lines_t;
 
+typedef struct  {
+    bool passed;
+    int expected;
+    int computed;
+} line_check_t;
+
 /* Declare extern variables for ECI*/
 extern propState_t propState;
 extern TLE tle;
