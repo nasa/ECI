@@ -23,7 +23,7 @@ CFE_TIME_SysTime_t Spoof_CFE_TIME_GetTime(void);
 /* Setup message framework */
 #define UT_CFE_SB_MAX_PIPES 32
 /* Pipe IDs */
-#define  CMDPIPE  0
+#define  CMDPIPE   0
 #define  DATAPIPE  1
 
 typedef struct {
@@ -31,10 +31,11 @@ typedef struct {
     UtListHead_t        MsgQueue;
     boolean             InUse;
 } Ut_CFE_SB_PipeTableEntry_t;
+
 typedef struct {
     uint8    CmdHeader[CFE_SB_CMD_HDR_SIZE];
-
 } NoArgsCmd_t;
+
 extern UtListHead_t                MsgQueue;
 extern Ut_CFE_SB_PipeTableEntry_t  PipeTable[UT_CFE_SB_MAX_PIPES];
 
@@ -146,7 +147,9 @@ void OP_Test_tableValidate(){
     /* Verify event indicating table validation failing was
      * not sent
      */
-    UtAssert_True(Ut_CFE_EVS_GetEventCount(ECI_PARAM_TBL_LOAD_ERR_EID, CFE_EVS_ERROR, "") == 0, "ECI_PARAM_TBL_LOAD_ERR_EID Event Counter did not incremented");
+    UtAssert_True(Ut_CFE_EVS_GetEventCount(1, CFE_EVS_ERROR, "") == 0, "Event for TLE Line1 failing validation did not increment");
+    UtAssert_True(Ut_CFE_EVS_GetEventCount(2, CFE_EVS_ERROR, "") == 0, "Event for TLE Line2 failing validation did not increment");
+    //UtAssert_True(Ut_CFE_EVS_GetEventCount(ECI_PARAM_TBL_LOAD_ERR_EID, CFE_EVS_ERROR, "") == 0, "ECI_PARAM_TBL_LOAD_ERR_EID Event Counter did not increment");
 
 }
 
@@ -181,16 +184,20 @@ void OP_Test_propagateOrbit(){
     /* Run the code */
     op_AppMain();
 
+    /* Verify table validated */
+    UtAssert_True(Ut_CFE_EVS_GetEventCount(1, CFE_EVS_ERROR, "") == 0, "Event for TLE Line1 failing validation did not increment");
+    UtAssert_True(Ut_CFE_EVS_GetEventCount(2, CFE_EVS_ERROR, "") == 0, "Event for TLE Line2 failing validation did not increment");
+
     /* Get the output and verify the propagation */
     propState_t* OutPacket = Ut_CFE_SB_FindPacket(OP_PROPSTATE_MID,1);
     /* Check values from test_output.data */
-    UtAssert_True(OutPacket->r[0] == 7022.46529266, "X component of propagated position matches");
-    UtAssert_True(OutPacket->r[1] == -1400.08296755, "Y component of propagated position matches");
-    UtAssert_True(OutPacket->r[2] == 0.03995155, "Z component of propagated position matches");
-    UtAssert_True(OutPacket->v[0] == 1.893841015, "X component of propagated velocity matches");
-    UtAssert_True(OutPacket->v[1] == 6.405893759, "Y component of propagated velocity matches");
-    UtAssert_True(OutPacket->v[2] == 4.534807250, "Z component of propagated velocity matches");
-    UtAssert_True(OutPacket->t == 0, "Propagation time matches");
+    UtAssert_DoubleCmpAbs(OutPacket->r[0],  7022.46529266, 0.01, "X component of propagated position matches");
+    UtAssert_DoubleCmpAbs(OutPacket->r[1], -1400.08296755, 0.01, "Y component of propagated position matches");
+    UtAssert_DoubleCmpAbs(OutPacket->r[2],  0.03995155,    0.01, "Z component of propagated position matches");
+    UtAssert_DoubleCmpAbs(OutPacket->v[0],  1.893841015,   0.1,  "X component of propagated velocity matches");
+    UtAssert_DoubleCmpAbs(OutPacket->v[1],  6.405893759,   0.1,  "Y component of propagated velocity matches");
+    UtAssert_DoubleCmpAbs(OutPacket->v[2],  4.534807250,   0.1,  "Z component of propagated velocity matches");
+    UtAssert_DoubleCmpAbs(OutPacket->t,     0,             0.1,  "Propagation time matches");
 
     /* Override the time to 360min past the TLE epoch*/
     UT_Time.Seconds = epoch_sec + 360 * 60;
@@ -202,15 +209,19 @@ void OP_Test_propagateOrbit(){
     /* Run the code */
     op_AppMain();
 
+    /* Verify table validated */
+    UtAssert_True(Ut_CFE_EVS_GetEventCount(1, CFE_EVS_ERROR, "") == 0, "Event for TLE Line1 failing validation did not increment");
+    UtAssert_True(Ut_CFE_EVS_GetEventCount(2, CFE_EVS_ERROR, "") == 0, "Event for TLE Line2 failing validation did not increment");
+
     /* Get the output and verify the propagation */
     OutPacket = Ut_CFE_SB_FindPacket(OP_PROPSTATE_MID,1);
     /* Check values from test_output.data */
-    UtAssert_True(OutPacket->r[0] == -7154.03120202, "X component of propagated position matches");
-    UtAssert_True(OutPacket->r[1] == -3783.17682504, "Y component of propagated position matches");
-    UtAssert_True(OutPacket->r[2] == -3536.19412294, "Z component of propagated position matches");
-    UtAssert_True(OutPacket->v[0] == 4.741887409, "X component of propagated velocity matches");
-    UtAssert_True(OutPacket->v[1] == -4.151817765, "Y component of propagated velocity matches");
-    UtAssert_True(OutPacket->v[2] == -2.093935425, "Z component of propagated velocity matches");
-    UtAssert_True(OutPacket->t == 360, "Propagation time matches");
+    UtAssert_DoubleCmpAbs(OutPacket->r[0], -7154.03120202, 0.01, "X component of propagated position matches");
+    UtAssert_DoubleCmpAbs(OutPacket->r[1], -3783.17682504, 0.01, "Y component of propagated position matches");
+    UtAssert_DoubleCmpAbs(OutPacket->r[2], -3536.19412294, 0.01, "Z component of propagated position matches");
+    UtAssert_DoubleCmpAbs(OutPacket->v[0],  4.741887409,   0.1,  "X component of propagated velocity matches");
+    UtAssert_DoubleCmpAbs(OutPacket->v[1], -4.151817765,   0.1,  "Y component of propagated velocity matches");
+    UtAssert_DoubleCmpAbs(OutPacket->v[2], -2.093935425,   0.1,  "Z component of propagated velocity matches");
+    UtAssert_DoubleCmpAbs(OutPacket->t,     360,           0.1,  "Propagation time matches");
 
 }
