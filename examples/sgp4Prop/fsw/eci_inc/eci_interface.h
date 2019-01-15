@@ -53,7 +53,7 @@
  */
 static ECI_Tbl_t ECI_ParamTable[] = {
   {
-    (void**)&(tle_lines),                        /* Pointer to begining of TLE line1 */
+    (void*)&(tle_lines),                 /* Pointer to begining of TLE line1 */
     "TLE_table",                         /* Name of table */
     "OP app's tle parameter table",      /* Table description */
     "op_tle.tbl",                        /* Name of file which contains table values */

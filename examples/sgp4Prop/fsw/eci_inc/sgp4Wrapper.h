@@ -23,7 +23,7 @@ typedef struct  {
 /* Declare extern variables for ECI*/
 extern propState_t propState;
 extern TLE tle;
-extern tle_lines_t tle_lines;
+extern tle_lines_t *tle_lines;
 extern bool checksum1Passed, checksum2Passed;
 
 /* Function prototypes for ECI use */

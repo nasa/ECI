@@ -125,13 +125,15 @@ void OP_Test_tableValidate(){
 
     /* Initalize a param table with a test TLE */
     
-    tle_lines_t tle_lines;
+    tle_lines_t test_tle_tbl;
 
     /* TEME example from test_TLEs.data */
-    strcpy(tle_lines.line1, "1 00005U 58002B   00179.78495062  .00000023  00000-0  28098-4 0  4753");
-    strcpy(tle_lines.line2, "2 00005  34.2682 348.7242 1859667 331.7664  19.3264 10.82419157413667");
+    strncpy(test_tle_tbl.line1, "1 00005U 58002B   00179.78495062  .00000023  00000-0  28098-4 0  4753", 69);
+    test_tle_tbl.line1[69] = 0;
+    strncpy(test_tle_tbl.line2, "2 00005  34.2682 348.7242 1859667 331.7664  19.3264 10.82419157413667", 69);
+    test_tle_tbl.line2[69] = 0;
 
-    Ut_CFE_TBL_AddTable("/mram/op_tle.tbl", &tle_lines);
+    Ut_CFE_TBL_AddTable("/mram/op_tle.tbl", &test_tle_tbl);
 
     /* Create and place Wakeup message onto command message */
     NoArgsCmd_t       TickMsg;
@@ -154,11 +156,14 @@ void OP_Test_propagateOrbit(){
  */
 
     /* Initalize a param table with a test TLE */
-    extern tle_lines_t tle_lines;
+    tle_lines_t test_tle_tbl;
     /* TEME example from test_TLEs.data */
-    strcpy(tle_lines.line1, "1 00005U 58002B   00179.78495062  .00000023  00000-0  28098-4 0  4753");
-    strcpy(tle_lines.line2, "2 00005  34.2682 348.7242 1859667 331.7664  19.3264 10.82419157413667");
-    Ut_CFE_TBL_AddTable("/mram/op_tle.tbl", &tle_lines);
+    strncpy(test_tle_tbl.line1, "1 00005U 58002B   00179.78495062  .00000023  00000-0  28098-4 0  4753", 69);
+    test_tle_tbl.line1[69] = 0;
+    strncpy(test_tle_tbl.line2, "2 00005  34.2682 348.7242 1859667 331.7664  19.3264 10.82419157413667", 69);
+    test_tle_tbl.line2[69] = 0;
+
+    Ut_CFE_TBL_AddTable("/mram/op_tle.tbl", &test_tle_tbl);
     /* Epoch = Day 179.78495062, 2000 = */
     uint32 epoch_sec = 0;
 
@@ -167,6 +172,11 @@ void OP_Test_propagateOrbit(){
     UT_Time.Seconds = epoch_sec;
     UT_Time.Subseconds = 0;
     Ut_CFE_TIME_SetFunctionHook(UT_CFE_TIME_GETTIME_INDEX, Spoof_CFE_TIME_GetTime);
+
+    /* Create and place Wakeup message onto command message */
+    NoArgsCmd_t       TickMsg;
+    CFE_SB_InitMsg(&TickMsg, OP_TICK_MID, sizeof(NoArgsCmd_t), TRUE);
+    UtList_Add(&PipeTable[CMDPIPE].MsgQueue, &TickMsg, CFE_SB_GetTotalMsgLength((CFE_SB_MsgPtr_t)&TickMsg), 0);
 
     /* Run the code */
     op_AppMain();
@@ -185,6 +195,9 @@ void OP_Test_propagateOrbit(){
     /* Override the time to 360min past the TLE epoch*/
     UT_Time.Seconds = epoch_sec + 360 * 60;
     UT_Time.Subseconds = 0;
+
+    /* Create and place Wakeup message onto command message */
+    UtList_Add(&PipeTable[CMDPIPE].MsgQueue, &TickMsg, CFE_SB_GetTotalMsgLength((CFE_SB_MsgPtr_t)&TickMsg), 0);
 
     /* Run the code */
     op_AppMain();

@@ -5,7 +5,7 @@
 
 /* Declare variables with global scope so ECI can access them */
 /* Inputs */
-tle_lines_t tle_lines;
+tle_lines_t *tle_lines;
 extern ECI_TimeStamp_t SL_Step_TimeStamp;
 
 /* Internal */
@@ -35,10 +35,10 @@ void propagate(void){
      * to determine the table has changed in order to not 
      * reprocess every cycle.
      */
-    parseLines(&tle,tle_lines.line1,tle_lines.line2);
+    parseLines(&tle, tle_lines->line1, tle_lines->line2);
 
     /* Do the propagation */
-    getRV(&tle,mins,propState.r,propState.v);
+    getRV(&tle, mins, propState.r, propState.v);
     
     /* The results are stored in outData which ECI will emit
      * onto the software bus for downstream use.

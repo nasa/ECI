@@ -20,8 +20,7 @@ void OP_App_Test_AddTestCases(void) {
               OP_Test_TearDown, "TLE table validates");
 
 	UtTest_Add(OP_Test_propagateOrbit, OP_Test_Setup,
-              OP_Test_TearDown, "OP app propagates orbit");
-
+              OP_Test_TearDown, "OP app propagates orbit");	
               
 } /* End of OP_App_Test_AddTestCases */
 
