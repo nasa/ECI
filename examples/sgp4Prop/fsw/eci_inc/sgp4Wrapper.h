@@ -21,7 +21,7 @@ typedef struct  {
 } tle_lines_t;
 
 typedef struct  {
-    bool passed;
+    bool failed;
     int expected;
     int computed;
 } line_check_t;

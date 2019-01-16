@@ -97,15 +97,15 @@ void OP_Test_validateTLE(void) {
     strcpy(tle_lines.line1, "1 27843U 03031D   14297.79709235  .00000190  00000-0  10887-3 0   705");
     strcpy(tle_lines.line2, "2 27843  98.7177 303.6579 0008799 278.1894 134.1004 14.20414232586768");
     UtAssert_True(validateTLE(&tle_lines) < 0, "Detected incorrect checksum");
-    UtPrintf("Line1 Passed: %d, computed: %d, expected: %d\n", line1Check.passed, line1Check.computed, line1Check.expected);
-    UtPrintf("Line2 Passed: %d, computed: %d, expected: %d\n", line2Check.passed, line2Check.computed, line2Check.expected);
+    UtPrintf("Line1 Failed: %d, computed: %d, expected: %d\n", line1Check.failed, line1Check.computed, line1Check.expected);
+    UtPrintf("Line2 Failed: %d, computed: %d, expected: %d\n", line2Check.failed, line2Check.computed, line2Check.expected);
 
     /* Example with correct checksum */
     strcpy(tle_lines.line1, "1 27843U 03031D   14297.79709235  .00000190  00000-0  10887-3 0   703");
     strcpy(tle_lines.line2, "2 27843  98.7177 303.6579 0008799 278.1894 134.1004 14.20414232586768");
     UtAssert_True(validateTLE(&tle_lines) >= 0 , "Detected correct checksum");
-    UtPrintf("Line1 Passed: %d, computed: %d, expected: %d\n", line1Check.passed, line1Check.computed, line1Check.expected);
-    UtPrintf("Line2 Passed: %d, computed: %d, expected: %d\n", line2Check.passed, line2Check.computed, line2Check.expected);
+    UtPrintf("Line1 Failed: %d, computed: %d, expected: %d\n", line1Check.failed, line1Check.computed, line1Check.expected);
+    UtPrintf("Line2 Failed: %d, computed: %d, expected: %d\n", line2Check.failed, line2Check.computed, line2Check.expected);
 
 }
 
@@ -139,8 +139,8 @@ void OP_Test_tableValidate(){
      */
     UtAssert_True(Ut_CFE_EVS_GetEventCount(1, CFE_EVS_ERROR, "") == 0, "Event for TLE Line1 failing validation did not increment");
     UtAssert_True(Ut_CFE_EVS_GetEventCount(2, CFE_EVS_ERROR, "") == 0, "Event for TLE Line2 failing validation did not increment");
-    UtPrintf("Line1 Passed: %d, computed: %d, expected: %d\n", line1Check.passed, line1Check.computed, line1Check.expected);
-    UtPrintf("Line2 Passed: %d, computed: %d, expected: %d\n", line2Check.passed, line2Check.computed, line2Check.expected);
+    UtPrintf("Line1 Failed: %d, computed: %d, expected: %d\n", line1Check.failed, line1Check.computed, line1Check.expected);
+    UtPrintf("Line2 Failed: %d, computed: %d, expected: %d\n", line2Check.failed, line2Check.computed, line2Check.expected);
     //UtAssert_True(Ut_CFE_EVS_GetEventCount(ECI_PARAM_TBL_LOAD_ERR_EID, CFE_EVS_ERROR, "") == 0, "ECI_PARAM_TBL_LOAD_ERR_EID Event Counter did not increment");
 
 }
@@ -214,6 +214,7 @@ void OP_Test_propagateOrbit(){
     UtAssert_DoubleCmpAbs(OutPacket->v[0],  4.741887409,   0.1,  "X component of propagated velocity matches");
     UtAssert_DoubleCmpAbs(OutPacket->v[1], -4.151817765,   0.1,  "Y component of propagated velocity matches");
     UtAssert_DoubleCmpAbs(OutPacket->v[2], -2.093935425,   0.1,  "Z component of propagated velocity matches");
+    UtPrintf("OutPacket->t: %f\n", OutPacket->t);
     UtAssert_DoubleCmpAbs(OutPacket->t,     360,           0.1,  "Propagation time matches");
 
 }

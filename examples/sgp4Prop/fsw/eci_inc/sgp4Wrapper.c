@@ -106,12 +106,12 @@ int32_t validateTLE(tle_lines_t * TblPtr){
     /* Initialize checks */
     line1Check.computed = computeTLEChecksum(TblPtr->line1);
     line1Check.expected = digitToInt(TblPtr->line1[68]);
-    line1Check.passed =  line1Check.computed == line1Check.expected;
+    line1Check.failed =  line1Check.computed != line1Check.expected;
 
     /* Each line is validated independently */
     line2Check.computed = computeTLEChecksum(TblPtr->line2);
     line2Check.expected = digitToInt(TblPtr->line2[68]);
-    line2Check.passed =  line2Check.computed == line2Check.expected;
+    line2Check.failed =  line2Check.computed != line2Check.expected;
 
     /* Additional validation of the format of the TLE could also be
      * done, but is not relevant to this example.
@@ -128,5 +128,5 @@ int32_t validateTLE(tle_lines_t * TblPtr){
      * which meets the requirement of a negative return value to 
      * fail the table.
      */
-    return ((int) line1Check.passed - 1) + ((int) line2Check.passed - 1);
+    return (-(int32_t) line1Check.failed) + (-(int32_t) line2Check.failed);
 }

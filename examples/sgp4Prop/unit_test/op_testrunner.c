@@ -8,19 +8,19 @@
 void OP_App_Test_AddTestCases(void) {
 
 	UtTest_Add(OP_Test_digitToInt, OP_Test_Setup,
-              OP_Test_TearDown, "digitToInt function correctly converts digits");
+              OP_Test_TearDown, "OP_Test_digitToInt: digitToInt function correctly converts digits");
 
 	UtTest_Add(OP_Test_computeTLEChecksum, OP_Test_Setup,
-              OP_Test_TearDown, "Checksum for TLE is computed correctly");
+              OP_Test_TearDown, "OP_Test_computeTLEChecksum: Checksum for TLE is computed correctly");
               
 	UtTest_Add(OP_Test_validateTLE, OP_Test_Setup,
-              OP_Test_TearDown, "TLE is validated correctly");
+              OP_Test_TearDown, "OP_Test_validateTLE: TLE is validated correctly");
 
 	UtTest_Add(OP_Test_tableValidate, OP_Test_Setup,
-              OP_Test_TearDown, "TLE table validates");
+              OP_Test_TearDown, "OP_Test_tableValidate: TLE table validates");
 
 	UtTest_Add(OP_Test_propagateOrbit, OP_Test_Setup,
-              OP_Test_TearDown, "OP app propagates orbit");	
+              OP_Test_TearDown, "OP_Test_propagateOrbit: OP app propagates orbit");	
               
 } /* End of OP_App_Test_AddTestCases */
 

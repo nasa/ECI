@@ -93,9 +93,10 @@ GCOV_LOPT = -pg -p -fprofile-arcs -ftest-coverage
 WARNINGS = -Wall -Wstrict-prototypes -Wundef
 DEBUGGER = -g
 
-COPT = $(WARNINGS) $(DEBUGGER) $(GCOV_COPT) -DSOFTWARE_LITTLE_BIT_ORDER -D_EL -D__x86_64__ -DUT_VERBOSE -DOSAPI_NO_SPECIAL_ATTRIBS -D_UTF_TEST_ -std=c99
+COPT = $(WARNINGS) $(DEBUGGER) $(GCOV_COPT) -DSOFTWARE_LITTLE_BIT_ORDER -D_EL  -DUT_VERBOSE -DOSAPI_NO_SPECIAL_ATTRIBS -D_UTF_TEST_ -m32
+# -D__x86_64__
 
-LOPT = $(GCOV_LOPT)
+LOPT = $(GCOV_LOPT) -m32
 
 # specify alternative entry point since main is implemented by 
 # external code

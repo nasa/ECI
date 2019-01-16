@@ -118,8 +118,8 @@ static const ECI_Evs_t ECI_Events[] = {
                                                 * validation is run, which would result in constantly
                                                 * sending this event 
                                                 */
-    (boolean*)&line1Check.passed,                          /* Pointer to flag */
-    "Checksum for line 1 failed to validate, computed %d does not match expected %d",  /* fprintf-style format string */
+    (boolean*)&line1Check.failed,                          /* Pointer to flag */
+    "Checksum for line 1 failed to validate, computed %.0f does not match expected %.0f",  /* fprintf-style format string */
     "validateTLE()",                           /* (Optional) Location in code where event originated*/
     (double*)&line1Check.computed,             /* Data values (not used here) */
     (double*)&line1Check.expected,  
@@ -130,8 +130,8 @@ static const ECI_Evs_t ECI_Events[] = {
     &line2FailEventID,
     &errorEventType,
     &filterOneEvent,
-    (boolean*)&line2Check.passed,
-    "Checksum for line 2 failed to validate, computed %d does not match expected %d",  /* fprintf-style format string */
+    (boolean*)&line2Check.failed,
+    "Checksum for line 2 failed to validate, computed %.0f does not match expected %.0f",  /* fprintf-style format string */
     "validateTLE()",                           
     (double*)&line2Check.computed,             /* Data values (not used here) */
     (double*)&line2Check.expected,  
