@@ -7,18 +7,21 @@
 ** Includes
 *************************************************************************/
 
+/* CFE headers */
 #include "cfe.h"
 #include "cfe_tbl_msg.h"
+
+/* Std-Lib headers */
 #include <string.h>
 #include <math.h>
 
+/* ECI headers */
 #include "eci_util_macro.h"
-
 #include "eci_app_cfg.h"
 #include "eci_app.h"
-
 #include "eci_app_event.h"
 
+/* External-code provided headers */
 #include "app_msgids.h"
 #include "app_perfids.h"
 
@@ -152,7 +155,7 @@ typedef struct {
 
 /* Define ECI Parameter Table Elements if App uses Parameter Tables */
 #ifdef ECI_PARAM_TBL_DEFINED
-
+/*FIXME: Move to AppData?? */
 static CFE_TBL_Handle_t TableHandle_Param[SIZEOF_ARRAY(ECI_ParamTable) - 1];                  /* Handles for ECI Parameter Table. */
 static char             TblFullPathParam[SIZEOF_ARRAY(ECI_ParamTable) - 1][OS_MAX_PATH_LEN];  /* Full Path to Table Default Data Files */
 
@@ -165,7 +168,7 @@ static char             TblFullPathParam[SIZEOF_ARRAY(ECI_ParamTable) - 1][OS_MA
 #ifndef STATE_TBL_PATH_PREFIX
 #error "State Table File Directory Path Not Defined!"
 #endif
-
+/*FIXME: Move to AppData?? */
 static CFE_TBL_Handle_t TableHandle_State;                                          /* Handle for ECI State Table. */
 static char             TblFullPathState[OS_MAX_PATH_LEN] = STATE_TBL_PATH_PREFIX;  /* Full Path to Table Default Data File */
 
@@ -175,10 +178,12 @@ static char             TblFullPathState[OS_MAX_PATH_LEN] = STATE_TBL_PATH_PREFI
    if event should be issued during the current 
    wake-up based on value after previous wake-up  */
 #ifdef ECI_EVENT_TABLE_DEFINED
+/*FIXME: Move to AppData?? */
 static uint16 prevEventFlag[SIZEOF_ARRAY(ECI_Events) - 1];
 #endif
 
 /* Internal structures for Telemetry Messages */
+/*FIXME: Move to AppData?? */
 static ECI_InternalMsg_t MsgRcv[SIZEOF_ARRAY(ECI_MsgRcv) - 1];
 
 /* ECI App Internal Data */
@@ -324,6 +329,7 @@ static int32 sb_init(void)
       if (CCSDS_SID_TYPE(MsgRcv[idx].MsgStruct->mid) == CCSDS_CMD)
       {
          /* Returns error if reserved mid used */
+         /* FIXME: update macros*/
          if (MsgRcv[idx].MsgStruct->mid == SIL_SEND_HK_MID || 
              MsgRcv[idx].MsgStruct->mid == SIL_TBL_MANAGE_MID || 
              MsgRcv[idx].MsgStruct->mid == ECI_TICK_MID)

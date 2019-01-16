@@ -3,12 +3,12 @@
 This document describes the format of the interface specification that ECI uses to create and initialize a CFS application. 
 
 # Interface Specification
-In this interface specification, any macro which "contains a string" shall mean that the macro contains a string literal (ie, surrounded by quotes). Any definition which requires a value (string or integer) may be defined with a dereferenced pointer to a value of that type instead.
+In this interface specification, any element "defined" by the interface header must be available via including the interface header, but does not necessarily need to be defined in that header file specifically. 
 
 ## General
 1. The interface specification shall be contained with a file named 'eci_interface.h' (known as the "interface header" henceforth), formatted as a C language header file.
 2. The interface header shall have standard C include-guard macros.
-3. The interface header should include the top-level header for the external code.
+3. The interface header should include any header files needed to access data types, macros, or other elements of the external code used within the ECI data structures.
 
 ## Definitions
 1. The interface header shall define a macro "ECI_APP_REVISION_NUMBER" which contains a string containing the version or revision identifier for the external code.
@@ -20,12 +20,14 @@ In this interface specification, any macro which "contains a string" shall mean 
 9. The interface header shall define a macro "ECI_APP_NAME_LOWER" which contains a string containing the name of the CFS app in all lowercase. This name shall be less than OS_MAX_API_NAME characters (including null termination).
 10. The interface header shall define a macro "ECI_CMD_PIPE_NAME" which contains a string containing the desired name of the software bus command pipe.
 11. The interface header shall define a macro "ECI_DATA_PIPE_NAME" which contains the desired name of the software bus data pipe.
-12. The interface header shall define a macro "ECI_APP_MAIN" which contains the name of the ECI main function.
+12. The interface header shall define a macro "ECI_APP_MAIN" which contains the name of the ECI main function. This is the name of the function only, not the function signature, and so should only contain characters valid for C function names.
 
 ## Calling interface
-1. The interface header shall define a macro "ECI_STEP_FCN" which contains the expression to call to invoke the external code's step function. This expression shall be terminated by a semicolon.
-2. The interface header may define a macro "ECI_INIT_FCN" which contains the expression to call to invoke the external code's initialization function. This expression shall be terminated by a semicolon.
-3. The interface header may define a macro "ECI_TERM_FCN" which contains the expression to call to invoke the external code's termination function. This expression shall be terminated by a semicolon.
+This section specified the interface through which the ECI will interact with the external code. Each of these macros must be formatted as valid C expressions (ie, they must be terminated by a semicolon) which call the appropriate external code.
+
+1. The interface header shall define a macro "ECI_STEP_FCN" which contains the expression to call to invoke the external code's step function. 
+2. The interface header may define a macro "ECI_INIT_FCN" which contains the expression to call to invoke the external code's initialization function. 
+3. The interface header may define a macro "ECI_TERM_FCN" which contains the expression to call to invoke the external code's termination function. 
 
 ## Tables
 1. If the external code is utilizing the ECI table interface, the interface header shall define a macro "ECI_PARAM_TBL_DEFINED". The value assigned to this macro is not important.

@@ -28,7 +28,7 @@ SOURCES = $(OBJS:.o=.c)
 ##
 ## Specify extra C Flags needed to build this subsystem
 ##
-LOCAL_COPTS = -std=c99
+LOCAL_COPTS =
 
 
 ##
