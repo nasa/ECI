@@ -195,7 +195,7 @@ static ECI_AppData_t ECI_AppData;
 **
 **************************************************************************/
 /* Global Step TimeStamp Data */
-ECI_TimeStamp_t SL_Step_TimeStamp;
+ECI_TimeStamp_t ECI_Step_TimeStamp;
 
 
 /*************************************************************************
@@ -1405,7 +1405,7 @@ static void do_step(void) {
    int i;
 
 #ifdef ECI_STEP_TIMESTAMP_DEFINED
-   SL_Step_TimeStamp = CFE_TIME_GetTime();
+   ECI_Step_TimeStamp = CFE_TIME_GetTime();
 #endif /* ECI_STEP_TIMESTAMP_DEFINED */
 
    /* Manage tables */

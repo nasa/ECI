@@ -356,8 +356,8 @@ void unitTestModel_step(void)
    *  Rounding: '<Root>/Floor'
    *  S-Function (cfs_gnc_time): '<Root>/CFS_GNC_Time1'
    */
-  tmp = floor(rt_modd_snf(floor(((real_T)SL_Step_TimeStamp.Seconds + ((real_T)
-    SL_Step_TimeStamp.Subseconds/4294967296.0))), 255.0));
+  tmp = floor(rt_modd_snf(floor(((real_T)ECI_Step_TimeStamp.Seconds + ((real_T)
+    ECI_Step_TimeStamp.Subseconds/4294967296.0))), 255.0));
   if (rtIsNaN(tmp) || rtIsInf(tmp)) {
     tmp = 0.0;
   } else {
@@ -416,8 +416,8 @@ void unitTestModel_step(void)
   fdcFlag_121 = unitTestModel_B.RelationalOperator1;
 
   /* S-Function (cfs_gnc_time): '<Root>/CFS_GNC_Time' */
-  unitTestModel_B.CFS_GNC_Time = ((real_T)SL_Step_TimeStamp.Seconds + ((real_T)
-    SL_Step_TimeStamp.Subseconds/4294967296.0));
+  unitTestModel_B.CFS_GNC_Time = ((real_T)ECI_Step_TimeStamp.Seconds + ((real_T)
+    ECI_Step_TimeStamp.Subseconds/4294967296.0));
 
   evData_unitTestModel_122[0] = unitTestModel_B.CFS_GNC_Time;
 

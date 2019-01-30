@@ -17,7 +17,7 @@
 #define RTW_HEADER_unitTestModel_private_h_
 #include "rtwtypes.h"
 
-extern ECI_TimeStamp_t SL_Step_TimeStamp;
+extern ECI_TimeStamp_t ECI_Step_TimeStamp;
 extern real_T rt_modd_snf(real_T u0, real_T u1);
 
 /* Exported data declaration */

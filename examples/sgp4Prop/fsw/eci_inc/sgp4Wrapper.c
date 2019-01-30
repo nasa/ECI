@@ -6,7 +6,7 @@
 /* Declare variables with global scope so ECI can access them */
 /* Inputs */
 tle_lines_t *tle_lines;
-extern ECI_TimeStamp_t SL_Step_TimeStamp;
+extern ECI_TimeStamp_t ECI_Step_TimeStamp;
 
 /* Internal */
 TLE tle;
@@ -27,8 +27,8 @@ propState_t propState;
 void propagate(void){
 
     /* Get the current time from FSW */
-    mins = ((double)SL_Step_TimeStamp.Seconds + ((double)
-        SL_Step_TimeStamp.Subseconds/4294967296.0));
+    mins = ((double)ECI_Step_TimeStamp.Seconds + ((double)
+        ECI_Step_TimeStamp.Subseconds/4294967296.0));
     
     /* This doesn't need to be re-processed each cycle, only 
      * when the TLE table is updated, but we but need some way 
