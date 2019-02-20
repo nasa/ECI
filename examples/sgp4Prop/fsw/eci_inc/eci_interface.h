@@ -1,11 +1,10 @@
 #ifndef ECI_INTERFACE_H
 #define ECI_INTERFACE_H
 
-/* Include Event Services header for access to event type/filter macros */
-#include "cfe_evs.h"
-
-/* Include ECI config header for access to config parameters */
-#include "eci_app_cfg.h"
+/* Include ECI/System headers */
+#include "cfe_evs.h"     /* For access to event type/filter macros in defining events */
+#include "eci_app.h"     /* For access to ECI data types */
+#include "eci_app_cfg.h" /* For access to config parameters (including queue sizes)*/
 
 /* Include top-level header for external code */
 #include "sgp4Wrapper.h"     

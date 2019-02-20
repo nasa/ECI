@@ -1,7 +1,7 @@
 
 
-#ifndef APP_MSGIDS_H
-#define APP_MSGIDS_H
+#ifndef OP_APP_MSGIDS_H
+#define OP_APP_MSGIDS_H
 
 #define OP_FLAG_MID 		0x1800
 #define OP_CMD_MID  		0x1801                  

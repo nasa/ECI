@@ -1,6 +1,12 @@
+#!/usr/bin/env bash
+
 # intended to be run from root of repo
-# exit on error
-set -e
+
+# enable exit on error when in CI environment
+if [[ "$CI" == true ]]; then 
+	set -e 
+fi
+
 # copy app files to CFS apps dir
 mkdir ./cFE/apps/simpleECIApp
 cp -r ./examples/simpleECIApp/* ./cFE/apps/simpleECIApp/

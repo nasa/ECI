@@ -15,6 +15,13 @@
 #include <string.h>
 #include <math.h>
 
+/* External-code interface definition */
+#include "eci_interface.h"
+/* Note: this must be included before the rest of the ECI headers
+ * because some of the settings in here affect what's defined by 
+ * the headers 
+ */
+
 /* ECI headers */
 #include "eci_util_macro.h"
 #include "eci_app_cfg.h"
@@ -22,9 +29,6 @@
 #include "eci_app_event.h"
 #include "eci_app_msgdefs.h"
 #include "eci_app_hk.h"
-
-/* External-code interface definition */
-#include "eci_interface.h"
 
 /* Only include status reporting definitions if enabled */
 #ifdef ECI_FLAG_TABLE_DEFINED

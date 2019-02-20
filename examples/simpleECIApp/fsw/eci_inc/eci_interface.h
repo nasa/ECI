@@ -6,11 +6,10 @@
 #ifndef ECI_INTERFACE_H
 #define ECI_INTERFACE_H
 
-/* Include Event Services header for access to event type/filter macros */
-#include "cfe_evs.h"
-
-/* Include ECI config header for access to config parameters */
-#include "eci_app_cfg.h"
+/* Include ECI/System headers */
+#include "cfe_evs.h"     /* For access to event type/filter macros in defining events */
+#include "eci_app.h"     /* For access to ECI data types */
+#include "eci_app_cfg.h" /* For access to config parameters (including queue sizes)*/
 
 /* Include all external code to be integrated */
 #include "external_code.h"     /* Include top-level header for external code */
@@ -19,7 +18,7 @@
                                 * for the external code's parameter tables.
                                 */
 
-/* Include headers containing mission and platform-specific configs for this app */
+/* Include headers containing msgIDs and perfIDs for this app */
 #include "simpleECI_app_msgids.h"
 #include "simpleECI_app_perfids.h"
 
@@ -32,13 +31,13 @@
  * which are defined in a central location (ex msgids.h) for a system 
  * (which helps prevent collisions). They could also just contain the MID's.
  */
-#define ECI_FLAG_MID                   0x1801
-#define ECI_CMD_MID                    0x1802
-#define ECI_PERF_ID                    0x1803
-#define ECI_TICK_MID                   0x1804
-#define ECI_HK_MID                     0x1805
-#define SIL_TBL_MANAGE_MID 	           0x1806
-#define SIL_SEND_HK_MID                0x1807
+#define ECI_FLAG_MID                   SIMPLE_ECI_FLAG_MID
+#define ECI_CMD_MID                    SIMPLE_ECI_CMD_MID
+#define ECI_PERF_ID                    SIMPLE_ECI_PERF_ID
+#define ECI_TICK_MID                   SIMPLE_ECI_TICK_MID
+#define ECI_HK_MID                     SIMPLE_ECI_HK_MID
+#define SIL_TBL_MANAGE_MID 	           SIMPLE_ECI_TBL_MANAGE_MID
+#define SIL_SEND_HK_MID                SIMPLE_ECI_SEND_HK_MID
 
 /* Define the name of this app's Main function. This needs to be consistent
  * with the name provided in the App's makefile to ensure that CFE startup
