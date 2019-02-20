@@ -19,8 +19,8 @@
 /*
  * Table File Path Settings
  */
-#define PARAM_TBL_PATH_PREFIX "/mram/"
-#define STATE_TBL_PATH_PREFIX "/mram/"
+#define PARAM_TBL_PATH_PREFIX ""
+#define STATE_TBL_PATH_PREFIX ""
 
 /*
  * App start-up configuration settings

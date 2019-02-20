@@ -10,6 +10,7 @@
 
 /* Define types */
 typedef struct  {
+	uint8_t header[12]; /* Reserve space for packet header */
     double r[3];
     double v[3];
     double t;

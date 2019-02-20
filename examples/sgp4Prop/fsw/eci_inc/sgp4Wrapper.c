@@ -26,10 +26,16 @@ propState_t propState;
  */
 void propagate(void){
 
+    UtPrintf("Got time %d %d\n", SL_Step_TimeStamp.Seconds, SL_Step_TimeStamp.Subseconds);
+
     /* Get the current time from FSW */
     mins = ((double)SL_Step_TimeStamp.Seconds + ((double)
-        SL_Step_TimeStamp.Subseconds/4294967296.0));
-    
+        SL_Step_TimeStamp.Subseconds/4294967296.0)) / 60.0;
+    UtPrintf("mins %f\n", mins);
+
+    /* */
+    propState.t = mins;
+
     /* This doesn't need to be re-processed each cycle, only 
      * when the TLE table is updated, but we but need some way 
      * to determine the table has changed in order to not 

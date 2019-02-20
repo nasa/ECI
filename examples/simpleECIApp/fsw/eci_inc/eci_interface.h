@@ -18,7 +18,11 @@
                                 * table validation functions that were defined
                                 * for the external code's parameter tables.
                                 */
- 
+
+/* Include headers containing mission and platform-specific configs for this app */
+#include "simpleECI_app_msgids.h"
+#include "simpleECI_app_perfids.h"
+
 /* Define code revision identifier... can be used for tracking code versions,
  * used in NoOp and Init event messages */
 #define ECI_APP_REVISION_NUMBER                "1.0"
@@ -210,7 +214,7 @@ extern bool isOverThresh;
 /* Create array of structures with error type, pointer to observable signal location,
    the location comment, and the event message */
 static const ECI_Evs_t ECI_Events[] = {
-  { EVENT_message2_ID,                         /* Macro defining type of ECI event, 
+  { EVENT_MESSAGE_2_DATA,                      /* Macro defining type of ECI event, 
                                                 * in this case, event with 2 data points*/
     1,                                         /* ID for this event, unqiue to this app */
     CFE_EVS_INFORMATION,                       /* Type of event */
@@ -226,7 +230,7 @@ static const ECI_Evs_t ECI_Events[] = {
     0
   },
 
-  { EVENT_message0_ID,                         /* Macro defining type of ECI event, 
+  { EVENT_MESSAGE_0_DATA,                      /* Macro defining type of ECI event, 
                                                 * in this case, event with no data points*/
     2,
     CFE_EVS_INFORMATION,

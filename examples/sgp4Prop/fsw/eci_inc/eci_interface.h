@@ -10,6 +10,10 @@
 /* Include top-level header for external code */
 #include "sgp4Wrapper.h"     
 
+/* Include headers containing mission and platform-specific configs for this app */
+#include "op_app_msgids.h"
+#include "op_app_perfids.h"
+
 /* Define code revision identifier... can be used for tracking code versions,
  * used in NoOp and Init event messages */
 #define ECI_APP_REVISION_NUMBER                "1.0"
@@ -54,9 +58,9 @@
 static ECI_Tbl_t ECI_ParamTable[] = {
   {
     (void*)&(tle_lines),                 /* Pointer to begining of TLE line1 */
-    "TLE_table",                         /* Name of table */
+    "OP_TLE_Tbl",                        /* Name of table */
     "OP app's tle parameter table",      /* Table description */
-    "op_tle.tbl",                        /* Name of file which contains table values */
+    "tle_tbl.tbl",                       /* Name of file which contains table values */
     sizeof(tle_lines_t),                 /* Size of table (in bytes) */
     &validateTLE                         /* (Optional) pointer to table validation function */
   },
@@ -108,8 +112,8 @@ uint32 filterOneEvent = CFE_EVS_FIRST_ONE_STOP;
 /* Create array of structures with error type, pointer to observable signal location,
    the location comment, and the event message */
 static const ECI_Evs_t ECI_Events[] = {
-  { EVENT_message2_ID,                          /* Macro defining type of ECI event, 
-                                                * in this case, event with no data points*/
+  { EVENT_MESSAGE_2_DATA,                      /* Macro defining type of ECI event, 
+                                                * in this case, event with two data points*/
     &line1FailEventID,
     &errorEventType,                           /* Type of event */
     &filterOneEvent,                           /* Event mask - Ask CFE to filter all but the first
@@ -126,7 +130,7 @@ static const ECI_Evs_t ECI_Events[] = {
     0,  0,  0                          
   },
 
-  { EVENT_message2_ID,                         
+  { EVENT_MESSAGE_2_DATA,                         
     &line2FailEventID,
     &errorEventType,
     &filterOneEvent,
@@ -148,11 +152,9 @@ static const ECI_Evs_t ECI_Events[] = {
  */
 #define ECI_STEP_TIMESTAMP_DEFINED      1
 
-/* Begin definition of external code functions */
-
-#define ECI_INIT_FCN                     
-/* step function.  Single rate (non-reusable interface) */
+/* Begin definition of external code functions */                   
 #define ECI_STEP_FCN                 propagate();
+/* Init and Term functions not needed for this app */
 
 /* End definition of external code functions */
 

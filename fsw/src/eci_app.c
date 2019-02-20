@@ -20,18 +20,13 @@
 #include "eci_app_cfg.h"
 #include "eci_app.h"
 #include "eci_app_event.h"
-
-/* External-code provided headers */
-#include "app_msgids.h"
-#include "app_perfids.h"
-
-#include "eci_interface.h"
-
 #include "eci_app_msgdefs.h"
-
 #include "eci_app_hk.h"
 
-/* If Status Reporting Enabled */
+/* External-code interface definition */
+#include "eci_interface.h"
+
+/* Only include status reporting definitions if enabled */
 #ifdef ECI_FLAG_TABLE_DEFINED
 #include "app_faultrep_priv.h"
 #endif
@@ -745,8 +740,10 @@ static int32 app_init(void)
       return (status);
    } /* End if statement */
 
-   /* Initialize model */
+   /* Initialize model if the user has defined an init function*/
+#ifdef ECI_INIT_FCN
    ECI_INIT_FCN;
+#endif
 
    /* Initialize CDS */
    status = cds_init();
@@ -1238,32 +1235,32 @@ static void event_signal(void) {
 	  
          /* Determine number of supporting pieces of data to send out message */
          switch (ECI_Events[idx].eventBlock) {
-            case EVENT_message0_ID:
+            case EVENT_MESSAGE_0_DATA:
                CFE_EVS_SendEvent(evs_id, evs_type,(char*)(ECI_Events[idx].eventMsg),  ECI_Events[idx].loc);
                break; 
-            case EVENT_message1_ID:
+            case EVENT_MESSAGE_1_DATA:
                CFE_EVS_SendEvent(evs_id, evs_type,(char*)(ECI_Events[idx].eventMsg), ECI_Events[idx].loc, 
                                 *(ECI_Events[idx].data_1));
                break; 
-            case EVENT_message2_ID:
+            case EVENT_MESSAGE_2_DATA:
                CFE_EVS_SendEvent(evs_id, evs_type,(char*)(ECI_Events[idx].eventMsg), ECI_Events[idx].loc,
                                *(ECI_Events),
                                *(ECI_Events[idx].data_2));
                break; 
-            case EVENT_message3_ID:
+            case EVENT_MESSAGE_3_DATA:
                CFE_EVS_SendEvent(evs_id, evs_type,(char*)(ECI_Events[idx].eventMsg), ECI_Events[idx].loc,
                                *(ECI_Events[idx].data_1), 
                                *(ECI_Events[idx].data_2), 
                                *(ECI_Events[idx].data_3));
                break; 
-            case EVENT_message4_ID:
+            case EVENT_MESSAGE_4_DATA:
                CFE_EVS_SendEvent(evs_id, evs_type,(char*)(ECI_Events[idx].eventMsg), ECI_Events[idx].loc,
                                *(ECI_Events[idx].data_1), 
                                *(ECI_Events[idx].data_2), 
                                *(ECI_Events[idx].data_3),
                                *(ECI_Events[idx].data_4));
                break; 
-            case EVENT_message5_ID:
+            case EVENT_MESSAGE_5_DATA:
                CFE_EVS_SendEvent(evs_id, evs_type,(char*)(ECI_Events[idx].eventMsg), ECI_Events[idx].loc,
                                *(ECI_Events[idx].data_1), 
                                *(ECI_Events[idx].data_2), 
@@ -1633,6 +1630,11 @@ void ECI_APP_MAIN(void) {
       } /* End if-else statement */
 
    }   /* end while-loop */
+
+  /* Call the user-provided term function if defined */
+#ifdef ECI_TERM_FCN
+   ECI_TERM_FCN;
+#endif
 
    /* Performance Log Exit Stamp. */
    CFE_ES_PerfLogExit(ECI_PERF_ID);

@@ -1,5 +1,6 @@
 # intended to be run from root of repo and will end at root of repo
 pwd
+rm -rf ./cFE
 git clone https://github.com/nasa/cFE ./cFE
 cd cFE
 # get OSAL (needed for common_types.h)

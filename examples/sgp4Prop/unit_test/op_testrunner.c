@@ -19,6 +19,9 @@ void OP_App_Test_AddTestCases(void) {
 	UtTest_Add(OP_Test_tableValidate, OP_Test_Setup,
               OP_Test_TearDown, "OP_Test_tableValidate: TLE table validates");
 
+  UtTest_Add(OP_Test_getTime, OP_Test_Setup,
+              OP_Test_TearDown, "OP_Test_getTime: OP app gets time"); 
+
 	UtTest_Add(OP_Test_propagateOrbit, OP_Test_Setup,
               OP_Test_TearDown, "OP_Test_propagateOrbit: OP app propagates orbit");	
               

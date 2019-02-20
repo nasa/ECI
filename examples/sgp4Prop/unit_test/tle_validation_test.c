@@ -16,31 +16,10 @@
 #include "app_msgids.h"
 #include "eci_app.h"
 #include "eci_app_event.h"
-
-/* Provide prototypes */
-CFE_TIME_SysTime_t Spoof_CFE_TIME_GetTime(void);
-void op_AppMain(void);
-
-/* Setup message framework */
-#define UT_CFE_SB_MAX_PIPES 32
-/* Pipe IDs */
-#define  CMDPIPE   0
-#define  DATAPIPE  1
-
-typedef struct {
-    char                PipeName[OS_MAX_API_NAME];
-    UtListHead_t        MsgQueue;
-    boolean             InUse;
-} Ut_CFE_SB_PipeTableEntry_t;
-
-typedef struct {
-    uint8    CmdHeader[CFE_SB_CMD_HDR_SIZE];
-} NoArgsCmd_t;
+#include "op_test_utils.h"
 
 extern UtListHead_t                MsgQueue;
 extern Ut_CFE_SB_PipeTableEntry_t  PipeTable[UT_CFE_SB_MAX_PIPES];
-
-
 
 void OP_Test_digitToInt(void) {
 /* Validates that the digitToInt() function returns the 
@@ -114,9 +93,9 @@ void OP_Test_tableValidate(){
 
     /* Initalize a param table with a test TLE */
     
-    tle_lines_t test_tle_tbl;
-    extern line_check_t line1Check;
-    extern line_check_t line2Check;
+    extern line_check_t   line1Check;
+    extern line_check_t   line2Check;
+    extern tle_lines_t    test_tle_tbl;
 
     /* TEME example from test_TLEs.data */
     strncpy(test_tle_tbl.line1, "1 00005U 58002B   00179.78495062  .00000023  00000-0  28098-4 0  4753", 69);
@@ -124,12 +103,8 @@ void OP_Test_tableValidate(){
     strncpy(test_tle_tbl.line2, "2 00005  34.2682 348.7242 1859667 331.7664  19.3264 10.82419157413667", 69);
     test_tle_tbl.line2[69] = 0;
 
-    Ut_CFE_TBL_AddTable("/mram/op_tle.tbl", &test_tle_tbl);
-
     /* Create and place Wakeup message onto command message */
-    NoArgsCmd_t       TickMsg;
-    CFE_SB_InitMsg(&TickMsg, OP_TICK_MID, sizeof(NoArgsCmd_t), TRUE);
-    UtList_Add(&PipeTable[CMDPIPE].MsgQueue, &TickMsg, CFE_SB_GetTotalMsgLength((CFE_SB_MsgPtr_t)&TickMsg), 0);
+    OP_Test_SendTick();
 
     /* Run the code */
     op_AppMain();
@@ -145,43 +120,56 @@ void OP_Test_tableValidate(){
 
 }
 
+void OP_Test_getTime(){
+
+    propState_t* OutPacket;
+
+    OP_Test_SetTime(0, 0);
+
+    /* Run the code */
+    OutPacket = OP_Test_RunAppAndGetPkt(1);
+
+   /* Verify app got the time that was set */
+    UtAssert_DoubleCmpAbs(OutPacket->t,     0,             0.1,  "Propagation time matches");
+
+    OP_Test_SetTime(120, 0);
+
+    /* Run app again */
+    OutPacket = OP_Test_RunAppAndGetPkt(2);
+
+   /* Verify app got the time that was set */
+    UtAssert_DoubleCmpAbs(OutPacket->t,     2,             0.1,  "Propagation time matches");
+
+}
+
+
 void OP_Test_propagateOrbit(){
 /* Validates that the OP app propagates an orbit for a given TLE
  * and known results.
  */
 
-    /* Initalize a param table with a test TLE */
-    tle_lines_t test_tle_tbl;
-    /* TEME example from test_TLEs.data */
+    extern tle_lines_t    test_tle_tbl;
+    propState_t* OutPacket;
+
+    /* Set table contents to TLE example from test_TLEs.data */
     strncpy(test_tle_tbl.line1, "1 00005U 58002B   00179.78495062  .00000023  00000-0  28098-4 0  4753", 69);
     test_tle_tbl.line1[69] = 0;
     strncpy(test_tle_tbl.line2, "2 00005  34.2682 348.7242 1859667 331.7664  19.3264 10.82419157413667", 69);
     test_tle_tbl.line2[69] = 0;
 
-    Ut_CFE_TBL_AddTable("/mram/op_tle.tbl", &test_tle_tbl);
     /* Epoch = Day 179.78495062, 2000 = */
     uint32 epoch_sec = 0;
 
     /* Override the time to the TLE epoch*/
-    extern CFE_TIME_SysTime_t UT_Time;
-    UT_Time.Seconds = epoch_sec;
-    UT_Time.Subseconds = 0;
-    Ut_CFE_TIME_SetFunctionHook(UT_CFE_TIME_GETTIME_INDEX, Spoof_CFE_TIME_GetTime);
+    OP_Test_SetTime(epoch_sec, 0);
 
-    /* Create and place Wakeup message onto command message */
-    NoArgsCmd_t       TickMsg;
-    CFE_SB_InitMsg(&TickMsg, OP_TICK_MID, sizeof(NoArgsCmd_t), TRUE);
-    UtList_Add(&PipeTable[CMDPIPE].MsgQueue, &TickMsg, CFE_SB_GetTotalMsgLength((CFE_SB_MsgPtr_t)&TickMsg), 0);
+    /* Run the code and get output */
+    OutPacket = OP_Test_RunAppAndGetPkt(1);
 
-    /* Run the code */
-    op_AppMain();
-
-    /* Verify table validated */
+    /* Verify table validated by ensuring no error events generated */
     UtAssert_True(Ut_CFE_EVS_GetEventCount(1, CFE_EVS_ERROR, "") == 0, "Event for TLE Line1 failing validation did not increment");
     UtAssert_True(Ut_CFE_EVS_GetEventCount(2, CFE_EVS_ERROR, "") == 0, "Event for TLE Line2 failing validation did not increment");
 
-    /* Get the output and verify the propagation */
-    propState_t* OutPacket = Ut_CFE_SB_FindPacket(OP_PROPSTATE_MID,1);
     /* Check values from test_output.data */
     UtAssert_DoubleCmpAbs(OutPacket->r[0],  7022.46529266, 0.01, "X component of propagated position matches");
     UtAssert_DoubleCmpAbs(OutPacket->r[1], -1400.08296755, 0.01, "Y component of propagated position matches");
@@ -192,21 +180,15 @@ void OP_Test_propagateOrbit(){
     UtAssert_DoubleCmpAbs(OutPacket->t,     0,             0.1,  "Propagation time matches");
 
     /* Override the time to 360min past the TLE epoch*/
-    UT_Time.Seconds = epoch_sec + 360 * 60;
-    UT_Time.Subseconds = 0;
+    OP_Test_SetTime(epoch_sec + 360 * 60, 0);
 
     /* Create and place Wakeup message onto command message */
-    UtList_Add(&PipeTable[CMDPIPE].MsgQueue, &TickMsg, CFE_SB_GetTotalMsgLength((CFE_SB_MsgPtr_t)&TickMsg), 0);
-
-    /* Run the code */
-    op_AppMain();
+    OutPacket = OP_Test_RunAppAndGetPkt(2);
 
     /* Verify table validated */
     UtAssert_True(Ut_CFE_EVS_GetEventCount(1, CFE_EVS_ERROR, "") == 0, "Event for TLE Line1 failing validation did not increment");
     UtAssert_True(Ut_CFE_EVS_GetEventCount(2, CFE_EVS_ERROR, "") == 0, "Event for TLE Line2 failing validation did not increment");
 
-    /* Get the output and verify the propagation */
-    OutPacket = Ut_CFE_SB_FindPacket(OP_PROPSTATE_MID,1);
     /* Check values from test_output.data */
     UtAssert_DoubleCmpAbs(OutPacket->r[0], -7154.03120202, 0.01, "X component of propagated position matches");
     UtAssert_DoubleCmpAbs(OutPacket->r[1], -3783.17682504, 0.01, "Y component of propagated position matches");
@@ -215,6 +197,7 @@ void OP_Test_propagateOrbit(){
     UtAssert_DoubleCmpAbs(OutPacket->v[1], -4.151817765,   0.1,  "Y component of propagated velocity matches");
     UtAssert_DoubleCmpAbs(OutPacket->v[2], -2.093935425,   0.1,  "Z component of propagated velocity matches");
     UtPrintf("OutPacket->t: %f\n", OutPacket->t);
+    UtPrintf("OutPacket->r: %f %f %f\n", OutPacket->r[0], OutPacket->r[1], OutPacket->r[2]);
     UtAssert_DoubleCmpAbs(OutPacket->t,     360,           0.1,  "Propagation time matches");
 
 }

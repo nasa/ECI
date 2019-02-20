@@ -23,12 +23,12 @@ extern "C"
 ** Macro Definitions
 *************************************************************************/
 
-#define EVENT_message0_ID     0  /* Identifier for Event message with zero data points */
-#define EVENT_message1_ID     1  /* Identifier for Event message with one data points */
-#define EVENT_message2_ID     2  /* Identifier for Event message with two data points */
-#define EVENT_message3_ID     3  /* Identifier for Event message with three data points */
-#define EVENT_message4_ID     4  /* Identifier for Event message with four data points */
-#define EVENT_message5_ID     5  /* Identifier for Event message with five data points */
+#define EVENT_MESSAGE_0_DATA     0  /* Identifier for Event message with zero data points */
+#define EVENT_MESSAGE_1_DATA     1  /* Identifier for Event message with one data points */
+#define EVENT_MESSAGE_2_DATA     2  /* Identifier for Event message with two data points */
+#define EVENT_MESSAGE_3_DATA     3  /* Identifier for Event message with three data points */
+#define EVENT_MESSAGE_4_DATA     4  /* Identifier for Event message with four data points */
+#define EVENT_MESSAGE_5_DATA     5  /* Identifier for Event message with five data points */
 
 /************************************************************************
 ** Type Definitions
