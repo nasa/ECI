@@ -26,12 +26,9 @@ propState_t propState;
  */
 void propagate(void){
 
-    UtPrintf("Got time %d %d\n", ECI_Step_TimeStamp.Seconds, ECI_Step_TimeStamp.Subseconds);
-
     /* Get the current time from FSW */
     mins = ((double)ECI_Step_TimeStamp.Seconds + ((double)
         ECI_Step_TimeStamp.Subseconds/4294967296.0)) / 60.0;
-    UtPrintf("mins %f\n", mins);
 
     propState.t = mins;
     

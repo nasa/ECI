@@ -18,14 +18,19 @@ cp -r ./fsw/* ./cFE/apps/eci/fsw/
 ls ./cFE/apps/op/
 # setup environment for compiling
 cd ./cFE
+
+# make any code changes needed to integrate this app
+# ensure CFS builds new app we added
+sed -i '44a THE_APPS += op' ./build/cpu1/Makefile
+sed -i '50a THE_TBLS += op' ./build/cpu1/Makefile
+# configure the app to run when CFS starts
+sed -i '5a CFE_APP, /cf/apps/op.so,          op_AppMain,     OP_APP,       90,   8192, 0x0, 0;' ./build/cpu1/exe/cfe_es_startup.scr
+sed -i '26a #include "op_app_msgids.h"' ./apps/sch_lab/fsw/platform_inc/sch_lab_sched_tab.h
+sed -i '74a      { OP_TICK_MID,   1, 0 },' ./apps/sch_lab/fsw/platform_inc/sch_lab_sched_tab.h
+
+# prepare environment
 . ./setvars.sh
 cd ./build/cpu1
-# ensure CFS builds new app we added
-sed -i '44a THE_APPS += op' Makefile
-sed -i '50a THE_TBLS += op' Makefile
-# configure the app to run when CFS starts
-sed -i '5a CFE_APP, /cf/apps/op.so,          op_AppMain,     OP_APP,       90,   8192, 0x0, 0;' ./exe/cfe_es_startup.scr
-sed -i '74a { OP_TICK_MID,   1, 0 },' ./inc/sch_lab_sched_tab.h
 
 # compile
 make clean
