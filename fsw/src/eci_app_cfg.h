@@ -19,8 +19,8 @@
 /*
  * Table File Path Settings
  */
-#define PARAM_TBL_PATH_PREFIX ""
-#define STATE_TBL_PATH_PREFIX ""
+#define PARAM_TBL_PATH_PREFIX "/cf/apps/"
+#define STATE_TBL_PATH_PREFIX "/cf/apps/"
 
 /*
  * App start-up configuration settings

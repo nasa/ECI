@@ -23,7 +23,10 @@ cd ./build/cpu1
 # ensure CFS builds new app we added
 sed -i '44a THE_APPS += op' Makefile
 sed -i '50a THE_TBLS += op' Makefile
+# configure the app to run when CFS starts
 sed -i '5a CFE_APP, /cf/apps/op.so,          op_AppMain,     OP_APP,       90,   8192, 0x0, 0;' ./exe/cfe_es_startup.scr
+sed -i '74a { OP_TICK_MID,   1, 0 },' ./inc/sch_lab_sched_tab.h
+
 # compile
 make clean
 make config

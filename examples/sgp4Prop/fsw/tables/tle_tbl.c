@@ -13,8 +13,8 @@ tle_lines_t tle_lines_tbl = {
  **    3) a brief description of the contents of the file image
  **    4) the desired name of the table image binary file that is CFS compatible
  */
-ECI_TBL_FILEDEF(CFE_TBL_FileDef, tle_lines_tbl, "OP_APP.OP_TLE_Tbl",
-                "OP app TLE table", tle_tbl.tbl )
+ECI_TBL_FILEDEF(CFE_TBL_FileDef, tle_lines_tbl, OP_APP.OP_TLE_Tbl,
+                OP app TLE table, tle_tbl.tbl )
 /*
  * File trailer for generated code.
  *
