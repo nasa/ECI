@@ -49,6 +49,11 @@ extern paramTable2_b UT_param_TBL4;
 extern paramTable1_b UT_param_TBL5;
 extern paramTable2_b UT_param_TBL6;
 
+void SA_TestHelpers_stub_tables() {
+   Ut_CFE_TBL_AddTable(CAT_TBL_PATH("param_TBL1.tbl"), &UT_param_TBL1);
+   Ut_CFE_TBL_AddTable(CAT_TBL_PATH("param_TBL2.tbl"), &UT_param_TBL2);
+}
+
 /*
  * Test will Place a message on the command pipe with an unrecognized message ID.
  */
@@ -58,8 +63,7 @@ void SA_AppMain_Test_ECI_1001_1050(void) {
    SA_NoArgsCmd_t       UT_CmdPacket;
    SA_NoArgsCmd_t       UT_HkReqMsg;
 
-   Ut_CFE_TBL_AddTable("/mram/param_TBL1.tbl", &UT_param_TBL1);
-   Ut_CFE_TBL_AddTable("/mram/param_TBL2.tbl", &UT_param_TBL2);
+   SA_TestHelpers_stub_tables();
 
    CFE_SB_InitMsg(&UT_CmdPacket, UNITTESTMODEL_CMD_MID + 5,
                   sizeof(SA_NoArgsCmd_t), TRUE);
@@ -92,8 +96,7 @@ void SA_AppMain_Test_ECI_1010(void) {
    outputTlmPkt2_b   UT_outputPkt;
    SA_NoArgsCmd_t    UT_CmdPacket;
    
-   Ut_CFE_TBL_AddTable("/mram/param_TBL1.tbl", &UT_param_TBL1);
-   Ut_CFE_TBL_AddTable("/mram/param_TBL2.tbl", &UT_param_TBL2);
+   SA_TestHelpers_stub_tables();
 
    CFE_SB_InitMsg(&UT_outputPkt, INPUTTLMPKT1_B_INPUTTLMPKT1_S_MID + 5, sizeof(outputTlmPkt2_b), TRUE);
 
@@ -132,8 +135,7 @@ void SA_AppMain_Test_ECI_1020_1030_1050(void) {
    inputTlmPkt1_b       UT_InputPkt1;
    inputTlmPkt2_b       UT_InputPkt2;
 
-   Ut_CFE_TBL_AddTable("/mram/param_TBL1.tbl", &UT_param_TBL1);
-   Ut_CFE_TBL_AddTable("/mram/param_TBL2.tbl", &UT_param_TBL2);
+   SA_TestHelpers_stub_tables();
 
    CFE_SB_InitMsg(&UT_CmdPacket[0], UNITTESTMODEL_CMD_MID,
                    sizeof(SA_NoArgsCmd_t)+1, FALSE);
@@ -242,8 +244,7 @@ void SA_AppMain_Test_INIT_1001_TBL_1002(void) {
 
    SA_HkPacket_t       *UT_HkPacket;
 
-   Ut_CFE_TBL_AddTable("/mram/param_TBL1.tbl", &UT_param_TBL1);
-   Ut_CFE_TBL_AddTable("/mram/param_TBL2.tbl", &UT_param_TBL2);
+   SA_TestHelpers_stub_tables();
 
    CFE_SB_InitMsg(&UT_InputPkt, UNITTESTMODEL_CMD_MID,
                    sizeof(inputCmdPkt_b), TRUE);
@@ -369,8 +370,7 @@ void SA_AppMain_Test_TBL_1010(void) {
    Ut_CFE_TBL_SetFunctionHook(UT_CFE_TBL_MANAGE_INDEX, SA_Test_CFE_TBL_Manage);
    SA_Test_Iteration_Reset();
 
-   Ut_CFE_TBL_AddTable("/mram/param_TBL1.tbl", &UT_param_TBL1);
-   Ut_CFE_TBL_AddTable("/mram/param_TBL2.tbl", &UT_param_TBL2);
+   SA_TestHelpers_stub_tables();
 
    unittestmodel_AppMain();
 
@@ -418,8 +418,7 @@ void SA_AppMain_Test_ECI_1040_CMD_1001_SB_1001_NoOpCmd(void) {
 
    SA_HkPacket_t       *HkPacket;
 
-   Ut_CFE_TBL_AddTable("/mram/param_TBL1.tbl", &UT_param_TBL1);
-   Ut_CFE_TBL_AddTable("/mram/param_TBL2.tbl", &UT_param_TBL2);
+   SA_TestHelpers_stub_tables();
 
    CFE_SB_InitMsg(&UT_CmdPacket, UNITTESTMODEL_CMD_MID,
                    sizeof(SA_NoArgsCmd_t), TRUE);
@@ -461,8 +460,7 @@ void SA_AppMain_Test_SB_1001_CMD_1010_ResetHkCtrsCmd(void) {
    inputTlmPkt1_b       UT_inputTlmPkt1;
    inputTlmPkt2_b       UT_inputTlmPkt2;
 
-   Ut_CFE_TBL_AddTable("/mram/param_TBL1.tbl", &UT_param_TBL1);
-   Ut_CFE_TBL_AddTable("/mram/param_TBL2.tbl", &UT_param_TBL2);
+   SA_TestHelpers_stub_tables();
 
    CFE_SB_InitMsg(&UT_CmdPacket, UNITTESTMODEL_CMD_MID,
                    sizeof(SA_NoArgsCmd_t), TRUE);
@@ -562,8 +560,7 @@ void SA_AppMain_Test_CMD_1050_1051_1052_1053(void) {
 
    SA_HkPacket_t       *HkPacket;
 
-   Ut_CFE_TBL_AddTable("/mram/param_TBL1.tbl", &UT_param_TBL1);
-   Ut_CFE_TBL_AddTable("/mram/param_TBL2.tbl", &UT_param_TBL2);
+   SA_TestHelpers_stub_tables();
 
    CFE_SB_InitMsg(&UT_InputPkt, UNITTESTMODEL_CMD_MID,
                    sizeof(inputCmdPkt_b), TRUE);
@@ -675,8 +672,7 @@ void SA_AppMain_Test_CMD_1060(void) {
 
    SA_HkPacket_t       *HkPacket;
 
-   Ut_CFE_TBL_AddTable("/mram/param_TBL1.tbl", &UT_param_TBL1);
-   Ut_CFE_TBL_AddTable("/mram/param_TBL2.tbl", &UT_param_TBL2);
+   SA_TestHelpers_stub_tables();
 
    CFE_SB_InitMsg(&UT_InputPkt1, UNITTESTMODEL_CMD_MID,
                    sizeof(inputCmdPkt_b), TRUE);
@@ -718,8 +714,7 @@ void SA_AppMain_Test_TIME_1001(void) {
 
    SA_NoArgsCmd_t    UT_Tick;
 
-   Ut_CFE_TBL_AddTable("/mram/param_TBL1.tbl", &UT_param_TBL1);
-   Ut_CFE_TBL_AddTable("/mram/param_TBL2.tbl", &UT_param_TBL2);
+   SA_TestHelpers_stub_tables();
 
    /* Initialize Time */
    SA_Test_set_time(1000, 0x80000000, 1);
@@ -754,8 +749,7 @@ void SA_AppMain_Test_FDC_1001_1030(void) {
 
    SA_NoArgsCmd_t    UT_HKRequest, UT_Tick;
 
-   Ut_CFE_TBL_AddTable("/mram/param_TBL1.tbl", &UT_param_TBL1);
-   Ut_CFE_TBL_AddTable("/mram/param_TBL2.tbl", &UT_param_TBL2);
+   SA_TestHelpers_stub_tables();
 
    set_SA_Test_CFE_SB_RcvMsg(INPUTTLMPKT2_B_INPUTTLMPKT2_S_MID);
    Ut_CFE_SB_SetFunctionHook(UT_CFE_SB_RCVMSG_INDEX, SA_Test_CFE_SB_RcvMsg);
@@ -931,13 +925,13 @@ void SA_AppMain_Test_INIT_1012(void) {
 
    unittestmodel_AppMain();
 
-   Ut_CFE_TBL_AddTable("/mram/param_TBL1.tbl", &UT_param_TBL1);
+   Ut_CFE_TBL_AddTable(CAT_TBL_PATH("param_TBL1.tbl"), &UT_param_TBL1);
 
    unittestmodel_AppMain();
 
    Ut_CFE_TBL_ClearTables();
 
-   Ut_CFE_TBL_AddTable("/mram/param_TBL2.tbl", &UT_param_TBL2);
+   Ut_CFE_TBL_AddTable(CAT_TBL_PATH("param_TBL2.tbl"), &UT_param_TBL2);
 
    unittestmodel_AppMain();
 
@@ -960,8 +954,7 @@ void SA_AppMain_Test_Wakeup(void) {
    SA_NoArgsCmd_t       UT_Tick;
    SA_NoArgsCmd_t       UT_HK_Req_Msg;
 
-   Ut_CFE_TBL_AddTable("/mram/param_TBL1.tbl", &UT_param_TBL1);
-   Ut_CFE_TBL_AddTable("/mram/param_TBL2.tbl", &UT_param_TBL2);
+   SA_TestHelpers_stub_tables();
 
    set_SA_Test_CFE_SB_RcvMsg(INPUTTLMPKT2_B_INPUTTLMPKT2_S_MID);
    Ut_CFE_SB_SetFunctionHook(UT_CFE_SB_RCVMSG_INDEX, SA_Test_CFE_SB_RcvMsg);

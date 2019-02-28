@@ -2,7 +2,10 @@
 #define _sa_test_utils_
 
 /* UT Test includes */
+#include "eci_app_cfg.h"
 #include "cfe.h"
+
+#define CAT_TBL_PATH(PATH) PARAM_TBL_PATH_PREFIX PATH
 
 void SA_Test_Setup(void);
 void SA_Test_TearDown(void); 

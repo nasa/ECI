@@ -13,6 +13,7 @@
 
 #include "ut_osapi_stubs.h"
 
+#include "sa_test_utils.h"
 #include "paramTable1_b.h"
 #include "paramTable2_b.h"
 
@@ -68,10 +69,10 @@ void SA_Test_Iteration_Reset(void)
 
    UT_Iteration = 0;
 
-   Ut_CFE_TBL_AddTable("/mram/param_TBL3.tbl", &UT_param_TBL3);
-   Ut_CFE_TBL_AddTable("/mram/param_TBL4.tbl", &UT_param_TBL4);
-   Ut_CFE_TBL_AddTable("/mram/param_TBL5.tbl", &UT_param_TBL5);
-   Ut_CFE_TBL_AddTable("/mram/param_TBL6.tbl", &UT_param_TBL6);
+   Ut_CFE_TBL_AddTable(CAT_TBL_PATH("param_TBL3.tbl"), &UT_param_TBL3);
+   Ut_CFE_TBL_AddTable(CAT_TBL_PATH("param_TBL4.tbl"), &UT_param_TBL4);
+   Ut_CFE_TBL_AddTable(CAT_TBL_PATH("param_TBL5.tbl"), &UT_param_TBL5);
+   Ut_CFE_TBL_AddTable(CAT_TBL_PATH("param_TBL6.tbl"), &UT_param_TBL6);
 
 } /* End of SA_Test_Iteration_Reset */
 
@@ -130,11 +131,11 @@ int32 SA_Test_CFE_TBL_Manage( CFE_TBL_Handle_t TblHandle )
    {
       if (TblHandle == 0)
       {
-         Ut_CFE_TBL_LoadHook(TblHandle, CFE_TBL_SRC_FILE, "/mram/param_TBL3.tbl");
+         Ut_CFE_TBL_LoadHook(TblHandle, CFE_TBL_SRC_FILE, CAT_TBL_PATH("param_TBL3.tbl"));
       }
       else
       {
-         Ut_CFE_TBL_LoadHook(TblHandle, CFE_TBL_SRC_FILE, "/mram/param_TBL4.tbl");
+         Ut_CFE_TBL_LoadHook(TblHandle, CFE_TBL_SRC_FILE, CAT_TBL_PATH("param_TBL4.tbl"));
       }
    }
 
@@ -143,11 +144,11 @@ int32 SA_Test_CFE_TBL_Manage( CFE_TBL_Handle_t TblHandle )
    {
       if (TblHandle == 0)
       {
-         Ut_CFE_TBL_LoadHook(TblHandle, CFE_TBL_SRC_FILE, "/mram/param_TBL5.tbl");
+         Ut_CFE_TBL_LoadHook(TblHandle, CFE_TBL_SRC_FILE, CAT_TBL_PATH("param_TBL5.tbl"));
       }
       else
       {
-         Ut_CFE_TBL_LoadHook(TblHandle, CFE_TBL_SRC_FILE, "/mram/param_TBL6.tbl");
+         Ut_CFE_TBL_LoadHook(TblHandle, CFE_TBL_SRC_FILE, CAT_TBL_PATH("param_TBL6.tbl"));
       }
    }
 

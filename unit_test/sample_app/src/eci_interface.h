@@ -15,8 +15,12 @@
 
 #ifndef RTW_HEADER_eci_interface_h_
 #define RTW_HEADER_eci_interface_h_
+#include "eci_app.h"
 #include "eci_app_cfg.h"
+#include "app_msgids.h"
+#include "app_perfids.h"
 #include "unitTestModel.h"             /* Model's header file */
+
 
 /* Code Revision Identifier */
 #define ECI_APP_REVISION_NUMBER                "unittest"
@@ -126,7 +130,7 @@ static ECI_Msg_t ECI_MsgRcv[] = {
 
 static const ECI_Evs_t ECI_Events[] = {
   /* Event for block: unitTestModel/event1 */
-  { EVENT_message1_ID,
+  { EVENT_MESSAGE_1_DATA,
     &unitTestModel_ConstP.event1_event_id,
     &unitTestModel_ConstP.event1_event_type,
     &unitTestModel_ConstP.event1_event_mask,
@@ -141,7 +145,7 @@ static const ECI_Evs_t ECI_Events[] = {
   },
 
   /* Event for block: unitTestModel/event3 */
-  { EVENT_message3_ID,
+  { EVENT_MESSAGE_3_DATA,
     &unitTestModel_ConstP.event3_event_id,
     &unitTestModel_ConstP.event3_event_type,
     &unitTestModel_ConstP.event3_event_mask,
@@ -156,7 +160,7 @@ static const ECI_Evs_t ECI_Events[] = {
   },
 
   /* Event for block: unitTestModel/event4 */
-  { EVENT_message4_ID,
+  { EVENT_MESSAGE_4_DATA,
     &unitTestModel_ConstP.event4_event_id,
     &unitTestModel_ConstP.pooled9,
     &unitTestModel_ConstP.event4_event_mask,
@@ -171,7 +175,7 @@ static const ECI_Evs_t ECI_Events[] = {
   },
 
   /* Event for block: unitTestModel/event2 */
-  { EVENT_message2_ID,
+  { EVENT_MESSAGE_2_DATA,
     &unitTestModel_ConstP.event2_event_id,
     &unitTestModel_ConstP.event2_event_type,
     &unitTestModel_ConstP.event2_event_mask,
@@ -186,7 +190,7 @@ static const ECI_Evs_t ECI_Events[] = {
   },
 
   /* Event for block: unitTestModel/event0 */
-  { EVENT_message0_ID,
+  { EVENT_MESSAGE_0_DATA,
     &unitTestModel_ConstP.pooled8,
     &unitTestModel_ConstP.pooled9,
     &unitTestModel_ConstP.event0_event_mask,

@@ -98,11 +98,12 @@ COPT = $(WARNINGS) $(DEBUGGER) $(GCOV_COPT) -DSOFTWARE_LITTLE_BIT_ORDER -D_EL -D
 LOPT = $(GCOV_LOPT)
 
 %.exe: %.o
-	$(LINKER) $(LOPT) $(INCLUDES) $^ -o $*.exe -lm
+	@$(LINKER) $(LOPT) $(INCLUDES) $^ -o $*.exe -lm
+	@echo Linking $^ into $@
 
 %.o: %.c
-	$(COMPILER) -c $(COPT) $(INCLUDES) $<
-
+	@$(COMPILER) -c $(COPT) $(INCLUDES) $<
+	@echo Compiling $@
 
 all:$(UT_TEST_RUNNER)
 
