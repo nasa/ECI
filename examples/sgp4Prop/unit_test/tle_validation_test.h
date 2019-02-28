@@ -2,6 +2,24 @@
 #ifndef TLE_VALIDATION_TEST_H
 #define TLE_VALIDATION_TEST_H
 
+/* UT framework includes */
+#include "uttest.h"
+#include "utassert.h"
+#include "common_types.h"
+#include "ut_cfe_tbl_hooks.h"
+#include "ut_cfe_evs_hooks.h"
+#include "ut_cfe_time_stubs.h"
+#include "ut_cfe_sb_hooks.h"
+
+/* Test includes */
+#include "op_test_utils.h"
+
+/* Code-under-test includes */
+#include "fsw/eci_inc/sgp4Wrapper_test.h"
+#include "fsw/platform_inc/op_app_msgids.h"
+#include "eci_app.h"
+#include "eci_app_event.h"
+
 /* Provide prototypes */
 void op_AppMain(void);
 

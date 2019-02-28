@@ -138,7 +138,7 @@ void runVER(VERIN *verins, int cnt)
         fclose(in_file);
     }
 }
-
+/*
 int main(void)
 {
     int cnt = 0;
@@ -152,3 +152,4 @@ int main(void)
     free(verins);
     return 0;
 }
+*/

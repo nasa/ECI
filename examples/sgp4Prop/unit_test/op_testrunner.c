@@ -1,3 +1,4 @@
+#include <stdio.h>
 /* Test framework includes */
 #include "uttest.h"
 
@@ -6,7 +7,6 @@
 #include "tle_validation_test.h"
 
 void OP_App_Test_AddTestCases(void) {
-
 	UtTest_Add(OP_Test_digitToInt, OP_Test_Setup,
               OP_Test_TearDown, "OP_Test_digitToInt: digitToInt function correctly converts digits");
 
@@ -18,7 +18,6 @@ void OP_App_Test_AddTestCases(void) {
 
 	UtTest_Add(OP_Test_tableValidate, OP_Test_Setup,
               OP_Test_TearDown, "OP_Test_tableValidate: TLE table validates");
-
   UtTest_Add(OP_Test_getTime, OP_Test_Setup,
               OP_Test_TearDown, "OP_Test_getTime: OP app gets time"); 
 
@@ -32,12 +31,10 @@ void OP_App_Test_AddTestCases(void) {
  * external code. Linker flag used to specify this function as
  * entry point.
  */
-int test_main(void)
+int main(void)
 {
     OP_App_Test_AddTestCases();
-
-    return(UtTest_Run());
-
+    return UtTest_Run();
 } /* End of main() */
 
 /************************/

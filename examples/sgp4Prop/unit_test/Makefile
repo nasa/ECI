@@ -44,8 +44,15 @@ INCLUDES += -I$(OSAL_DIR)/src/os/inc
 INCLUDES += -I$(OSAL_DIR)/build/inc
 INCLUDES += -I$(PSP_DIR)/fsw/inc
 INCLUDES += -I$(PSP_DIR)/fsw/pc-linux/inc
+INCLUDES += -I$(OPAPP_PATH)
 INCLUDES += -I$(OPAPP_PATH)/fsw/src
+
+# ECI Specific INCLUDES (Required by ECI to find eci_interface.h etc.)
 INCLUDES += -I$(OPAPP_PATH)/fsw/eci_inc
+INCLUDES += -I$(OPAPP_PATH)/fsw/mission_inc
+INCLUDES += -I$(OPAPP_PATH)/fsw/platform_inc
+#---------------------------------------------
+
 INCLUDES += -I$(ECI_PATH)/src
 INCLUDES += -I$(ECI_PATH)/faultrep
 
@@ -101,11 +108,12 @@ LOPT = $(GCOV_LOPT) -m32
 # specify alternative entry point since main is implemented by 
 # external code
 %.exe: %.o
-	$(LINKER) $(LOPT) $(INCLUDES) $^ -o $*.exe -lm -Wl,-etest_main
+	@echo Linking $^ into $@
+	@$(LINKER) $(LOPT) $(INCLUDES) $^ -o $*.exe -lm
 
 %.o: %.c
-	$(COMPILER) -c $(COPT) $(INCLUDES) $<
-
+	@echo Compiling $@
+	@$(COMPILER) -c $(COPT) $(INCLUDES) $<
 
 all:$(UT_TEST_RUNNER)
 
@@ -115,7 +123,8 @@ clean ::
 	rm -f *.o *.exe *.gcda *.gcno *.gcov gmon.out *.stackdump
 
 run ::
-	./$(UT_TEST_RUNNER)
+	@echo Running tests from $(UT_TEST_RUNNER).
+	@./$(UT_TEST_RUNNER)
 
 gcov ::
 	@echo

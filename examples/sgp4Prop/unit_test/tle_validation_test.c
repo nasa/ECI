@@ -1,22 +1,4 @@
-/* UT framework includes */
-#include "uttest.h"
-#include "utassert.h"
-#include "common_types.h"
-#include "ut_cfe_tbl_hooks.h"
-#include "ut_cfe_evs_hooks.h"
-#include "ut_cfe_time_stubs.h"
-#include "ut_cfe_sb_hooks.h"
-
-/* Test includes */
 #include "tle_validation_test.h"
-#include "op_test_utils.h"
-
-/* Code-under-test includes */
-#include "sgp4Wrapper_test.h"
-#include "app_msgids.h"
-#include "eci_app.h"
-#include "eci_app_event.h"
-#include "op_test_utils.h"
 
 extern UtListHead_t                MsgQueue;
 extern Ut_CFE_SB_PipeTableEntry_t  PipeTable[UT_CFE_SB_MAX_PIPES];
