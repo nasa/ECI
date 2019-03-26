@@ -273,26 +273,26 @@ static int32 sb_init(void)
    } /* End if-statement */
 
    /* Subscribe to app-specific house keeping command */ 
-   status = CFE_SB_Subscribe(SIL_SEND_HK_MID, ECI_AppData.CmdPipe);
+   status = CFE_SB_Subscribe(ECI_SEND_HK_MID, ECI_AppData.CmdPipe);
 
    /* Exits sb_init() for subscribe fails */
    if (status < CFE_SUCCESS)
    {
       CFE_EVS_SendEvent(ECI_SUB_SEND_HK_MSG_ERR_EID, CFE_EVS_ERROR,
-                       "ERROR Subscribing to SIL_SEND_HK_MID 0x%04X, Status = 0x%08X", 
-                        SIL_SEND_HK_MID, status);
+                       "ERROR Subscribing to ECI_SEND_HK_MID 0x%04X, Status = 0x%08X", 
+                        ECI_SEND_HK_MID, status);
       return status;
    } /* End if-statement */
 
    /* Subscribe to cFE Table Update Notification command */ 
-   status = CFE_SB_Subscribe(SIL_TBL_MANAGE_MID, ECI_AppData.CmdPipe);
+   status = CFE_SB_Subscribe(ECI_TBL_MANAGE_MID, ECI_AppData.CmdPipe);
 
    /* Exits sb_init() for subscribe fails */
    if (status < CFE_SUCCESS)
    {
       CFE_EVS_SendEvent(ECI_SUB_TBL_MANAGE_MSG_ERR_EID, CFE_EVS_ERROR,
-                       "ERROR Subscribing to SIL_TBL_MANAGE_MID 0x%04X, Status = 0x%08X", 
-                        SIL_TBL_MANAGE_MID, status);
+                       "ERROR Subscribing to ECI_TBL_MANAGE_MID 0x%04X, Status = 0x%08X", 
+                        ECI_TBL_MANAGE_MID, status);
       return status;
    } /* End if-statement */
 
@@ -329,8 +329,8 @@ static int32 sb_init(void)
       {
          /* Returns error if reserved mid used */
          /* FIXME: update macros*/
-         if (MsgRcv[idx].MsgStruct->mid == SIL_SEND_HK_MID || 
-             MsgRcv[idx].MsgStruct->mid == SIL_TBL_MANAGE_MID || 
+         if (MsgRcv[idx].MsgStruct->mid == ECI_SEND_HK_MID || 
+             MsgRcv[idx].MsgStruct->mid == ECI_TBL_MANAGE_MID || 
              MsgRcv[idx].MsgStruct->mid == ECI_TICK_MID)
          {
             CFE_EVS_SendEvent(ECI_CMD_MSGID_RESERVE_ERR_EID, CFE_EVS_ERROR,
@@ -420,7 +420,7 @@ static int32 param_table_register(void) {
          "ERROR Registering ECI_ParamTable[%d], Status = 0x%08X", idx, (int)param_status);
       } else {
          /* cFE table services will notify app if parameter table update */
-         CFE_TBL_NotifyByMessage(TableHandle_Param[idx], SIL_TBL_MANAGE_MID, ECI_TBL_MANAGE_CC, idx);
+         CFE_TBL_NotifyByMessage(TableHandle_Param[idx], ECI_TBL_MANAGE_MID, ECI_TBL_MANAGE_CC, idx);
       } /* End if-else statement */
 
    } /* End for-loop */
@@ -528,19 +528,19 @@ static int32 state_table_register(void) {
    TableHandle_State = CFE_TBL_BAD_TABLE_HANDLE;
 
    /* Sets up Table Data File Path name */
-   strncat(TblFullPathState, SIL_TBL_FileDef_State.TgtFilename, OS_MAX_PATH_LEN - sizeof(STATE_TBL_PATH_PREFIX) - 1);
+   strncat(TblFullPathState, ECI_TBL_FileDef_State.TgtFilename, OS_MAX_PATH_LEN - sizeof(STATE_TBL_PATH_PREFIX) - 1);
 
    /* Register State table as a DUMP ONLY TABLE where the active buffer is user provided */
    state_status = CFE_TBL_Register(&TableHandle_State,
                                    "STATE",
-                                    SIL_TBL_FileDef_State.ObjectSize,
+                                    ECI_TBL_FileDef_State.ObjectSize,
                                     CFE_TBL_OPT_DUMP_ONLY | CFE_TBL_OPT_USR_DEF_ADDR, 
                                     NULL);
 
    /* State table registration returns error */
    if (state_status != CFE_SUCCESS) {
-      CFE_EVS_SendEvent(SIL_STATE_TBL_REG_ERR_EID, CFE_EVS_ERROR,
-                       "ERROR Registering SIL STATE Table, Status = 0x%08X",
+      CFE_EVS_SendEvent(ECI_STATE_TBL_REG_ERR_EID, CFE_EVS_ERROR,
+                       "ERROR Registering ECI STATE Table, Status = 0x%08X",
                         state_status);
    } else {
       /*
@@ -550,8 +550,8 @@ static int32 state_table_register(void) {
       state_status = CFE_TBL_Load(TableHandle_State, CFE_TBL_SRC_ADDRESS, &ECI_STATE_TBL);
 
       if (state_status != CFE_SUCCESS) {
-         CFE_EVS_SendEvent(SIL_STATE_TBL_LOAD_ERR_EID, CFE_EVS_ERROR,
-                          "ERROR LOADING SIL STATE Table, Status = 0x%08X",
+         CFE_EVS_SendEvent(ECI_STATE_TBL_LOAD_ERR_EID, CFE_EVS_ERROR,
+                          "ERROR LOADING ECI STATE Table, Status = 0x%08X",
                            state_status);
       } /* End if statement */
 
@@ -1239,32 +1239,32 @@ static void event_signal(void) {
 	  
          /* Determine number of supporting pieces of data to send out message */
          switch (ECI_Events[idx].eventBlock) {
-            case EVENT_MESSAGE_0_DATA:
+            case ECI_EVENT_0_DATA:
                CFE_EVS_SendEvent(evs_id, evs_type,(char*)(ECI_Events[idx].eventMsg),  ECI_Events[idx].loc);
                break; 
-            case EVENT_MESSAGE_1_DATA:
+            case ECI_EVENT_1_DATA:
                CFE_EVS_SendEvent(evs_id, evs_type,(char*)(ECI_Events[idx].eventMsg), ECI_Events[idx].loc, 
                                 *(ECI_Events[idx].data_1));
                break; 
-            case EVENT_MESSAGE_2_DATA:
+            case ECI_EVENT_2_DATA:
                CFE_EVS_SendEvent(evs_id, evs_type,(char*)(ECI_Events[idx].eventMsg), ECI_Events[idx].loc,
                                *(ECI_Events),
                                *(ECI_Events[idx].data_2));
                break; 
-            case EVENT_MESSAGE_3_DATA:
+            case ECI_EVENT_3_DATA:
                CFE_EVS_SendEvent(evs_id, evs_type,(char*)(ECI_Events[idx].eventMsg), ECI_Events[idx].loc,
                                *(ECI_Events[idx].data_1), 
                                *(ECI_Events[idx].data_2), 
                                *(ECI_Events[idx].data_3));
                break; 
-            case EVENT_MESSAGE_4_DATA:
+            case ECI_EVENT_4_DATA:
                CFE_EVS_SendEvent(evs_id, evs_type,(char*)(ECI_Events[idx].eventMsg), ECI_Events[idx].loc,
                                *(ECI_Events[idx].data_1), 
                                *(ECI_Events[idx].data_2), 
                                *(ECI_Events[idx].data_3),
                                *(ECI_Events[idx].data_4));
                break; 
-            case EVENT_MESSAGE_5_DATA:
+            case ECI_EVENT_5_DATA:
                CFE_EVS_SendEvent(evs_id, evs_type,(char*)(ECI_Events[idx].eventMsg), ECI_Events[idx].loc,
                                *(ECI_Events[idx].data_1), 
                                *(ECI_Events[idx].data_2), 
@@ -1529,7 +1529,7 @@ static void app_pipe(const CFE_SB_MsgPtr_t msg) {
          break;
 
       /* Scheduler requesting HK */
-      case SIL_SEND_HK_MID:
+      case ECI_SEND_HK_MID:
          if (verify_msg_length(messageID, ActualLength, CFE_SB_CMD_HDR_SIZE, EQUAL))
          {
             housekeeping_cmd();
@@ -1538,7 +1538,7 @@ static void app_pipe(const CFE_SB_MsgPtr_t msg) {
             break;
 
       /* Table management command */
-      case SIL_TBL_MANAGE_MID:
+      case ECI_TBL_MANAGE_MID:
          if (verify_msg_length(messageID, ActualLength, sizeof(CFE_TBL_NotifyCmd_t),EQUAL))
             table_manage_cmd(msg);
 

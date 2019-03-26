@@ -130,7 +130,7 @@ static ECI_Msg_t ECI_MsgRcv[] = {
 
 static const ECI_Evs_t ECI_Events[] = {
   /* Event for block: unitTestModel/event1 */
-  { EVENT_MESSAGE_1_DATA,
+  { ECI_EVENT_1_DATA,
     &unitTestModel_ConstP.event1_event_id,
     &unitTestModel_ConstP.event1_event_type,
     &unitTestModel_ConstP.event1_event_mask,
@@ -145,7 +145,7 @@ static const ECI_Evs_t ECI_Events[] = {
   },
 
   /* Event for block: unitTestModel/event3 */
-  { EVENT_MESSAGE_3_DATA,
+  { ECI_EVENT_3_DATA,
     &unitTestModel_ConstP.event3_event_id,
     &unitTestModel_ConstP.event3_event_type,
     &unitTestModel_ConstP.event3_event_mask,
@@ -160,7 +160,7 @@ static const ECI_Evs_t ECI_Events[] = {
   },
 
   /* Event for block: unitTestModel/event4 */
-  { EVENT_MESSAGE_4_DATA,
+  { ECI_EVENT_4_DATA,
     &unitTestModel_ConstP.event4_event_id,
     &unitTestModel_ConstP.pooled9,
     &unitTestModel_ConstP.event4_event_mask,
@@ -175,7 +175,7 @@ static const ECI_Evs_t ECI_Events[] = {
   },
 
   /* Event for block: unitTestModel/event2 */
-  { EVENT_MESSAGE_2_DATA,
+  { ECI_EVENT_2_DATA,
     &unitTestModel_ConstP.event2_event_id,
     &unitTestModel_ConstP.event2_event_type,
     &unitTestModel_ConstP.event2_event_mask,
@@ -190,7 +190,7 @@ static const ECI_Evs_t ECI_Events[] = {
   },
 
   /* Event for block: unitTestModel/event0 */
-  { EVENT_MESSAGE_0_DATA,
+  { ECI_EVENT_0_DATA,
     &unitTestModel_ConstP.pooled8,
     &unitTestModel_ConstP.pooled9,
     &unitTestModel_ConstP.event0_event_mask,

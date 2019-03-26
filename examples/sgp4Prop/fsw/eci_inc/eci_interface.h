@@ -111,7 +111,7 @@ uint32 filterOneEvent = CFE_EVS_FIRST_ONE_STOP;
 /* Create array of structures with error type, pointer to observable signal location,
    the location comment, and the event message */
 static const ECI_Evs_t ECI_Events[] = {
-  { EVENT_MESSAGE_2_DATA,                      /* Macro defining type of ECI event, 
+  { ECI_EVENT_2_DATA,                      /* Macro defining type of ECI event, 
                                                 * in this case, event with two data points*/
     &line1FailEventID,
     &errorEventType,                           /* Type of event */
@@ -129,7 +129,7 @@ static const ECI_Evs_t ECI_Events[] = {
     0,  0,  0                          
   },
 
-  { EVENT_MESSAGE_2_DATA,                         
+  { ECI_EVENT_2_DATA,                         
     &line2FailEventID,
     &errorEventType,
     &filterOneEvent,

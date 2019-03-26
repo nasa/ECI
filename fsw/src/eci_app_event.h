@@ -193,26 +193,26 @@
 #define ECI_SUB_CMD_MID_ERR_EID           157
 
 /**
-** Description:  Error subscribing to SIL_SEND_HK_MID
+** Description:  Error subscribing to ECI_SEND_HK_MID
 **
-** Text: "ERROR Subscribing to SIL_SEND_HK_MID 0x%04X, Status = 0x%08X", SIL_SEND_HK_MID, status
+** Text: "ERROR Subscribing to ECI_SEND_HK_MID 0x%04X, Status = 0x%08X", ECI_SEND_HK_MID, status
 **
 ** Type: Error
 **
-** Cause: CFE_SB_Subscribe() returns an error when subscribing to SIL_SEND_HK_MID
+** Cause: CFE_SB_Subscribe() returns an error when subscribing to ECI_SEND_HK_MID
 **
 **/
 #define ECI_SUB_SEND_HK_MSG_ERR_EID       158
 
 /**
-** Description:  Error subscribing to SIL_TBL_MANAGE_MID
+** Description:  Error subscribing to ECI_TBL_MANAGE_MID
 **
-** Text: "ERROR Subscribing to SIL_TBL_MANAGE_MID 0x%04X, Status = 0x%08X", 
-**       SIL_TBL_MANAGE_MID, status
+** Text: "ERROR Subscribing to ECI_TBL_MANAGE_MID 0x%04X, Status = 0x%08X", 
+**       ECI_TBL_MANAGE_MID, status
 **
 ** Type: Error
 **
-** Cause: CFE_SB_Subscribe() returns an error when subscribing to SIL_TBL_MANAGE_MID
+** Cause: CFE_SB_Subscribe() returns an error when subscribing to ECI_TBL_MANAGE_MID
 **
 **/
 #define ECI_SUB_TBL_MANAGE_MSG_ERR_EID    159
@@ -230,39 +230,39 @@
 #define ECI_SUB_TICK_MSG_ERR_EID          160
 
 /**
-** Description:  MID in SIL_MsgRcv[idx] is a reserved value
+** Description:  MID in ECI_MsgRcv[idx] is a reserved value
 **
-** Text: "Msg ID for CMD MID 0x%04X in SIL_MsgRcv[%d] is reserved value", MsgRcv[idx].MsgStruct->mid, idx
+** Text: "Msg ID for CMD MID 0x%04X in ECI_MsgRcv[%d] is reserved value", MsgRcv[idx].MsgStruct->mid, idx
 **
 ** Type: Error
 **
-** Cause:  MID in SIL_MsgRcv[idx] equals SIL_SEND_HK_MID, SIL_TBL_MANAGE_MID, or ECI_TICK_MID
+** Cause:  MID in ECI_MsgRcv[idx] equals ECI_SEND_HK_MID, ECI_TBL_MANAGE_MID, or ECI_TICK_MID
 **
 **/
 #define ECI_CMD_MSGID_RESERVE_ERR_EID     161
 
 /**
-** Description:  Error subscribing to Command message in SIL_MsgRcv[idx]
+** Description:  Error subscribing to Command message in ECI_MsgRcv[idx]
 **
-** Text: "Error Subscribing to CMD MID 0x%04X in SIL_MsgRcv[%d] on CMD Pipe, Status = 0x%08X", 
+** Text: "Error Subscribing to CMD MID 0x%04X in ECI_MsgRcv[%d] on CMD Pipe, Status = 0x%08X", 
 **       MsgRcv[idx].MsgStruct->mid, idx, status
 **
 ** Type: Error
 **
-** Cause: CFE_SB_Subscribe() returns an error when subscribing to tlm mid in SIL_MsgRcv[idx]
+** Cause: CFE_SB_Subscribe() returns an error when subscribing to tlm mid in ECI_MsgRcv[idx]
 **
 **/
 #define ECI_CMD_SUBSCRIBE_ERR_EID         162
 
 /**
-** Description:  Error subscribing to telemetry message in SIL_MsgRcv[idx]
+** Description:  Error subscribing to telemetry message in ECI_MsgRcv[idx]
 **
-** Text: "Error Subscribing to MsgID 0x%04X in SIL_MsgRcv[%d] on Data Pipe, Status = 0x%08X",
+** Text: "Error Subscribing to MsgID 0x%04X in ECI_MsgRcv[%d] on Data Pipe, Status = 0x%08X",
 **      MsgRcv[idx].MsgStruct->mid, idx, status
 **
 ** Type:  Error
 **
-** Cause: CFE_SB_Subscribe() returns an error when subscribing to cmd mid in SIL_MsgRcv[idx]
+** Cause: CFE_SB_Subscribe() returns an error when subscribing to cmd mid in ECI_MsgRcv[idx]
 **
 **/
 #define ECI_TLM_SUBSCRIBE_ERR_EID         163
