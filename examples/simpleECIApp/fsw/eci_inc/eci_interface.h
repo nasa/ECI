@@ -36,8 +36,8 @@
 #define ECI_PERF_ID                    SIMPLE_ECI_PERF_ID
 #define ECI_TICK_MID                   SIMPLE_ECI_TICK_MID
 #define ECI_HK_MID                     SIMPLE_ECI_HK_MID
-#define SIL_TBL_MANAGE_MID 	           SIMPLE_ECI_TBL_MANAGE_MID
-#define SIL_SEND_HK_MID                SIMPLE_ECI_SEND_HK_MID
+#define ECI_TBL_MANAGE_MID 	           SIMPLE_ECI_TBL_MANAGE_MID
+#define ECI_SEND_HK_MID                SIMPLE_ECI_SEND_HK_MID
 
 /* Define the name of this app's Main function. This needs to be consistent
  * with the name provided in the App's makefile to ensure that CFE startup

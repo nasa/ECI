@@ -10,8 +10,8 @@
 #define OP_HK_MID     		0x1804     
 #define OP_PROPSTATE_MID 	0x1805
 
-#define SIL_TBL_MANAGE_MID 	0x1806
-#define SIL_SEND_HK_MID 	0x1807           
+#define ECI_TBL_MANAGE_MID 	0x1806
+#define ECI_SEND_HK_MID 	0x1807           
 
 
 #endif
