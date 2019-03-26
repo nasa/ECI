@@ -167,7 +167,7 @@ void SA_AppMain_Test_ECI_1020_1030_1050(void) {
    CFE_SB_InitMsg(&UT_TickMsgValid, UNITTESTMODEL_TICK_MID,
                   sizeof(SA_NoArgsCmd_t), TRUE);
 
-   CFE_SB_InitMsg(&UT_TblManageCmd, SIL_TBL_MANAGE_MID,
+   CFE_SB_InitMsg(&UT_TblManageCmd, ECI_TBL_MANAGE_MID,
                   sizeof(CFE_TBL_NotifyCmd_t)+1, FALSE);
 
    CFE_SB_InitMsg(&UT_HK_Req_Msg, SA_SEND_HK_MID,
@@ -322,22 +322,22 @@ void SA_AppMain_Test_TBL_1010(void) {
    outputTlmPkt3_b      *UT_outputTlmPkt3;
    outputTlmPkt4_b      *UT_outputTlmPkt4;
 
-   CFE_SB_InitMsg(&UT_TblManageCmd_0, SIL_TBL_MANAGE_MID,
+   CFE_SB_InitMsg(&UT_TblManageCmd_0, ECI_TBL_MANAGE_MID,
                   sizeof(CFE_TBL_NotifyCmd_t), TRUE);
 
    UT_TblManageCmd_0.Payload.Parameter = 0;
 
-   CFE_SB_InitMsg(&UT_TblManageCmd_1, SIL_TBL_MANAGE_MID,
+   CFE_SB_InitMsg(&UT_TblManageCmd_1, ECI_TBL_MANAGE_MID,
                   sizeof(CFE_TBL_NotifyCmd_t), TRUE);
 
    UT_TblManageCmd_1.Payload.Parameter = 1;
 
-   CFE_SB_InitMsg(&UT_TblManageCmd_2, SIL_TBL_MANAGE_MID,
+   CFE_SB_InitMsg(&UT_TblManageCmd_2, ECI_TBL_MANAGE_MID,
                   sizeof(CFE_TBL_NotifyCmd_t), TRUE);
 
    UT_TblManageCmd_2.Payload.Parameter = 0;
 
-   CFE_SB_InitMsg(&UT_TblManageCmd_3, SIL_TBL_MANAGE_MID,
+   CFE_SB_InitMsg(&UT_TblManageCmd_3, ECI_TBL_MANAGE_MID,
                   sizeof(CFE_TBL_NotifyCmd_t), TRUE);
 
    UT_TblManageCmd_3.Payload.Parameter = 1;

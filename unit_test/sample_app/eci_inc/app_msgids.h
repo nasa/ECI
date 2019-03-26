@@ -1,18 +1,18 @@
 #ifndef _app_msgids_
 #define _app_msgids_
 
-#ifdef SIL_SEND_HK_MID	
-#undef SIL_SEND_HK_MID	
+#ifdef ECI_SEND_HK_MID	
+#undef ECI_SEND_HK_MID	
 #endif
 
-#ifdef SIL_TBL_MANAGE_MID	
-#undef SIL_TBL_MANAGE_MID
+#ifdef ECI_TBL_MANAGE_MID	
+#undef ECI_TBL_MANAGE_MID
 #endif
 
-#define SIL_SEND_HK_MID                      (0x1800)
-#define SIL_TBL_MANAGE_MID                   (0x1801)
+#define ECI_SEND_HK_MID                      (0x1800)
+#define ECI_TBL_MANAGE_MID                   (0x1801)
 
-#define SA_SEND_HK_MID                       SIL_SEND_HK_MID
+#define SA_SEND_HK_MID                       ECI_SEND_HK_MID
 
 
 #define UNITTESTMODEL_CMD_MID                (0x1802)
