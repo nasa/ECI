@@ -12,3 +12,8 @@ cFE/
 *.gcov
 
 .*keyfile
+
+# VSCode rules
+.vscode
+
+# Doc rules
