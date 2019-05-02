@@ -1,0 +1,420 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ECI App &#8212; ECI 1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to ECI’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="eci-app">
+<h1>ECI App<a class="headerlink" href="#eci-app" title="Permalink to this headline">¶</a></h1>
+<p>File:  eci_app.c
+Description:  Interface implementation between app-specified Simulink-generated code and cFE</p>
+<dl class="macro">
+<dt id="c.CMD_SEQUENCE_MASK">
+<code class="descname">CMD_SEQUENCE_MASK</code><a class="headerlink" href="#c.CMD_SEQUENCE_MASK" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Macro Definitions</li>
+</ul>
+</dd></dl>
+
+<ul class="simple">
+<li>Exported data</li>
+<li></li>
+</ul>
+<hr class="docutils" />
+<dl class="function">
+<dt id="c.ECI_APP_MAIN">
+void <code class="descname">ECI_APP_MAIN</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.ECI_APP_MAIN" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li></li>
+<li>Exported Function Prototype</li>
+<li></li>
+</ul>
+</dd></dl>
+
+<ul class="simple">
+<li>Local Functions</li>
+<li></li>
+</ul>
+<hr class="docutils" />
+<hr class="docutils" />
+<dl class="function">
+<dt id="c.register_events">
+int <code class="descname">register_events</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.register_events" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register Events for this app.</p>
+</dd></dl>
+
+<hr class="docutils" />
+<p>Initializes/subscribes software bus messages.</p>
+<div class="section" id="return-int32-return-state-of-cfe-sb-subscribe">
+<h2>return int32 - return state of CFE_SB_Subscribe()<a class="headerlink" href="#return-int32-return-state-of-cfe-sb-subscribe" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="c.sb_init">
+int <code class="descname">sb_init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.sb_init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subscribe the to the each standard ECI_*_MID</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A cFE error code indicating initialization status</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="function">
+<dt id="c.param_table_register">
+int <code class="descname">param_table_register</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.param_table_register" title="Permalink to this definition">¶</a></dt>
+<dd><p>Registers and loads app-specified parameter tables.</p>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="function">
+<dt id="c.load_param_table">
+int <code class="descname">load_param_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.load_param_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load data to app-specified parameter table(s).</p>
+<dl class="docutils">
+<dt>return Status of #CFE_TBL_Load, #CFE_TBL_Manage or</dt>
+<dd>#CFE_TBL_GetAddress.</dd>
+</dl>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="function">
+<dt id="c.state_table_register">
+int <code class="descname">state_table_register</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.state_table_register" title="Permalink to this definition">¶</a></dt>
+<dd><p>Registers and loads state table</p>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="function">
+<dt id="c.table_init">
+int <code class="descname">table_init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.table_init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize parameter and state tables</p>
+<dl class="docutils">
+<dt>return Status of param_table_register(), state_table_register(),</dt>
+<dd>and load_param_table()</dd>
+</dl>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="function">
+<dt id="c.cds_init">
+int <code class="descname">cds_init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.cds_init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize Critical Data Store (if available)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.app_init">
+int <code class="descname">app_init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.app_init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes cFE software bus pipes, events, messages, tables, fault
+reporter and app-specified initializations</p>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="function">
+<dt id="c.verify_msg_length">
+int <code class="descname">verify_msg_length</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.verify_msg_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verifies msg packet length (cmd or tlm).</p>
+<p>param[in] messageID = Message ID software bus message packet.
+param[in] actualLength = Actual length of packet.
+param[in] expectedLength = Expected length of packet.
+param[in] cmdMsgTypeCheck = specify type of check to be done (See ECI_MsgLengthVerify_t)</p>
+<p>retval TRUE  = The message packet passes message length check.
+retval FALSE = The message packet failes message length check.
+<strong>**************************************************************</strong></p>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="function">
+<dt id="c.no_op_cmd">
+void <code class="descname">no_op_cmd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.no_op_cmd" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr class="docutils" />
+<dl class="function">
+<dt id="c.reset_hk_counters">
+void <code class="descname">reset_hk_counters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.reset_hk_counters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr class="docutils" />
+<dl class="function">
+<dt id="c.reset_hk_counter_cmd">
+void <code class="descname">reset_hk_counter_cmd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.reset_hk_counter_cmd" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr class="docutils" />
+<dl class="function">
+<dt id="c.add_to_ring_buffer">
+void <code class="descname">add_to_ring_buffer</code><span class="sig-paren">(</span>int *<em>&nbsp;qtl</em>, int *<em>&nbsp;qcnt</em>, void *<em>&nbsp;data</em>, int<em>&nbsp;data_size</em>, char *<em>&nbsp;q</em>, int<em>&nbsp;qsize</em><span class="sig-paren">)</span><a class="headerlink" href="#c.add_to_ring_buffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add data to ring buffer</p>
+<p>Pre-requisite:  Assumes that space available on ring buffer</p>
+<p>param[in, out] qtl = Tail of the ring buffer
+param[in, out] qcnt = Number of items in the ring buffer
+param[in] data = data to be added to the ring buffer.
+param[in] data_size = size of the data
+param[in] q = ring buffer pointer
+param[in] qsize = total length of the ring buffer</p>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="function">
+<dt id="c.enqueue_cmd_msg">
+ECI_MsgControl_t <code class="descname">enqueue_cmd_msg</code><span class="sig-paren">(</span>const int<em>&nbsp;msg</em>, const unsigned int<em>&nbsp;idx</em><span class="sig-paren">)</span><a class="headerlink" href="#c.enqueue_cmd_msg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enqueue CMD messages.</p>
+<p>param[in] msg = Pointer to command message data
+param[in] idx = Index into global ECI_MsgRcv that contains pointer to queue</p>
+<dl class="docutils">
+<dt>Pre-requisite:</dt>
+<dd><ol class="first last arabic simple">
+<li>‘msg’ is a command message</li>
+<li>‘idx’ is a valid index value</li>
+</ol>
+</dd>
+</dl>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="function">
+<dt id="c.msg_manage">
+ECI_MsgControl_t <code class="descname">msg_manage</code><span class="sig-paren">(</span>const int<em>&nbsp;msg</em>, const unsigned int<em>&nbsp;idx</em><span class="sig-paren">)</span><a class="headerlink" href="#c.msg_manage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manage the counters/queues for TLM and CMD messages.</p>
+<p>param[in] msg = Pointer to software bus message
+param[in] idx = Index into global MsgRcv that contains queue/buffer</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.rcv_msg">
+void <code class="descname">rcv_msg</code><span class="sig-paren">(</span>const int<em>&nbsp;msg</em>, int<em>&nbsp;mid</em>, int<em>&nbsp;ActualLength</em>, SB_PipeType_t<em>&nbsp;PipeType</em><span class="sig-paren">)</span><a class="headerlink" href="#c.rcv_msg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process any incoming messages if we are expecting it.</p>
+<p>param[in] msg = Pointer to the software bus message.
+param[in] mid = Message id of software bus message.
+param[in] ActualLength = Reported length of software bus message
+param[in] PipeType = Indicates whether software bus message is command or data pipe</p>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="function">
+<dt id="c.housekeeping_cmd">
+void <code class="descname">housekeeping_cmd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.housekeeping_cmd" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="c.table_manage_cmd">
+void <code class="descname">table_manage_cmd</code><span class="sig-paren">(</span>int<em>&nbsp;MessagePtr</em><span class="sig-paren">)</span><a class="headerlink" href="#c.table_manage_cmd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manage Parameter Table if notified by cFE table services of update</p>
+<dl class="docutils">
+<dt>param[in] MessagePtr = Pointer to command message from cFE table services</dt>
+<dd>Has parameter with index to table in ECI_ParamTable[]</dd>
+</dl>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="function">
+<dt id="c.manage_state_tables">
+void <code class="descname">manage_state_tables</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.manage_state_tables" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="c.remove_from_ring_buffer">
+void <code class="descname">remove_from_ring_buffer</code><span class="sig-paren">(</span>int *<em>&nbsp;qhd</em>, int *<em>&nbsp;qcnt</em>, void *<em>&nbsp;data</em>, int<em>&nbsp;data_size</em>, char *<em>&nbsp;q</em>, int<em>&nbsp;qsize</em><span class="sig-paren">)</span><a class="headerlink" href="#c.remove_from_ring_buffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove data from ring buffer</p>
+<p>Pre-requisite:  Assumes that data is available on ring buffer</p>
+<p>param[in, out] qhd= Head of the ring buffer
+param[in, out] qcnt = Number of items in the ring buffer
+param[out] data = data to be removed from the ring buffer.
+param[in] data_size = size of the data
+param[in] q = ring buffer pointer
+param[in, out] qsize = total length of the ring buffer
+<strong>***************************************************************</strong></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.increment_cmd_msg_sequence">
+void <code class="descname">increment_cmd_msg_sequence</code><span class="sig-paren">(</span>unsigned int<em>&nbsp;idx</em><span class="sig-paren">)</span><a class="headerlink" href="#c.increment_cmd_msg_sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Increments the buffered cmd msg seq. number for command message MsgRcv[idx]
+Prerequisites:  1) MsgRcv[idx].imd is command message (Based on mid)</p>
+<blockquote>
+<div><ol class="arabic simple" start="2">
+<li>New cmd message placed on input buffer</li>
+</ol>
+</div></blockquote>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="function">
+<dt id="c.dequeue_cmd_msg">
+ECI_MsgControl_t <code class="descname">dequeue_cmd_msg</code><span class="sig-paren">(</span>const unsigned int<em>&nbsp;idx</em><span class="sig-paren">)</span><a class="headerlink" href="#c.dequeue_cmd_msg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dequeues command messages</p>
+<p>param[in] idx = Index into global ECI_MsgRcv that contains pointer to buffer</p>
+<dl class="docutils">
+<dt>Pre-requisite:</dt>
+<dd><ol class="first last arabic simple">
+<li>‘idx’ is a valid index value that points to an array with a queue</li>
+</ol>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.event_signal">
+void <code class="descname">event_signal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.event_signal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr class="docutils" />
+<dl class="function">
+<dt id="c.fdc_signal">
+void <code class="descname">fdc_signal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.fdc_signal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="c.send_msg">
+void <code class="descname">send_msg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.send_msg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="c.fdc_pkt_gen">
+void <code class="descname">fdc_pkt_gen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.fdc_pkt_gen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="c.cds_update">
+void <code class="descname">cds_update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.cds_update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="c.do_step">
+void <code class="descname">do_step</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.do_step" title="Permalink to this definition">¶</a></dt>
+<dd><ol class="arabic simple">
+<li>Get step timestamp</li>
+<li>Manages state table</li>
+<li>Dequeues command messages</li>
+<li>Executes app-specified step function</li>
+<li>Execute Event Message processing</li>
+<li>Execute Fault Reporting</li>
+<li>Send messages specified in ECI_MsgSnd[]</li>
+<li>Send FDC messages</li>
+</ol>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="function">
+<dt id="c.app_pipe">
+void <code class="descname">app_pipe</code><span class="sig-paren">(</span>const int<em>&nbsp;msg</em><span class="sig-paren">)</span><a class="headerlink" href="#c.app_pipe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Processes command pipe messages.</p>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="function">
+<dt>
+void <code class="descname">ECI_APP_MAIN</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<hr class="docutils" />
+<hr class="docutils" />
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ECI</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ECI App</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#return-int32-return-state-of-cfe-sb-subscribe">return int32 - return state of CFE_SB_Subscribe()</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to ECI’s documentation!</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Steve Lentine, Christopher William Westerman.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/app.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
