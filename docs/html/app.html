@@ -35,312 +35,698 @@
             
   <div class="section" id="eci-app">
 <h1>ECI App<a class="headerlink" href="#eci-app" title="Permalink to this headline">¶</a></h1>
-<p>File:  eci_app.c
-Description:  Interface implementation between app-specified Simulink-generated code and cFE</p>
+<div class="section" id="table-file-path-settings">
+<h2>Table File Path Settings<a class="headerlink" href="#table-file-path-settings" title="Permalink to this headline">¶</a></h2>
 <dl class="macro">
-<dt id="c.CMD_SEQUENCE_MASK">
-<code class="descname">CMD_SEQUENCE_MASK</code><a class="headerlink" href="#c.CMD_SEQUENCE_MASK" title="Permalink to this definition">¶</a></dt>
-<dd><ul class="simple">
-<li>Macro Definitions</li>
-</ul>
+<dt id="c.PARAM_TBL_PATH_PREFIX">
+<code class="descname">PARAM_TBL_PATH_PREFIX</code><a class="headerlink" href="#c.PARAM_TBL_PATH_PREFIX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to FSW parameter tables</p>
 </dd></dl>
 
-<ul class="simple">
-<li>Exported data</li>
-<li></li>
-</ul>
-<hr class="docutils" />
-<dl class="function">
-<dt id="c.ECI_APP_MAIN">
-void <code class="descname">ECI_APP_MAIN</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.ECI_APP_MAIN" title="Permalink to this definition">¶</a></dt>
-<dd><ul class="simple">
-<li></li>
-<li>Exported Function Prototype</li>
-<li></li>
-</ul>
+<dl class="macro">
+<dt id="c.STATE_TBL_PATH_PREFIX">
+<code class="descname">STATE_TBL_PATH_PREFIX</code><a class="headerlink" href="#c.STATE_TBL_PATH_PREFIX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to FSW state tables</p>
 </dd></dl>
 
-<ul class="simple">
-<li>Local Functions</li>
-<li></li>
-</ul>
-<hr class="docutils" />
-<hr class="docutils" />
-<dl class="function">
-<dt id="c.register_events">
-int <code class="descname">register_events</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.register_events" title="Permalink to this definition">¶</a></dt>
-<dd><p>Register Events for this app.</p>
+<p>App start-up configuration settings</p>
+<dl class="macro">
+<dt id="c.ECI_STARTUP_SYNC_TIMEOUT">
+<code class="descname">ECI_STARTUP_SYNC_TIMEOUT</code><a class="headerlink" href="#c.ECI_STARTUP_SYNC_TIMEOUT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Time Out (Secs) for syncing ECI apps with cFS</p>
 </dd></dl>
 
+<p>Command configuration settings</p>
+<dl class="macro">
+<dt id="c.ECI_NO_DATA_CMD_MSG_LENGTH">
+<code class="descname">ECI_NO_DATA_CMD_MSG_LENGTH</code><a class="headerlink" href="#c.ECI_NO_DATA_CMD_MSG_LENGTH" title="Permalink to this definition">¶</a></dt>
+<dd><p>Length of a no data parameter command message</p>
+</dd></dl>
+
+<dl class="macro">
+<dt id="c.ECI_FUNC_CODE_START">
+<code class="descname">ECI_FUNC_CODE_START</code><a class="headerlink" href="#c.ECI_FUNC_CODE_START" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start of valid function code values</p>
+</dd></dl>
+
+<dl class="macro">
+<dt id="c.ECI_FUNC_CODE_END">
+<code class="descname">ECI_FUNC_CODE_END</code><a class="headerlink" href="#c.ECI_FUNC_CODE_END" title="Permalink to this definition">¶</a></dt>
+<dd><p>End of valid function code values</p>
+</dd></dl>
+
+<dl class="macro">
+<dt id="c.ECI_CMD_MSG_QUEUE_SIZE">
+<code class="descname">ECI_CMD_MSG_QUEUE_SIZE</code><a class="headerlink" href="#c.ECI_CMD_MSG_QUEUE_SIZE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Command Message Max Queue Size</p>
+</dd></dl>
+
+<dl class="macro">
+<dt id="c.ECI_MAX_CMD_SEQUENCE_NUMBER">
+<code class="descname">ECI_MAX_CMD_SEQUENCE_NUMBER</code><a class="headerlink" href="#c.ECI_MAX_CMD_SEQUENCE_NUMBER" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximum sequence number (14 bits)</p>
+</dd></dl>
+
+<dl class="macro">
+<dt id="c.ECI_APP_EVENTS_H">
+<code class="descname">ECI_APP_EVENTS_H</code><a class="headerlink" href="#c.ECI_APP_EVENTS_H" title="Permalink to this definition">¶</a></dt>
+<dd><p>File:  eci_app_events.h
+Description:  Event ID specification</p>
+</dd></dl>
+
+<hr class="docutils" id="ranges" />
+<div class="section" id="event-message-id-s">
+<h3>Event message ID’s:<a class="headerlink" href="#event-message-id-s" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="65%" />
+<col width="35%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Event</th>
+<th class="head">Range</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference internal" href="#informational-codes">Informational Codes</a></td>
+<td>101-150</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#error-codes">Error Codes</a></td>
+<td>151-200</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#critical-codes">Critical Codes</a></td>
+<td>201-210</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#debug-codes">Debug Codes</a></td>
+<td>211-220</td>
+</tr>
+</tbody>
+</table>
 <hr class="docutils" />
-<p>Initializes/subscribes software bus messages.</p>
-<div class="section" id="return-int32-return-state-of-cfe-sb-subscribe">
-<h2>return int32 - return state of CFE_SB_Subscribe()<a class="headerlink" href="#return-int32-return-state-of-cfe-sb-subscribe" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="c.sb_init">
-int <code class="descname">sb_init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.sb_init" title="Permalink to this definition">¶</a></dt>
-<dd><p>Subscribe the to the each standard ECI_*_MID</p>
-<table class="docutils field-list" frame="void" rules="none">
+<div class="section" id="informational-codes">
+<h4>Informational Codes<a class="headerlink" href="#informational-codes" title="Permalink to this headline">¶</a></h4>
+<p>return to <a class="reference internal" href="#ranges">top</a></p>
+<dl class="macro">
+<dt id="c.ECI_INIT_INF_EID">
+<code class="descname">ECI_INIT_INF_EID</code><a class="headerlink" href="#c.ECI_INIT_INF_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A cFE error code indicating initialization status</td>
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">ECI initializes successfully event</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“Application Initialized, Revision %s”, REVISION_NUMBER</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Informational</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">Application initializes</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
-<hr class="docutils" />
-<dl class="function">
-<dt id="c.param_table_register">
-int <code class="descname">param_table_register</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.param_table_register" title="Permalink to this definition">¶</a></dt>
-<dd><p>Registers and loads app-specified parameter tables.</p>
+<dl class="macro">
+<dt id="c.ECI_NOOP_INF_EID">
+<code class="descname">ECI_NOOP_INF_EID</code><a class="headerlink" href="#c.ECI_NOOP_INF_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">No-Op event</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“No-op command, Revision %s”, REVISION_NUMBER</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Informational</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">No-Op command received</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<hr class="docutils" />
-<dl class="function">
-<dt id="c.load_param_table">
-int <code class="descname">load_param_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.load_param_table" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load data to app-specified parameter table(s).</p>
-<dl class="docutils">
-<dt>return Status of #CFE_TBL_Load, #CFE_TBL_Manage or</dt>
-<dd>#CFE_TBL_GetAddress.</dd>
-</dl>
+<dl class="macro">
+<dt id="c.ECI_RESET_HK_CTR_INF_EID">
+<code class="descname">ECI_RESET_HK_CTR_INF_EID</code><a class="headerlink" href="#c.ECI_RESET_HK_CTR_INF_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Reset HK counters event</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“Reset Housekeeping Counters”</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Informational</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">Housekeeping counter reset command received</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<hr class="docutils" />
-<dl class="function">
-<dt id="c.state_table_register">
-int <code class="descname">state_table_register</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.state_table_register" title="Permalink to this definition">¶</a></dt>
-<dd><p>Registers and loads state table</p>
+<dl class="macro">
+<dt id="c.ECI_CDS_RESTORE_INF_EID">
+<code class="descname">ECI_CDS_RESTORE_INF_EID</code><a class="headerlink" href="#c.ECI_CDS_RESTORE_INF_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Restoring existing data from CDS</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“ECI_CDS[%d] already exists in CDS and will be restored”, idx</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Informational</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">CFE_ES_RegisterCDS() returns CFE_ES_CDS_ALREADY_EXISTS</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<hr class="docutils" />
-<dl class="function">
-<dt id="c.table_init">
-int <code class="descname">table_init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.table_init" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize parameter and state tables</p>
-<dl class="docutils">
-<dt>return Status of param_table_register(), state_table_register(),</dt>
-<dd>and load_param_table()</dd>
-</dl>
+<dl class="macro">
+<dt id="c.ECI_CDS_NOT_AVAIL_INF_EID">
+<code class="descname">ECI_CDS_NOT_AVAIL_INF_EID</code><a class="headerlink" href="#c.ECI_CDS_NOT_AVAIL_INF_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">CDS not available for ECI app use</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“CDS not available for ECI_CDS”</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Informational</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">CFE_ES_RegisterCDS() returns CFE_ES_NOT_IMPLEMENTED</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<hr class="docutils" />
-<dl class="function">
-<dt id="c.cds_init">
-int <code class="descname">cds_init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.cds_init" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize Critical Data Store (if available)</p>
+<dl class="macro">
+<dt id="c.ECI_CDS_REGISTER_INF_EID">
+<code class="descname">ECI_CDS_REGISTER_INF_EID</code><a class="headerlink" href="#c.ECI_CDS_REGISTER_INF_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">CDS registers data from ECI_CDS</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“ECI_CDS[%d] registered to CDS”, idx</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Informational</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">CFE_ES_RegisterCDS() returns successful return code</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<dl class="function">
-<dt id="c.app_init">
-int <code class="descname">app_init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.app_init" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initializes cFE software bus pipes, events, messages, tables, fault
-reporter and app-specified initializations</p>
+</div>
+<div class="section" id="error-codes">
+<h4>Error Codes<a class="headerlink" href="#error-codes" title="Permalink to this headline">¶</a></h4>
+<p>return to <a class="reference internal" href="#ranges">top</a></p>
+<dl class="macro">
+<dt id="c.ECI_TLM_LEN_ERR_EID">
+<code class="descname">ECI_TLM_LEN_ERR_EID</code><a class="headerlink" href="#c.ECI_TLM_LEN_ERR_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Tlm pkt has mismatched length</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“Invalid tlm pkt: ID = 0x%X, Len = %d (Expected = %d)”,
+messageID, actualLength, expectedLength</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Error</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">Telemetry packet received as a reported length which does
+agree with expected length</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<hr class="docutils" />
-<dl class="function">
-<dt id="c.verify_msg_length">
-int <code class="descname">verify_msg_length</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.verify_msg_length" title="Permalink to this definition">¶</a></dt>
-<dd><p>Verifies msg packet length (cmd or tlm).</p>
-<p>param[in] messageID = Message ID software bus message packet.
-param[in] actualLength = Actual length of packet.
-param[in] expectedLength = Expected length of packet.
-param[in] cmdMsgTypeCheck = specify type of check to be done (See ECI_MsgLengthVerify_t)</p>
-<p>retval TRUE  = The message packet passes message length check.
-retval FALSE = The message packet failes message length check.
-<strong>**************************************************************</strong></p>
+<dl class="macro">
+<dt id="c.ECI_CMD_LEN_ERR_EID">
+<code class="descname">ECI_CMD_LEN_ERR_EID</code><a class="headerlink" href="#c.ECI_CMD_LEN_ERR_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Cmd pkt has mismatched length</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“Invalid cmd pkt: ID = 0x%X, Len = %d (Expected = %d)”,
+messageID, actualLength, expectedLength</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Error</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">Command packet received as a reported length which does
+agree with expected length</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<hr class="docutils" />
-<dl class="function">
-<dt id="c.no_op_cmd">
-void <code class="descname">no_op_cmd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.no_op_cmd" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<hr class="docutils" />
-<dl class="function">
-<dt id="c.reset_hk_counters">
-void <code class="descname">reset_hk_counters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.reset_hk_counters" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<hr class="docutils" />
-<dl class="function">
-<dt id="c.reset_hk_counter_cmd">
-void <code class="descname">reset_hk_counter_cmd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.reset_hk_counter_cmd" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<hr class="docutils" />
-<dl class="function">
-<dt id="c.add_to_ring_buffer">
-void <code class="descname">add_to_ring_buffer</code><span class="sig-paren">(</span>int *<em>&nbsp;qtl</em>, int *<em>&nbsp;qcnt</em>, void *<em>&nbsp;data</em>, int<em>&nbsp;data_size</em>, char *<em>&nbsp;q</em>, int<em>&nbsp;qsize</em><span class="sig-paren">)</span><a class="headerlink" href="#c.add_to_ring_buffer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add data to ring buffer</p>
-<p>Pre-requisite:  Assumes that space available on ring buffer</p>
-<p>param[in, out] qtl = Tail of the ring buffer
-param[in, out] qcnt = Number of items in the ring buffer
-param[in] data = data to be added to the ring buffer.
-param[in] data_size = size of the data
-param[in] q = ring buffer pointer
-param[in] qsize = total length of the ring buffer</p>
+<dl class="macro">
+<dt id="c.ECI_QFULL_ERR_EID">
+<code class="descname">ECI_QFULL_ERR_EID</code><a class="headerlink" href="#c.ECI_QFULL_ERR_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Command Queue is full</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“Cmd Queue for mid 0x%04X is full. Msg dropped”, MsgRcv[idx].MsgStruct-&gt;mid</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Error</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">Command queue for mid has filled-up during currently control cycle and cannot
+accept another command message</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<hr class="docutils" />
-<dl class="function">
-<dt id="c.enqueue_cmd_msg">
-ECI_MsgControl_t <code class="descname">enqueue_cmd_msg</code><span class="sig-paren">(</span>const int<em>&nbsp;msg</em>, const unsigned int<em>&nbsp;idx</em><span class="sig-paren">)</span><a class="headerlink" href="#c.enqueue_cmd_msg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Enqueue CMD messages.</p>
-<p>param[in] msg = Pointer to command message data
-param[in] idx = Index into global ECI_MsgRcv that contains pointer to queue</p>
-<dl class="docutils">
-<dt>Pre-requisite:</dt>
-<dd><ol class="first last arabic simple">
-<li>‘msg’ is a command message</li>
-<li>‘idx’ is a valid index value</li>
-</ol>
-</dd>
-</dl>
+<dl class="macro">
+<dt id="c.ECI_UNK_MID_ERR_EID">
+<code class="descname">ECI_UNK_MID_ERR_EID</code><a class="headerlink" href="#c.ECI_UNK_MID_ERR_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Message with unsubscribed mid received</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“Msg with Invalid MID Received on %s: ID = 0x%X”, (PipeType ? “DATA PIPE”:”CMD PIPE”), mid</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Error</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">Message with unsubscribed mid received on app SB pipe</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<hr class="docutils" />
-<dl class="function">
-<dt id="c.msg_manage">
-ECI_MsgControl_t <code class="descname">msg_manage</code><span class="sig-paren">(</span>const int<em>&nbsp;msg</em>, const unsigned int<em>&nbsp;idx</em><span class="sig-paren">)</span><a class="headerlink" href="#c.msg_manage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Manage the counters/queues for TLM and CMD messages.</p>
-<p>param[in] msg = Pointer to software bus message
-param[in] idx = Index into global MsgRcv that contains queue/buffer</p>
+<dl class="macro">
+<dt id="c.ECI_MANAGE_TBL_GETADDR_ERR_EID">
+<code class="descname">ECI_MANAGE_TBL_GETADDR_ERR_EID</code><a class="headerlink" href="#c.ECI_MANAGE_TBL_GETADDR_ERR_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Error getting parameter table address from cFE table services</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“Table Manage Cmd ERROR: Getting ECI Parameter Table Address(idx = %d) with %s, Status = 0x%08X”,
+(int)CmdPtr-&gt;Payload.Parameter, ECI_ParamTable[CmdPtr-&gt;Payload.Parameter].tblname, (int)Result</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Error</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">After table update, app received error from CFE_TBL_GetAddress() for updated
+table data.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<dl class="function">
-<dt id="c.rcv_msg">
-void <code class="descname">rcv_msg</code><span class="sig-paren">(</span>const int<em>&nbsp;msg</em>, int<em>&nbsp;mid</em>, int<em>&nbsp;ActualLength</em>, SB_PipeType_t<em>&nbsp;PipeType</em><span class="sig-paren">)</span><a class="headerlink" href="#c.rcv_msg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Process any incoming messages if we are expecting it.</p>
-<p>param[in] msg = Pointer to the software bus message.
-param[in] mid = Message id of software bus message.
-param[in] ActualLength = Reported length of software bus message
-param[in] PipeType = Indicates whether software bus message is command or data pipe</p>
+<dl class="macro">
+<dt id="c.ECI_MANAGE_TBL_PARAM_IDX_ERR_EID">
+<code class="descname">ECI_MANAGE_TBL_PARAM_IDX_ERR_EID</code><a class="headerlink" href="#c.ECI_MANAGE_TBL_PARAM_IDX_ERR_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Received internal table management notification command from cFE table services
+with invalid index parameter</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“Table Manage Cmd ERROR: ECI Parameter Table idx (idx = %d) out of valid range (0 to %d)”,
+(int)CmdPtr-&gt;Payload.Parameter, (int)(SIZEOF_ARRAY(ECI_ParamTable) - 1)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Error</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">cFE table services sent an internal table management notification command with an invalid
+index parameter for the ECI_ParamTable[] array.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<hr class="docutils" />
-<dl class="function">
-<dt id="c.housekeeping_cmd">
-void <code class="descname">housekeeping_cmd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.housekeeping_cmd" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="c.table_manage_cmd">
-void <code class="descname">table_manage_cmd</code><span class="sig-paren">(</span>int<em>&nbsp;MessagePtr</em><span class="sig-paren">)</span><a class="headerlink" href="#c.table_manage_cmd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Manage Parameter Table if notified by cFE table services of update</p>
-<dl class="docutils">
-<dt>param[in] MessagePtr = Pointer to command message from cFE table services</dt>
-<dd>Has parameter with index to table in ECI_ParamTable[]</dd>
-</dl>
+<dl class="macro">
+<dt id="c.ECI_SUB_CMD_MID_ERR_EID">
+<code class="descname">ECI_SUB_CMD_MID_ERR_EID</code><a class="headerlink" href="#c.ECI_SUB_CMD_MID_ERR_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Error subscribing to the ECI_CMD_MID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“Error Subscribing to ECI_CMD_MID 0x%04X, Status = 0x%08X”, ECI_CMD_MID, status</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Error</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">CFE_SB_Subscribe() returns an error when subscribing to ECI_CMD_MID</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<hr class="docutils" />
-<dl class="function">
-<dt id="c.manage_state_tables">
-void <code class="descname">manage_state_tables</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.manage_state_tables" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="c.remove_from_ring_buffer">
-void <code class="descname">remove_from_ring_buffer</code><span class="sig-paren">(</span>int *<em>&nbsp;qhd</em>, int *<em>&nbsp;qcnt</em>, void *<em>&nbsp;data</em>, int<em>&nbsp;data_size</em>, char *<em>&nbsp;q</em>, int<em>&nbsp;qsize</em><span class="sig-paren">)</span><a class="headerlink" href="#c.remove_from_ring_buffer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove data from ring buffer</p>
-<p>Pre-requisite:  Assumes that data is available on ring buffer</p>
-<p>param[in, out] qhd= Head of the ring buffer
-param[in, out] qcnt = Number of items in the ring buffer
-param[out] data = data to be removed from the ring buffer.
-param[in] data_size = size of the data
-param[in] q = ring buffer pointer
-param[in, out] qsize = total length of the ring buffer
-<strong>***************************************************************</strong></p>
+<dl class="macro">
+<dt id="c.ECI_SUB_SEND_HK_MSG_ERR_EID">
+<code class="descname">ECI_SUB_SEND_HK_MSG_ERR_EID</code><a class="headerlink" href="#c.ECI_SUB_SEND_HK_MSG_ERR_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Error subscribing to ECI_SEND_HK_MID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“ERROR Subscribing to ECI_SEND_HK_MID 0x%04X, Status = 0x%08X”, ECI_SEND_HK_MID, status</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Error</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">CFE_SB_Subscribe() returns an error when subscribing to ECI_SEND_HK_MID</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<dl class="function">
-<dt id="c.increment_cmd_msg_sequence">
-void <code class="descname">increment_cmd_msg_sequence</code><span class="sig-paren">(</span>unsigned int<em>&nbsp;idx</em><span class="sig-paren">)</span><a class="headerlink" href="#c.increment_cmd_msg_sequence" title="Permalink to this definition">¶</a></dt>
-<dd><p>Increments the buffered cmd msg seq. number for command message MsgRcv[idx]
-Prerequisites:  1) MsgRcv[idx].imd is command message (Based on mid)</p>
-<blockquote>
-<div><ol class="arabic simple" start="2">
-<li>New cmd message placed on input buffer</li>
-</ol>
-</div></blockquote>
+<dl class="macro">
+<dt id="c.ECI_SUB_TBL_MANAGE_MSG_ERR_EID">
+<code class="descname">ECI_SUB_TBL_MANAGE_MSG_ERR_EID</code><a class="headerlink" href="#c.ECI_SUB_TBL_MANAGE_MSG_ERR_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Error subscribing to ECI_TBL_MANAGE_MID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“ERROR Subscribing to ECI_TBL_MANAGE_MID 0x%04X, Status = 0x%08X”,
+ECI_TBL_MANAGE_MID, status</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Error</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">CFE_SB_Subscribe() returns an error when subscribing to ECI_TBL_MANAGE_MID</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<hr class="docutils" />
-<dl class="function">
-<dt id="c.dequeue_cmd_msg">
-ECI_MsgControl_t <code class="descname">dequeue_cmd_msg</code><span class="sig-paren">(</span>const unsigned int<em>&nbsp;idx</em><span class="sig-paren">)</span><a class="headerlink" href="#c.dequeue_cmd_msg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dequeues command messages</p>
-<p>param[in] idx = Index into global ECI_MsgRcv that contains pointer to buffer</p>
-<dl class="docutils">
-<dt>Pre-requisite:</dt>
-<dd><ol class="first last arabic simple">
-<li>‘idx’ is a valid index value that points to an array with a queue</li>
-</ol>
-</dd>
-</dl>
+<dl class="macro">
+<dt id="c.ECI_SUB_TICK_MSG_ERR_EID">
+<code class="descname">ECI_SUB_TICK_MSG_ERR_EID</code><a class="headerlink" href="#c.ECI_SUB_TICK_MSG_ERR_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Error subscribing to ECI_TICK_MID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“Error Subscribing to ECI_TICK_MID 0x%04X, Status = 0x%08X”, ECI_TICK_MID, status</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Error</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">CFE_SB_Subscribe() returns an error when subscribing to ECI_TICK_MID</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<dl class="function">
-<dt id="c.event_signal">
-void <code class="descname">event_signal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.event_signal" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<hr class="docutils" />
-<dl class="function">
-<dt id="c.fdc_signal">
-void <code class="descname">fdc_signal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.fdc_signal" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="c.send_msg">
-void <code class="descname">send_msg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.send_msg" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="c.fdc_pkt_gen">
-void <code class="descname">fdc_pkt_gen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.fdc_pkt_gen" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="c.cds_update">
-void <code class="descname">cds_update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.cds_update" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="c.do_step">
-void <code class="descname">do_step</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.do_step" title="Permalink to this definition">¶</a></dt>
-<dd><ol class="arabic simple">
-<li>Get step timestamp</li>
-<li>Manages state table</li>
-<li>Dequeues command messages</li>
-<li>Executes app-specified step function</li>
-<li>Execute Event Message processing</li>
-<li>Execute Fault Reporting</li>
-<li>Send messages specified in ECI_MsgSnd[]</li>
-<li>Send FDC messages</li>
-</ol>
+<dl class="macro">
+<dt id="c.ECI_CMD_MSGID_RESERVE_ERR_EID">
+<code class="descname">ECI_CMD_MSGID_RESERVE_ERR_EID</code><a class="headerlink" href="#c.ECI_CMD_MSGID_RESERVE_ERR_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">MID in ECI_MsgRcv[idx] is a reserved value</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“Msg ID for CMD MID 0x%04X in ECI_MsgRcv[%d] is reserved value”, MsgRcv[idx].MsgStruct-&gt;mid, idx</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Error</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">MID in ECI_MsgRcv[idx] equals ECI_SEND_HK_MID, ECI_TBL_MANAGE_MID, or ECI_TICK_MID</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<hr class="docutils" />
-<dl class="function">
-<dt id="c.app_pipe">
-void <code class="descname">app_pipe</code><span class="sig-paren">(</span>const int<em>&nbsp;msg</em><span class="sig-paren">)</span><a class="headerlink" href="#c.app_pipe" title="Permalink to this definition">¶</a></dt>
-<dd><p>Processes command pipe messages.</p>
+<dl class="macro">
+<dt id="c.ECI_CMD_SUBSCRIBE_ERR_EID">
+<code class="descname">ECI_CMD_SUBSCRIBE_ERR_EID</code><a class="headerlink" href="#c.ECI_CMD_SUBSCRIBE_ERR_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Error subscribing to Command message in ECI_MsgRcv[idx]</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“Error Subscribing to CMD MID 0x%04X in ECI_MsgRcv[%d] on CMD Pipe, Status = 0x%08X”,
+MsgRcv[idx].MsgStruct-&gt;mid, idx, status</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Error</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">CFE_SB_Subscribe() returns an error when subscribing to tlm mid in ECI_MsgRcv[idx]</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<hr class="docutils" />
-<dl class="function">
-<dt>
-void <code class="descname">ECI_APP_MAIN</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
-<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ECI_TLM_SUBSCRIBE_ERR_EID">
+<code class="descname">ECI_TLM_SUBSCRIBE_ERR_EID</code><a class="headerlink" href="#c.ECI_TLM_SUBSCRIBE_ERR_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Error subscribing to telemetry message in ECI_MsgRcv[idx]</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“Error Subscribing to MsgID 0x%04X in ECI_MsgRcv[%d] on Data Pipe, Status = 0x%08X”,
+MsgRcv[idx].MsgStruct-&gt;mid, idx, status</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Error</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">CFE_SB_Subscribe() returns an error when subscribing to cmd mid in ECI_MsgRcv[idx]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
-<hr class="docutils" />
-<hr class="docutils" />
+<dl class="macro">
+<dt id="c.ECI_PARAM_TBL_REG_ERR_EID">
+<code class="descname">ECI_PARAM_TBL_REG_ERR_EID</code><a class="headerlink" href="#c.ECI_PARAM_TBL_REG_ERR_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Error registering table ECI_ParamTable[idx] with cFE table services</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“ERROR Registering ECI_ParamTable[%d], Status = 0x%08X”, idx, (int)param_status</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Error</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">CFE_TBL_Register() returns an error for ECI_ParamTable[idx]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="macro">
+<dt id="c.ECI_PARAM_TBL_LOAD_ERR_EID">
+<code class="descname">ECI_PARAM_TBL_LOAD_ERR_EID</code><a class="headerlink" href="#c.ECI_PARAM_TBL_LOAD_ERR_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Error loading table ECI_ParamTable[idx] with default table file data</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“ERROR Loading ECI_ParamTable[%d] (%s), Status = 0x%08X”,
+idx, ECI_ParamTable[idx].tblname, (int)status</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Error</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">CFE_TBL_Load() returns an error for ECI_ParamTable[idx]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="macro">
+<dt id="c.ECI_PARAM_TBL_GETADDR_ERR_EID">
+<code class="descname">ECI_PARAM_TBL_GETADDR_ERR_EID</code><a class="headerlink" href="#c.ECI_PARAM_TBL_GETADDR_ERR_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Error getting address for ECI_ParamTable[idx] after table data load</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“ERROR Getting Address from cFE Table Services from ECI_ParamTable[%d] (%s), Status = 0x%08X”,
+idx, ECI_ParamTable[idx].tblname, (int)status</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Error</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">CFE_TBL_GetAddress() returns error for ECI_ParamTable[idx] after table load during initialization</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="macro">
+<dt id="c.ECI_PARAM_TBL_MANAGE_ERR_EID">
+<code class="descname">ECI_PARAM_TBL_MANAGE_ERR_EID</code><a class="headerlink" href="#c.ECI_PARAM_TBL_MANAGE_ERR_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Error managing ECI_ParamTable[idx] after table data load</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“ERROR Managing ECI_ParamTable[%d] (%s), Status = 0x%08X”,
+idx, ECI_ParamTable[idx].tblname, (int)status</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Error</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">CFE_TBL_Manage() returns error for ECI_ParamTable[idx] after table load during initialization</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="macro">
+<dt id="c.ECI_INV_CMD_CODE_ERR_EID">
+<code class="descname">ECI_INV_CMD_CODE_ERR_EID</code><a class="headerlink" href="#c.ECI_INV_CMD_CODE_ERR_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Application received cmd msg with an invalid command code</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">ECI_INV_CMD_CODE_ERR_EID, CFE_EVS_ERROR, “Invalid Command Code: ID = 0x%X, CC = %d”, messageID, commandCode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Error</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">Application received a cmd message with a valid messageID, but with a command code that was not within
+the valid range (ECI_FUNC_CODE_START - ECI_FUNC_CODE_END)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="macro">
+<dt id="c.ECI_INV_MID_ERR_EID">
+<code class="descname">ECI_INV_MID_ERR_EID</code><a class="headerlink" href="#c.ECI_INV_MID_ERR_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Application received a message on command pipe with an unrecognized MID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“Invalid MID Received on Command Pipe: ID = 0x%X”, messageID</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Error</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">Application received a message on command pipe with an unrecognized MID</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="macro">
+<dt id="c.ECI_CMD_PIPE_READ_ERR_EID">
+<code class="descname">ECI_CMD_PIPE_READ_ERR_EID</code><a class="headerlink" href="#c.ECI_CMD_PIPE_READ_ERR_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Application had an error reading the command pipe</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“SB Command Pipe Read Error, ECI App will Exit.”</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Error</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">CFE_SB_RcvMsg() returns an error while pending forever on the command pipe</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="macro">
+<dt id="c.ECI_CDS_COPYTOCDS_ERR_EID">
+<code class="descname">ECI_CDS_COPYTOCDS_ERR_EID</code><a class="headerlink" href="#c.ECI_CDS_COPYTOCDS_ERR_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Application had an error saving data back to CDS</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“Error saving data in ECI_CDS[%d] to CDS”, idx</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Error</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">CFE_ES_CopyToCDS() returns an error when writing data to CDS</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="macro">
+<dt id="c.ECI_CDS_RESTORE_ERR_EID">
+<code class="descname">ECI_CDS_RESTORE_ERR_EID</code><a class="headerlink" href="#c.ECI_CDS_RESTORE_ERR_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Application had an error restoring data from CDS</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“ECI_CDS[%d] failed to restore from CDS, Status = 0x%08X”, idx, status</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Error</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">CFE_ES_RestoreFromCDS() returns an error when restoring data from CDS</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="macro">
+<dt id="c.ECI_INIT_FAIL_ERR_EID">
+<code class="descname">ECI_INIT_FAIL_ERR_EID</code><a class="headerlink" href="#c.ECI_INIT_FAIL_ERR_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Application error during SIL initialization</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“ECI Initialization Failed, ECI App Will Exit”</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Error</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">app_init() returns an error during initialization</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="critical-codes">
+<h4>Critical Codes<a class="headerlink" href="#critical-codes" title="Permalink to this headline">¶</a></h4>
+<p>return to <a class="reference internal" href="#ranges">top</a></p>
+</div>
+<div class="section" id="debug-codes">
+<h4>DEBUG CODES<a class="headerlink" href="#debug-codes" title="Permalink to this headline">¶</a></h4>
+<p>return to <a class="reference internal" href="#ranges">top</a></p>
+<dl class="macro">
+<dt id="c.ECI_MSG_MANAGE_DBG_EID">
+<code class="descname">ECI_MSG_MANAGE_DBG_EID</code><a class="headerlink" href="#c.ECI_MSG_MANAGE_DBG_EID" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Application has a command/telemetry message buffered or queued</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Text:</th><td class="field-body">“Mid 0x%04X is %s”, ((status == QUEUED) ? “QUEUED”:”BUFFERED”), MsgRcv[idx].MsgStruct-&gt;mid</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">DEBUG</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Cause:</th><td class="field-body">Application has a command/telemetry message buffered or queued</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
 </div>
 </div>
 
@@ -364,7 +750,7 @@ void <code class="descname">ECI_APP_MAIN</code><span class="sig-paren">(</span><
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">ECI App</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#return-int32-return-state-of-cfe-sb-subscribe">return int32 - return state of CFE_SB_Subscribe()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#table-file-path-settings">Table File Path Settings</a></li>
 </ul>
 </li>
 </ul>
