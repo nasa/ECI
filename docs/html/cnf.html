@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>ECI App &#8212; ECI 1 documentation</title>
+    <title>ECI Config &#8212; ECI 1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -16,7 +16,6 @@
     <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Welcome to ECI’s documentation!" href="index.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -33,41 +32,65 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="eci-app">
-<h1>ECI App<a class="headerlink" href="#eci-app" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="eci-config">
+<h1>ECI Config<a class="headerlink" href="#eci-config" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="table-file-path-settings">
+<h2>Table File Path Settings<a class="headerlink" href="#table-file-path-settings" title="Permalink to this headline">¶</a></h2>
 <dl class="macro">
-<dt id="c.ECI_EVENT_1_DATA">
-<code class="descname">ECI_EVENT_1_DATA</code><a class="headerlink" href="#c.ECI_EVENT_1_DATA" title="Permalink to this definition">¶</a></dt>
-<dd><p>Identifier for Event message with zero data points</p>
+<dt id="c.PARAM_TBL_PATH_PREFIX">
+<code class="descname">PARAM_TBL_PATH_PREFIX</code><a class="headerlink" href="#c.PARAM_TBL_PATH_PREFIX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to FSW parameter tables</p>
 </dd></dl>
 
 <dl class="macro">
-<dt id="c.ECI_EVENT_2_DATA">
-<code class="descname">ECI_EVENT_2_DATA</code><a class="headerlink" href="#c.ECI_EVENT_2_DATA" title="Permalink to this definition">¶</a></dt>
-<dd><p>Identifier for Event message with one data points</p>
+<dt id="c.STATE_TBL_PATH_PREFIX">
+<code class="descname">STATE_TBL_PATH_PREFIX</code><a class="headerlink" href="#c.STATE_TBL_PATH_PREFIX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to FSW state tables</p>
+</dd></dl>
+
+</div>
+<div class="section" id="app-start-up-configuration-settings">
+<h2>App start-up configuration settings<a class="headerlink" href="#app-start-up-configuration-settings" title="Permalink to this headline">¶</a></h2>
+<dl class="macro">
+<dt id="c.ECI_STARTUP_SYNC_TIMEOUT">
+<code class="descname">ECI_STARTUP_SYNC_TIMEOUT</code><a class="headerlink" href="#c.ECI_STARTUP_SYNC_TIMEOUT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Time Out (Secs) for syncing ECI apps with cFS</p>
+</dd></dl>
+
+</div>
+<div class="section" id="command-configuration-settings">
+<h2>Command configuration settings<a class="headerlink" href="#command-configuration-settings" title="Permalink to this headline">¶</a></h2>
+<dl class="macro">
+<dt id="c.ECI_NO_DATA_CMD_MSG_LENGTH">
+<code class="descname">ECI_NO_DATA_CMD_MSG_LENGTH</code><a class="headerlink" href="#c.ECI_NO_DATA_CMD_MSG_LENGTH" title="Permalink to this definition">¶</a></dt>
+<dd><p>Length of a no data parameter command message</p>
 </dd></dl>
 
 <dl class="macro">
-<dt id="c.ECI_EVENT_3_DATA">
-<code class="descname">ECI_EVENT_3_DATA</code><a class="headerlink" href="#c.ECI_EVENT_3_DATA" title="Permalink to this definition">¶</a></dt>
-<dd><p>Identifier for Event message with two data points</p>
+<dt id="c.ECI_FUNC_CODE_START">
+<code class="descname">ECI_FUNC_CODE_START</code><a class="headerlink" href="#c.ECI_FUNC_CODE_START" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start of valid function code values</p>
 </dd></dl>
 
 <dl class="macro">
-<dt id="c.ECI_EVENT_4_DATA">
-<code class="descname">ECI_EVENT_4_DATA</code><a class="headerlink" href="#c.ECI_EVENT_4_DATA" title="Permalink to this definition">¶</a></dt>
-<dd><p>Identifier for Event message with three data points</p>
+<dt id="c.ECI_FUNC_CODE_END">
+<code class="descname">ECI_FUNC_CODE_END</code><a class="headerlink" href="#c.ECI_FUNC_CODE_END" title="Permalink to this definition">¶</a></dt>
+<dd><p>End of valid function code values</p>
 </dd></dl>
 
 <dl class="macro">
-<dt id="c.ECI_EVENT_5_DATA">
-<code class="descname">ECI_EVENT_5_DATA</code><a class="headerlink" href="#c.ECI_EVENT_5_DATA" title="Permalink to this definition">¶</a></dt>
-<dd><p>Identifier for Event message with four data points</p>
+<dt id="c.ECI_CMD_MSG_QUEUE_SIZE">
+<code class="descname">ECI_CMD_MSG_QUEUE_SIZE</code><a class="headerlink" href="#c.ECI_CMD_MSG_QUEUE_SIZE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Command Message Max Queue Size</p>
 </dd></dl>
 
-<p>Identifier for Event message with five data points</p>
-<hr class="docutils" />
-<hr class="docutils" />
+<dl class="macro">
+<dt id="c.ECI_MAX_CMD_SEQUENCE_NUMBER">
+<code class="descname">ECI_MAX_CMD_SEQUENCE_NUMBER</code><a class="headerlink" href="#c.ECI_MAX_CMD_SEQUENCE_NUMBER" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximum sequence number (14 bits)</p>
+</dd></dl>
+
+</div>
 </div>
 
 
@@ -88,15 +111,14 @@
 
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">ECI App</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="app.html">ECI App</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="index.html" title="previous chapter">Welcome to ECI’s documentation!</a></li>
   </ul></li>
 </ul>
 </div>
@@ -132,7 +154,7 @@
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="_sources/app.rst.txt"
+      <a href="_sources/cnf.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 
