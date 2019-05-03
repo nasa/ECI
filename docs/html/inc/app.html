@@ -36,7 +36,7 @@
             
   <div class="section" id="eci-app">
 <h1>ECI App<a class="headerlink" href="#eci-app" title="Permalink to this headline">¶</a></h1>
-<p>Event message defines for use in <a class="reference internal" href="#c.ECI_Evs_t" title="ECI_Evs_t"><code class="xref c c-type docutils literal notranslate"><span class="pre">ECI_Evs_t</span></code></a></p>
+<p>Event message defines for use in <a class="reference internal" href="#c.ECI_Evs" title="ECI_Evs"><code class="xref c c-type docutils literal notranslate"><span class="pre">ECI_Evs</span></code></a></p>
 <dl class="macro">
 <dt id="c.ECI_EVENT_0_DATA">
 <code class="descname">ECI_EVENT_0_DATA</code><a class="headerlink" href="#c.ECI_EVENT_0_DATA" title="Permalink to this definition">¶</a></dt>
@@ -74,76 +74,73 @@
 </dd></dl>
 
 <dl class="type">
-<dt id="c.ECI_Msg_t">
-struct <code class="descname">ECI_Msg_t</code><a class="headerlink" href="#c.ECI_Msg_t" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Msg">
+struct <code class="descname">ECI_Msg</code><a class="headerlink" href="#c.ECI_Msg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Definition of an incoming or outgoing message for the software bus.</p>
 <p><strong>Example</strong> (eci_interface.h)</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">ECI_Tbl_t</span> <span class="n">ECI_ParamTable</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
- <span class="p">{</span>
-   <span class="p">(</span><span class="n">void</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="p">(</span><span class="n">tle_lines</span><span class="p">),</span>
-   <span class="s2">&quot;OP_TLE_Tbl&quot;</span><span class="p">,</span>
-   <span class="s2">&quot;OP app&#39;s tle parameter table&quot;</span><span class="p">,</span>
-   <span class="s2">&quot;tle_tbl.tbl&quot;</span><span class="p">,</span>
-   <span class="n">sizeof</span><span class="p">(</span><span class="n">tle_lines_t</span><span class="p">),</span>
-   <span class="o">&amp;</span><span class="n">validateTLE</span>
- <span class="p">},</span>
- <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">ECI_Msg_t</span> <span class="n">ECI_MsgSnd</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="p">{</span> <span class="n">message_id</span><span class="p">,</span>
+    <span class="n">pointer_to_object</span><span class="p">,</span>
+    <span class="n">sizeof</span><span class="p">(</span><span class="nb">object</span><span class="p">),</span>
+    <span class="n">NULL</span><span class="p">,</span>
+    <span class="n">NULL</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span> <span class="p">}</span>
 <span class="p">};</span>
 </pre></div>
 </div>
 <dl class="member">
-<dt id="c.ECI_Msg_t.mid">
-int <code class="descname">mid</code><a class="headerlink" href="#c.ECI_Msg_t.mid" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Msg.mid">
+int <code class="descname">mid</code><a class="headerlink" href="#c.ECI_Msg.mid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Message ID</p>
 </dd></dl>
 
 <dl class="member">
-<dt id="c.ECI_Msg_t.mptr">
-void * <code class="descname">mptr</code><a class="headerlink" href="#c.ECI_Msg_t.mptr" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Msg.mptr">
+void * <code class="descname">mptr</code><a class="headerlink" href="#c.ECI_Msg.mptr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Input/Output Buffer</p>
 </dd></dl>
 
 <dl class="member">
-<dt id="c.ECI_Msg_t.siz">
-int <code class="descname">siz</code><a class="headerlink" href="#c.ECI_Msg_t.siz" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Msg.siz">
+int <code class="descname">siz</code><a class="headerlink" href="#c.ECI_Msg.siz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Message Size (including header)</p>
 </dd></dl>
 
 <dl class="member">
-<dt id="c.ECI_Msg_t.qptr">
-void * <code class="descname">qptr</code><a class="headerlink" href="#c.ECI_Msg_t.qptr" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Msg.qptr">
+void * <code class="descname">qptr</code><a class="headerlink" href="#c.ECI_Msg.qptr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Location of Cmd Queue Buffer - NULL if Tlm Message</p>
 </dd></dl>
 
 <dl class="member">
-<dt id="c.ECI_Msg_t.sendMsg">
-int * <code class="descname">sendMsg</code><a class="headerlink" href="#c.ECI_Msg_t.sendMsg" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Msg.sendMsg">
+int * <code class="descname">sendMsg</code><a class="headerlink" href="#c.ECI_Msg.sendMsg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pointer to the flag indicating whether to send output</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="type">
-<dt id="c.ECI_Flag_t">
-struct <code class="descname">ECI_Flag_t</code><a class="headerlink" href="#c.ECI_Flag_t" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Flag">
+struct <code class="descname">ECI_Flag</code><a class="headerlink" href="#c.ECI_Flag" title="Permalink to this definition">¶</a></dt>
 <dd><p>FDC Reporting Interface Structure</p>
 <dl class="member">
-<dt id="c.ECI_Flag_t.FlagID">
-int * <code class="descname">FlagID</code><a class="headerlink" href="#c.ECI_Flag_t.FlagID" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Flag.FlagID">
+int * <code class="descname">FlagID</code><a class="headerlink" href="#c.ECI_Flag.FlagID" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pointer to flag ID - unique ID set by the user</p>
 </dd></dl>
 
 <dl class="member">
-<dt id="c.ECI_Flag_t.StatusFlag">
-int * <code class="descname">StatusFlag</code><a class="headerlink" href="#c.ECI_Flag_t.StatusFlag" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Flag.StatusFlag">
+int * <code class="descname">StatusFlag</code><a class="headerlink" href="#c.ECI_Flag.StatusFlag" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pointer to status flag</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="type">
-<dt id="c.ECI_Evs_t">
-struct <code class="descname">ECI_Evs_t</code><a class="headerlink" href="#c.ECI_Evs_t" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Evs">
+struct <code class="descname">ECI_Evs</code><a class="headerlink" href="#c.ECI_Evs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Struct to define an EVS event message to be registered.</p>
 <p><strong>Example</strong> (eci_interface.h)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">const</span> <span class="n">ECI_Evs_t</span> <span class="n">ECI_Events</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
@@ -160,140 +157,154 @@ struct <code class="descname">ECI_Evs_t</code><a class="headerlink" href="#c.ECI
 </pre></div>
 </div>
 <dl class="member">
-<dt id="c.ECI_Evs_t.eventBlock">
-int <code class="descname">eventBlock</code><a class="headerlink" href="#c.ECI_Evs_t.eventBlock" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Evs.eventBlock">
+int <code class="descname">eventBlock</code><a class="headerlink" href="#c.ECI_Evs.eventBlock" title="Permalink to this definition">¶</a></dt>
 <dd><p>Event Block describes how many data points</p>
 </dd></dl>
 
 <dl class="member">
-<dt id="c.ECI_Evs_t.eventID">
-int * <code class="descname">eventID</code><a class="headerlink" href="#c.ECI_Evs_t.eventID" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Evs.eventID">
+int * <code class="descname">eventID</code><a class="headerlink" href="#c.ECI_Evs.eventID" title="Permalink to this definition">¶</a></dt>
 <dd><p>Event Id  - unique id set by the user</p>
 </dd></dl>
 
 <dl class="member">
-<dt id="c.ECI_Evs_t.eventType">
-int * <code class="descname">eventType</code><a class="headerlink" href="#c.ECI_Evs_t.eventType" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Evs.eventType">
+int * <code class="descname">eventType</code><a class="headerlink" href="#c.ECI_Evs.eventType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Event Type - debug, info, error, crit set by user</p>
 </dd></dl>
 
 <dl class="member">
-<dt id="c.ECI_Evs_t.eventMask">
-int * <code class="descname">eventMask</code><a class="headerlink" href="#c.ECI_Evs_t.eventMask" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Evs.eventMask">
+int * <code class="descname">eventMask</code><a class="headerlink" href="#c.ECI_Evs.eventMask" title="Permalink to this definition">¶</a></dt>
 <dd><p>Event Mask - filter set by user</p>
 </dd></dl>
 
 <dl class="member">
-<dt id="c.ECI_Evs_t.eventFlag">
-int * <code class="descname">eventFlag</code><a class="headerlink" href="#c.ECI_Evs_t.eventFlag" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Evs.eventFlag">
+int * <code class="descname">eventFlag</code><a class="headerlink" href="#c.ECI_Evs.eventFlag" title="Permalink to this definition">¶</a></dt>
 <dd><p>Flag indicating simulink event has occurred</p>
 </dd></dl>
 
 <dl class="member">
-<dt id="c.ECI_Evs_t.eventMsg">
-int * <code class="descname">eventMsg</code><a class="headerlink" href="#c.ECI_Evs_t.eventMsg" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Evs.eventMsg">
+int * <code class="descname">eventMsg</code><a class="headerlink" href="#c.ECI_Evs.eventMsg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Msgpoint to send with an event taken from observable signal</p>
 </dd></dl>
 
 <dl class="member">
-<dt id="c.ECI_Evs_t.loc">
-char * <code class="descname">loc</code><a class="headerlink" href="#c.ECI_Evs_t.loc" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Evs.loc">
+char * <code class="descname">loc</code><a class="headerlink" href="#c.ECI_Evs.loc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Location string</p>
 </dd></dl>
 
 <dl class="member">
-<dt id="c.ECI_Evs_t.data_1">
-double * <code class="descname">data_1</code><a class="headerlink" href="#c.ECI_Evs_t.data_1" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Evs.data_1">
+double * <code class="descname">data_1</code><a class="headerlink" href="#c.ECI_Evs.data_1" title="Permalink to this definition">¶</a></dt>
 <dd><p>First data point</p>
 </dd></dl>
 
 <dl class="member">
-<dt id="c.ECI_Evs_t.data_2">
-double * <code class="descname">data_2</code><a class="headerlink" href="#c.ECI_Evs_t.data_2" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Evs.data_2">
+double * <code class="descname">data_2</code><a class="headerlink" href="#c.ECI_Evs.data_2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Second data point</p>
 </dd></dl>
 
 <dl class="member">
-<dt id="c.ECI_Evs_t.data_3">
-double * <code class="descname">data_3</code><a class="headerlink" href="#c.ECI_Evs_t.data_3" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Evs.data_3">
+double * <code class="descname">data_3</code><a class="headerlink" href="#c.ECI_Evs.data_3" title="Permalink to this definition">¶</a></dt>
 <dd><p>Third data point</p>
 </dd></dl>
 
 <dl class="member">
-<dt id="c.ECI_Evs_t.data_4">
-double * <code class="descname">data_4</code><a class="headerlink" href="#c.ECI_Evs_t.data_4" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Evs.data_4">
+double * <code class="descname">data_4</code><a class="headerlink" href="#c.ECI_Evs.data_4" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fourth data point</p>
 </dd></dl>
 
 <dl class="member">
-<dt id="c.ECI_Evs_t.data_5">
-double * <code class="descname">data_5</code><a class="headerlink" href="#c.ECI_Evs_t.data_5" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Evs.data_5">
+double * <code class="descname">data_5</code><a class="headerlink" href="#c.ECI_Evs.data_5" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fifth data point</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="type">
-<dt id="c.ECI_Tbl_t">
-struct <code class="descname">ECI_Tbl_t</code><a class="headerlink" href="#c.ECI_Tbl_t" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Tbl">
+struct <code class="descname">ECI_Tbl</code><a class="headerlink" href="#c.ECI_Tbl" title="Permalink to this definition">¶</a></dt>
 <dd><p>Table Interface Structure</p>
+<p><strong>Example</strong> (eci_interface.h)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">ECI_Tbl_t</span> <span class="n">ECI_ParamTable</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+ <span class="p">{</span>
+   <span class="p">(</span><span class="n">void</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="p">(</span><span class="n">tle_lines</span><span class="p">),</span>
+   <span class="s2">&quot;OP_TLE_Tbl&quot;</span><span class="p">,</span>
+   <span class="s2">&quot;OP app&#39;s tle parameter table&quot;</span><span class="p">,</span>
+   <span class="s2">&quot;tle_tbl.tbl&quot;</span><span class="p">,</span>
+   <span class="n">sizeof</span><span class="p">(</span><span class="n">tle_lines_t</span><span class="p">),</span>
+   <span class="o">&amp;</span><span class="n">validateTLE</span>
+ <span class="p">},</span>
+ <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
 <dl class="member">
-<dt id="c.ECI_Tbl_t.tblptr">
-void ** <code class="descname">tblptr</code><a class="headerlink" href="#c.ECI_Tbl_t.tblptr" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Tbl.tblptr">
+void ** <code class="descname">tblptr</code><a class="headerlink" href="#c.ECI_Tbl.tblptr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pointer to table</p>
 </dd></dl>
 
 <dl class="member">
-<dt id="c.ECI_Tbl_t.tblname">
-char * <code class="descname">tblname</code><a class="headerlink" href="#c.ECI_Tbl_t.tblname" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Tbl.tblname">
+char * <code class="descname">tblname</code><a class="headerlink" href="#c.ECI_Tbl.tblname" title="Permalink to this definition">¶</a></dt>
 <dd><p>Name of table</p>
 </dd></dl>
 
 <dl class="member">
-<dt id="c.ECI_Tbl_t.tbldesc">
-char * <code class="descname">tbldesc</code><a class="headerlink" href="#c.ECI_Tbl_t.tbldesc" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Tbl.tbldesc">
+char * <code class="descname">tbldesc</code><a class="headerlink" href="#c.ECI_Tbl.tbldesc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Description of table</p>
 </dd></dl>
 
 <dl class="member">
-<dt id="c.ECI_Tbl_t.tblfilename">
-char * <code class="descname">tblfilename</code><a class="headerlink" href="#c.ECI_Tbl_t.tblfilename" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Tbl.tblfilename">
+char * <code class="descname">tblfilename</code><a class="headerlink" href="#c.ECI_Tbl.tblfilename" title="Permalink to this definition">¶</a></dt>
 <dd><p>Filename of table</p>
 </dd></dl>
 
 <dl class="member">
-<dt id="c.ECI_Tbl_t.tblsize">
-int <code class="descname">tblsize</code><a class="headerlink" href="#c.ECI_Tbl_t.tblsize" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Tbl.tblsize">
+int <code class="descname">tblsize</code><a class="headerlink" href="#c.ECI_Tbl.tblsize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Size of table</p>
 </dd></dl>
 
 <dl class="member">
-<dt id="c.ECI_Tbl_t.tblvalfunc">
-void * <code class="descname">tblvalfunc</code><a class="headerlink" href="#c.ECI_Tbl_t.tblvalfunc" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Tbl.tblvalfunc">
+void * <code class="descname">tblvalfunc</code><a class="headerlink" href="#c.ECI_Tbl.tblvalfunc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Table validation func</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="type">
-<dt id="c.ECI_Cds_t">
-struct <code class="descname">ECI_Cds_t</code><a class="headerlink" href="#c.ECI_Cds_t" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Cds">
+struct <code class="descname">ECI_Cds</code><a class="headerlink" href="#c.ECI_Cds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Critical Data Store Structure</p>
 <dl class="member">
-<dt id="c.ECI_Cds_t.cdsname">
-char * <code class="descname">cdsname</code><a class="headerlink" href="#c.ECI_Cds_t.cdsname" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Cds.cdsname">
+char * <code class="descname">cdsname</code><a class="headerlink" href="#c.ECI_Cds.cdsname" title="Permalink to this definition">¶</a></dt>
 <dd><p>Name of CDS block</p>
 </dd></dl>
 
 <dl class="member">
-<dt id="c.ECI_Cds_t.cdssiz">
-int <code class="descname">cdssiz</code><a class="headerlink" href="#c.ECI_Cds_t.cdssiz" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Cds.cdssiz">
+int <code class="descname">cdssiz</code><a class="headerlink" href="#c.ECI_Cds.cdssiz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Size of CDS block</p>
 </dd></dl>
 
 <dl class="member">
-<dt id="c.ECI_Cds_t.cdsptr">
-void * <code class="descname">cdsptr</code><a class="headerlink" href="#c.ECI_Cds_t.cdsptr" title="Permalink to this definition">¶</a></dt>
+<dt id="c.ECI_Cds.cdsptr">
+void * <code class="descname">cdsptr</code><a class="headerlink" href="#c.ECI_Cds.cdsptr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Address of Critical Data</p>
 </dd></dl>
 
@@ -331,6 +342,8 @@ void * <code class="descname">cdsptr</code><a class="headerlink" href="#c.ECI_Cd
 <li class="toctree-l1"><a class="reference internal" href="event.html">ECI Event Codes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hk.html">ECI Housekeeping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="msgdefs.html">ECI Message Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tbl_if.html">ECI Table Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util_macro.html">ECI Utility Macros</a></li>
 </ul>
 
 <div class="relations">

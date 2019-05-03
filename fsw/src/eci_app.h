@@ -13,7 +13,7 @@ extern "C"
 
 #include "cfe.h"
 /**
- * Event message defines for use in :c:type:`ECI_Evs_t`
+ * Event message defines for use in :c:type:`ECI_Evs`
  */
 /** Identifier for Event message with zero data points */
 #define ECI_EVENT_0_DATA     0
@@ -33,20 +33,18 @@ extern "C"
  * 
  * **Example** (eci_interface.h)
  * ::
- *   static ECI_Tbl_t ECI_ParamTable[] = {
- *    {
- *      (void*)&(tle_lines),                 
- *      "OP_TLE_Tbl",                        
- *      "OP app's tle parameter table",      
- *      "tle_tbl.tbl",                       
- *      sizeof(tle_lines_t),                 
- *      &validateTLE                         
- *    },
- *    { 0, 0, 0, 0, 0 }                         
+ * 
+ *   static ECI_Msg_t ECI_MsgSnd[] = { 
+ *     { message_id,
+ *       pointer_to_object,
+ *       sizeof(object),
+ *       NULL,
+ *       NULL },
+ *     { 0, NULL, 0, NULL, NULL }
  *   };
  *
  */
-typedef struct ECI_Msg_t {
+typedef struct ECI_Msg {
    /** Message ID */
    CFE_SB_MsgId_t mid;
    /** Input/Output Buffer */
@@ -62,7 +60,7 @@ typedef struct ECI_Msg_t {
 /**
  * FDC Reporting Interface Structure
  */
-typedef struct ECI_Flag_t {
+typedef struct ECI_Flag {
   /** Pointer to flag ID - unique ID set by the user */
   uint8*   FlagID;
   /** Pointer to status flag */
@@ -74,6 +72,7 @@ typedef struct ECI_Flag_t {
  *
  * **Example** (eci_interface.h)
  * ::
+ * 
  *   static const ECI_Evs_t ECI_Events[] = { 
  *     { ECI_EVENT_0_DATA,
  *       &id,
@@ -87,7 +86,7 @@ typedef struct ECI_Flag_t {
  *   }
  * 
  */
-typedef struct ECI_Evs_t {
+typedef struct ECI_Evs {
   /** Event Block describes how many data points  */
   uint8 eventBlock;
   /** Event Id  - unique id set by the user*/
@@ -114,8 +113,25 @@ typedef struct ECI_Evs_t {
   double* data_5;
 } ECI_Evs_t;
 
-/** Table Interface Structure */
-typedef struct ECI_Tbl_t {
+/**
+ * Table Interface Structure
+ *
+ * **Example** (eci_interface.h)
+ * ::
+ *
+ *   static ECI_Tbl_t ECI_ParamTable[] = {
+ *    {
+ *      (void*)&(tle_lines),                 
+ *      "OP_TLE_Tbl",                        
+ *      "OP app's tle parameter table",      
+ *      "tle_tbl.tbl",                       
+ *      sizeof(tle_lines_t),                 
+ *      &validateTLE                         
+ *    },
+ *    { 0, 0, 0, 0, 0 }                         
+ *   };
+ */
+typedef struct ECI_Tbl {
     /** Pointer to table  */
     void**  tblptr;
     /** Name of table  */
@@ -131,7 +147,7 @@ typedef struct ECI_Tbl_t {
 } ECI_Tbl_t;
 
 /** Critical Data Store Structure */
-typedef struct ECI_Cds_t {
+typedef struct ECI_Cds {
    /** Name of CDS block */
    char*  cdsname;
    /** Size of CDS block */
