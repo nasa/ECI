@@ -14,9 +14,9 @@
  * ========================
  */
 /** Path to FSW parameter tables */
-#define PARAM_TBL_PATH_PREFIX "/cf/apps/"
+#define PARAM_TBL_PATH_PREFIX "/cf/tables/"
 /** Path to FSW state tables */
-#define STATE_TBL_PATH_PREFIX "/cf/apps/"
+#define STATE_TBL_PATH_PREFIX "/cf/tables/"
 
 /**
  * App start-up configuration settings
