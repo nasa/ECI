@@ -44,7 +44,7 @@ extern "C"
  *   };
  *
  */
-typedef struct ECI_Msg {
+typedef struct {
    /** Message ID */
    CFE_SB_MsgId_t mid;
    /** Input/Output Buffer */
