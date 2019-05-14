@@ -17,3 +17,5 @@ cfe/
 .vscode
 
 # Doc rules
+docs/
+docs-src/build/

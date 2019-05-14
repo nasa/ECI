@@ -11,9 +11,18 @@ extern "C"
 {
 #endif /* __cplusplus */
 
+
 #include "cfe.h"
-/**
- * Event message defines for use in :c:type:`ECI_Evs`
+
+/**@defgroup eci_interface ECI Interface
+ * This section contains information on how to properly construct
+ *  the main eci_interface.h file.
+ */
+
+/**@defgroup eci_event ECI Events
+ * @ingroup eci_interface
+ * Details on how to specify ECI events.
+ * @{
  */
 /** Identifier for Event message with zero data points */
 #define ECI_EVENT_0_DATA     0
@@ -27,22 +36,16 @@ extern "C"
 #define ECI_EVENT_4_DATA     4
 /** Identifier for Event message with five data points */
 #define ECI_EVENT_5_DATA     5
+/**@}*/
 
-/**
+/**@defgroup eci_msg ECI Software Bus messages
+ * @ingroup eci_interface
  * Definition of an incoming or outgoing message for the software bus.
- * 
- * **Example** (eci_interface.h)
- * ::
- * 
- *   static ECI_Msg_t ECI_MsgSnd[] = { 
- *     { message_id,
- *       pointer_to_object,
- *       sizeof(object),
- *       NULL,
- *       NULL },
- *     { 0, NULL, 0, NULL, NULL }
- *   };
- *
+ * @{
+ */
+/**
+ * Element of the message array which defines a single message to be
+ *  sent over the software bus.
  */
 typedef struct {
    /** Message ID */
@@ -56,37 +59,20 @@ typedef struct {
    /** Pointer to the flag indicating whether to send output */
    boolean*       sendMsg;
 } ECI_Msg_t;
+/**@}*/
 
-/**
- * FDC Reporting Interface Structure
- */
-typedef struct ECI_Flag {
+/** FDC Reporting Interface Structure */
+typedef struct {
   /** Pointer to flag ID - unique ID set by the user */
   uint8*   FlagID;
   /** Pointer to status flag */
   boolean* StatusFlag;
 } ECI_Flag_t;
 
-/**
+/**@ingroup eci_event
  * Struct to define an EVS event message to be registered.
- *
- * **Example** (eci_interface.h)
- * ::
- * 
- *   static const ECI_Evs_t ECI_Events[] = { 
- *     { ECI_EVENT_0_DATA,
- *       &id,
- *       &error,
- *       &filter,
- *       (boolean*)condition,
- *       "MESSAGE",
- *       0, 0, 0, 0, 0
- *     },
- *     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
- *   }
- * 
  */
-typedef struct ECI_Evs {
+typedef struct {
   /** Event Block describes how many data points  */
   uint8 eventBlock;
   /** Event Id  - unique id set by the user*/
@@ -113,25 +99,13 @@ typedef struct ECI_Evs {
   double* data_5;
 } ECI_Evs_t;
 
-/**
- * Table Interface Structure
- *
- * **Example** (eci_interface.h)
- * ::
- *
- *   static ECI_Tbl_t ECI_ParamTable[] = {
- *    {
- *      (void*)&(tle_lines),                 
- *      "OP_TLE_Tbl",                        
- *      "OP app's tle parameter table",      
- *      "tle_tbl.tbl",                       
- *      sizeof(tle_lines_t),                 
- *      &validateTLE                         
- *    },
- *    { 0, 0, 0, 0, 0 }                         
- *   };
+/**@defgroup eci_table ECI Table
+ * @ingroup eci_interface
+ * How to define a FSW table
+ * @{
  */
-typedef struct ECI_Tbl {
+/** Table Interface Structure */
+typedef struct {
     /** Pointer to table  */
     void**  tblptr;
     /** Name of table  */
@@ -145,9 +119,10 @@ typedef struct ECI_Tbl {
     /** Table validation func */
     void*   tblvalfunc;   
 } ECI_Tbl_t;
+/**@}*/
 
 /** Critical Data Store Structure */
-typedef struct ECI_Cds {
+typedef struct {
    /** Name of CDS block */
    char*  cdsname;
    /** Size of CDS block */

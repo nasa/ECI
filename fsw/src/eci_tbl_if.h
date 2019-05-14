@@ -10,6 +10,10 @@
 #include "cfe_tbl_filedef.h"
 #include "eci_app_cfg.h"
 
+/**@defgroup table_file FSW Table File Builder
+ * How to build a table file
+ * @{
+ */
 #ifndef ECI_PARAM_TBL_MAX_NAME_LEN
 /**
  * Maximum parameter table length. If this variable isn't defined
@@ -24,18 +28,12 @@
  *  This macro uses expansion to resolve it's names so there should be no commented
  *  strings as parameters.
  *
- * :param StructName:   Data structure type to be used as the table image format
- * :param ObjName:  Name of the object to be placed in the parameter table
- * :param TblName:  Name of the table registered with :c:type:`ECI_Tbl_t.tblname`
- * :param Desc: Quick description of the table
- * :param Filename: What to name the file
- * :returns: Static declaration of CFE_TBL_FileDef_t to be used with elf2cfetbl
- *
- * **Example**
- * ::
- *
- *  ECI_TBL_FILEDEF(CFE_TBL_FileDef, tle_lines_tbl, OP_APP.OP_TLE_Tbl,
- *      OP app TLE table, tle_tbl.tbl )
+ * @param StructName Data structure type to be used as the table image format<br/>
+ * @param ObjName Name of the object to be placed in the parameter table<br/>
+ * @param TblName Name of the table registered with :c:type:`ECI_Tbl_t.tblname`<br/>
+ * @param Desc Quick description of the table<br/>
+ * @param Filename What to name the file<br/>
+ * @returns Static declaration of CFE_TBL_FileDef_t to be used with elf2cfetbl<br/>
  */
 #define ECI_TBL_FILEDEF(StructName, ObjName, TblName, Desc, Filename) \
         static CFE_TBL_FileDef_t StructName __attribute__((__used__)) = \
