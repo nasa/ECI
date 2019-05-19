@@ -22,3 +22,6 @@ docs-src/build/
 
 # Python rules
 __pycache__/
+
+# Post-build rules
+**/build/
