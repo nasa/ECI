@@ -19,3 +19,6 @@ cfe/
 # Doc rules
 docs/
 docs-src/build/
+
+# Python rules
+__pycache__/
