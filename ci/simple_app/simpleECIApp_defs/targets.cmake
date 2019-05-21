@@ -49,6 +49,7 @@ SET(UI_INSTALL_SUBDIR "host/ui")
 # be copied during the install process.
 SET(FT_INSTALL_SUBDIR "host/functional-test")
 
+add_compile_options("-std=c99")
 # Each target board can have its own HW arch selection and set of included apps
 SET(TGT1_NAME cpu1)
 SET(TGT1_APPLIST ci_lab to_lab sch_lab simpleECIApp)
