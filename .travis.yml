@@ -20,13 +20,13 @@ jobs:
     - stage: build
       name: "BuildSimpleExample"
       script:
-        -cmake ./ci/simple_app
-        -make -C ./cfs
+        - cmake ./ci/simple_app
+        - make -C ./cfs
     - stage: build
       name: "BuildSGP4Example"
-      script: cmake ./ci/sgp4
-        -cmake ./ci/sgp4
-        -make -C ./cfs
+      script:
+        - cmake ./ci/sgp4
+        - make -C ./cfs
     
 #before_script:
     
