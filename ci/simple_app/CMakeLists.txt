@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.01)
+add_definitions(-Wfatal-errors)
 include(../setup_cfe.cmake)
 
 set_common_paths("${CMAKE_SOURCE_DIR}/..")

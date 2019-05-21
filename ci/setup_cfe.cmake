@@ -47,6 +47,6 @@ endfunction()
 
 function(create_cfe)
     if(NOT EXISTS ${CFS_ROOT})
-        execute_process(COMMAND git clone -b rc-6.6.0a --recursive git@github.com:nasa/cFS.git ${CFS_ROOT})
+        execute_process(COMMAND git clone -v -b rc-6.6.0a --recursive https://github.com/nasa/cFS.git ${CFS_ROOT})
     endif()
 endfunction(create_cfe)
