@@ -10,4 +10,3 @@ install_app_defs("simpleECIApp")
 file(GLOB APP_SRC "${ECI_ROOT}/examples/simpleECIApp/*")
 file(INSTALL ${APP_SRC} DESTINATION "${CFS_APPS}/simpleECIApp")
 
-build_cfe()

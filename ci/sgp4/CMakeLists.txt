@@ -10,4 +10,3 @@ install_app_defs("sgp4")
 file(GLOB APP_SRC "${ECI_ROOT}/examples/sgp4Prop/*")
 file(INSTALL ${APP_SRC} DESTINATION "${CFS_APPS}/op")
 
-build_cfe()

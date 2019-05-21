@@ -41,10 +41,6 @@ function(install_app_defs APP_NAME)
     file(COPY "${CI_DIR}/common_defs/" DESTINATION "${CFS_ROOT}/${APP_NAME}_defs")
 endfunction(install_app_defs)
 
-function(build_cfe)
-    execute_process(COMMAND make -C ${CFS_ROOT} install)
-endfunction()
-
 function(create_cfe)
     if(NOT EXISTS ${CFS_ROOT})
         execute_process(COMMAND git clone -v -b rc-6.6.0a --recursive https://github.com/nasa/cFS.git ${CFS_ROOT})
