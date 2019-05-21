@@ -8,7 +8,7 @@
 *.out
 *.exe
 
-cfe/
+cfs/
 *.gcov
 
 .*keyfile
