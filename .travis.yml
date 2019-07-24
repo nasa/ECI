@@ -6,3 +6,37 @@ compiler: gcc
 branches:
   only:
   - /.*/
+
+stages:
+  - build
+  - test
+
+before_install:
+# needed for compiling 32bit software on 64bit machine
+  - sudo apt-get install gcc-multilib
+  
+jobs:
+  include:
+    - stage: build
+      name: "BuildSimpleExample"
+      script: . ./ci/buildSimpleExample.sh
+    - stage: build
+      name: "BuildSGP4Example"
+      script: . ./ci/buildSGP4Example.sh
+    - stage: test
+      name: "RunECIUnitTest"
+      script: . ./ci/runECIUnitTest.sh
+    - stage: test
+      name: "runSGP4UnitTest"
+      script: . ./ci/runSGP4UnitTest.sh
+    
+before_script:
+    # Fetch CFE
+    - . ./ci/fetchCFE.sh
+    
+notifications:
+  email:
+    recipients:
+      - steven.lentine@nasa.gov
+    on_success: change
+    on_failure: always
