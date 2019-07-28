@@ -17,9 +17,9 @@
  * @{
  */
 /** Path to FSW parameter tables */
-#define PARAM_TBL_PATH_PREFIX "/cf/tables/"
+#define PARAM_TBL_PATH_PREFIX "/cf/"
 /** Path to FSW state tables */
-#define STATE_TBL_PATH_PREFIX "/cf/tables/"
+#define STATE_TBL_PATH_PREFIX "/cf/"
 /**@}*/
 
 /**
