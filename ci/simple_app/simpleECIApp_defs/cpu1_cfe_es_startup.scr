@@ -1,7 +1,7 @@
-CFE_APP, /cf/apps/ci_lab.so,      CI_Lab_AppMain,  CI_LAB_APP,   60,   16384, 0x0, 0;
-CFE_APP, /cf/apps/to_lab.so,      TO_Lab_AppMain,  TO_LAB_APP,   70,   16384, 0x0, 0;
-CFE_APP, /cf/apps/sch_lab.so,     SCH_Lab_AppMain, SCH_LAB_APP,  80,   16384, 0x0, 0;
-CFE_APP, /cf/apps/simpleECIApp.so,          sa_AppMain,     SA_APP,           90,   8192, 0x0, 0;
+CFE_APP, /cf/ci_lab.so,      CI_Lab_AppMain,  CI_LAB_APP,   60,   16384, 0x0, 0;
+CFE_APP, /cf/to_lab.so,      TO_Lab_AppMain,  TO_LAB_APP,   70,   16384, 0x0, 0;
+CFE_APP, /cf/sch_lab.so,     SCH_Lab_AppMain, SCH_LAB_APP,  80,   16384, 0x0, 0;
+CFE_APP, /cf/simpleECIApp.so,          sa_AppMain,     SA_APP,           90,   8192, 0x0, 0;
 !
 ! Startup script fields:
 ! 1. Object Type      -- CFE_APP for an Application, or CFE_LIB for a library.
