@@ -182,6 +182,11 @@ static ECI_Msg_t ECI_MsgRcv[] = {
     sizeof(inputCmdPkt_t),    /* Size of input packet */
     &inputCmdPkt_queue[0],  /* Pointer to queue for command packets */
     NULL },                   /* Unused for input packets */
+  { 0x0813,
+    &inputData,
+    sizeof(inputStruct_t),
+    NULL,                      /* Null for telemetry packets */
+    NULL },                    /* Unused for input packets */
 
   { 0, NULL, 0, NULL, NULL }   /* The table is null-terminated */
 };
