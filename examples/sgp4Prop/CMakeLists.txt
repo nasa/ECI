@@ -16,12 +16,13 @@ aux_source_directory(fsw/src APP_SRC_FILES)
 
 # Add the ECI source files to the project
 aux_source_directory(../eci/fsw/src ECI_SRC)
+aux_source_directory(../eci/fsw/faultrep ECI_FAULT)
 
 # Add OP FSW tables
 aux_source_directory(fsw/tables OP_TABLES)
 
 # Create the app module
-add_cfe_app(op ${APP_SRC_FILES} ${WRAPPER_SRC} ${ECI_SRC})
+add_cfe_app(op ${APP_SRC_FILES} ${WRAPPER_SRC} ${ECI_SRC} ${ECI_FAULT})
 add_cfe_tables(op ${OP_TABLES})
 
 target_link_libraries(op m)

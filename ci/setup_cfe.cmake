@@ -27,11 +27,6 @@ function(install_eci)
 
     # Install ECI src
     file(INSTALL "${ECI_ROOT}/fsw" DESTINATION "${CFS_APPS}/eci")
-
-    # Add the ability to set the app/table destination in the cfe cmake
-    set(CFE_ARCH_CMAKE "${CFS_ROOT}/cfe/cmake/arch_build.cmake")
-    execute_process(COMMAND sed -i "99c\      install(TARGETS \${APP_NAME} DESTINATION \${TGT}/\${INSTALL_SUBDIR}/\${APP_SUBDIR})" ${CFE_ARCH_CMAKE})
-    execute_process(COMMAND sed -i "171c\      install(FILES \${TABLE_DESTDIR}/\${TBLWE}.tbl DESTINATION \${TGT}/\${INSTALL_SUBDIR}/\${TBL_SUBDIR})" ${CFE_ARCH_CMAKE})
 endfunction(install_eci)
 
 function(install_app_defs APP_NAME)
@@ -43,6 +38,7 @@ endfunction(install_app_defs)
 
 function(create_cfe)
     if(NOT EXISTS ${CFS_ROOT})
-        execute_process(COMMAND git clone -v -b v6.6.0a --recursive https://github.com/nasa/cFS.git ${CFS_ROOT})
+        execute_process(COMMAND git clone -v --recursive https://github.com/nasa/cFS.git ${CFS_ROOT})
+        execute_process(COMMAND git --git-dir=${CFS_ROOT}/.git --work-tree=${CFS_ROOT} checkout d42368f4b6a48df09d42a1a24a13609c8b325ffe)
     endif()
 endfunction(create_cfe)

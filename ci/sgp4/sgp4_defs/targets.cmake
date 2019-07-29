@@ -54,8 +54,6 @@ add_compile_options("-std=c99")
 SET(TGT1_NAME cpu1)
 SET(TGT1_APPLIST ci_lab to_lab sch_lab op)
 SET(TGT1_FILELIST cfe_es_startup.scr)
-SET(APP_SUBDIR apps)
-SET(TBL_SUBDIR tables)
 
 # CPU2/3 are duplicates of CPU1.  These are not built by default anymore but are
 # commented out to serve as an example of how one would configure multiple cpus.

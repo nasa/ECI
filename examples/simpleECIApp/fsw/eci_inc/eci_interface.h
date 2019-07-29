@@ -182,10 +182,9 @@ static ECI_Msg_t ECI_MsgRcv[] = {
     sizeof(inputCmdPkt_t),    /* Size of input packet */
     &inputCmdPkt_queue[0],  /* Pointer to queue for command packets */
     NULL },                   /* Unused for input packets */
-
-  { 0x1813,     
-    &inputData,            
-    sizeof(inputStruct_t),     
+  { 0x0813,
+    &inputData,
+    sizeof(inputStruct_t),
     NULL,                      /* Null for telemetry packets */
     NULL },                    /* Unused for input packets */
 
@@ -200,7 +199,7 @@ static ECI_Msg_t ECI_MsgRcv[] = {
  * must be defined to enable that ECI interface. Its value is unimportant, 
  * it merely needs to be defined.
  */
-#define ECI_EVENT_TABLE_DEFINED        1
+#define ECI_EVENT_TABLE_DEFINED
 
 /* Its likely that the external code declares its flags, but that those 
  * declarations are not visible from its header file. We need
@@ -208,33 +207,32 @@ static ECI_Msg_t ECI_MsgRcv[] = {
  * is accessible from the header file included above, then this declaration 
  * isn't necessary.
  */
-extern bool isOverThresh;
+extern boolean isOverThresh;
 
 /* Create array of structures with error type, pointer to observable signal location,
    the location comment, and the event message */
 static const ECI_Evs_t ECI_Events[] = {
   { ECI_EVENT_2_DATA,                          /* Macro defining type of ECI event, 
                                                 * in this case, event with 2 data points*/
-    1,                                         /* ID for this event, unqiue to this app */
-    CFE_EVS_INFORMATION,                       /* Type of event */
-    CFE_EVS_NO_FILTER,                         /* Event mask */
+    &(uint8){1},                                         /* ID for this event, unqiue to this app */
+    &(uint8){CFE_EVS_INFORMATION},                       /* Type of event */
+    &(uint32){CFE_EVS_NO_FILTER},                         /* Event mask */
     &isOverThresh,                             /* Pointer to flag */
     "Value was over threshold! (%d > %d)",     /* fprintf-style format string */
     "external code run()",                     /* (Optional) Location in code where event originated*/
-    &outputData.converted_Value,            /* First data value */
+    (double*)&outputData.converted_Value,            /* First data value */
     &checkParams.checkThresh,                    /* Second data value */
     0,                                         /* Zeros for unused data points */
-    0,
     0,
     0
   },
 
   { ECI_EVENT_0_DATA,                          /* Macro defining type of ECI event, 
                                                 * in this case, event with no data points*/
-    2,
-    CFE_EVS_INFORMATION,
-    CFE_EVS_NO_FILTER, 
-    &input_CmdPkt.processData,
+    &(uint8){2},
+    &(uint8){CFE_EVS_INFORMATION},
+    &(uint32){CFE_EVS_NO_FILTER}, 
+    (boolean*)&input_CmdPkt.processData,
     "Got command to process data!",
     "external code run()",
     0,                                         /* Zeros for unused data points */
@@ -262,7 +260,7 @@ static const ECI_Evs_t ECI_Events[] = {
 
 /* Create array of Flag structures with id and flag */
 static const ECI_Flag_t ECI_Flags[] = {
-  { 1,                                  /* ID of this flag (unqiue to this app) */
+  { &(uint8){1},                                  /* ID of this flag (unqiue to this app) */
     (boolean *)&isOverThresh                       /* Flag to be telemetered */
   },
 
