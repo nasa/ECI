@@ -146,7 +146,7 @@ extern bool dataUpdated;
 
 /* Place each output packet into the Send Table */
 static ECI_Msg_t ECI_MsgSnd[] = {
-  { 0x1810,                        /* ApID of message */
+  { 0x1AB0,                        /* ApID of message */
     &outputData,                   /* Pointer to output packet structure */
     sizeof(outputStruct_t),        /* Size of output packet */
     NULL,                          /* Unused for output packets */
@@ -177,12 +177,12 @@ static inputCmdPkt_t inputCmdPkt_queue[ECI_CMD_MSG_QUEUE_SIZE];
 
 /* Place each input packet into the Receive Table */
 static ECI_Msg_t ECI_MsgRcv[] = {
-  { 0x1812,                   /* ApID of message */
+  { 0x1AB2,                   /* ApID of message */
     &input_CmdPkt,            /* Pointer to input packet structure */
     sizeof(inputCmdPkt_t),    /* Size of input packet */
     &inputCmdPkt_queue[0],  /* Pointer to queue for command packets */
     NULL },                   /* Unused for input packets */
-  { 0x0813,
+  { 0x0AB3,
     &inputData,
     sizeof(inputStruct_t),
     NULL,                      /* Null for telemetry packets */
