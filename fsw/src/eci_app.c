@@ -255,11 +255,6 @@ static int32 register_events(void) {
  *
  * \return int32 - return state of CFE_SB_Subscribe()
  ********************************************************************/
-/**
- * Subscribe the to the each standard ECI_*_MID
- * 
- * :returns: A cFE error code indicating initialization status
- */
 static int32 sb_init(void)
 {
    unsigned int idx;

@@ -1,4 +1,4 @@
-/*
+/**
  * File:  eci_tbl_if.h
  * Description:  Interface implementation between app-specified Simulink-generated code and cFE table services
  */
@@ -40,4 +40,3 @@
         {#ObjName, #TblName, #Desc, #Filename, sizeof(ObjName)};
 
 #endif /* ECI_TBL_IF_H */
-

@@ -3,6 +3,8 @@ pwd
 rm -rf ./cFE
 git clone https://github.com/nasa/cFE ./cFE
 cd cFE
+# Reset to cFE 6.5
+git reset --hard f26967b80cf3654575c35164b73004c3fc9d84ff
 # get OSAL (needed for common_types.h)
 git submodule init osal/
 git submodule init apps/cfs_lib/
