@@ -24,7 +24,7 @@ cd ./cFE
 sed -i '44a THE_APPS += op' ./build/cpu1/Makefile
 sed -i '50a THE_TBLS += op' ./build/cpu1/Makefile
 # configure the app to run when CFS starts
-sed -i '5a CFE_APP, /cf/apps/op.so,          model_AppMain,     OP_APP,       90,   8192, 0x0, 0;' ./build/cpu1/exe/cfe_es_startup.scr
+sed -i '5a CFE_APP, /cf/apps/op.so,          op_AppMain,     OP_APP,       90,   8192, 0x0, 0;' ./build/cpu1/exe/cfe_es_startup.scr
 sed -i '26a #include "op_app_msgids.h"' ./apps/sch_lab/fsw/platform_inc/sch_lab_sched_tab.h
 sed -i '74a      { OP_TICK_MID,   1, 0 },' ./apps/sch_lab/fsw/platform_inc/sch_lab_sched_tab.h
 # update makefile to include math library
