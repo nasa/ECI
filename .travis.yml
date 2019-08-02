@@ -29,11 +29,15 @@ jobs:
       - . ./ci/fetchCFE.sh
       - . ./ci/buildSGP4Example.sh
     - stage: test
-      name: "RunECIUnitTest"
-      script: . ./ci/runECIUnitTest.sh
+      name: "run_6.5_eci_unit_tests"
+      script:
+      - . ./ci/fetchCFE.sh
+      - . ./ci/runECIUnitTest.sh
     - stage: test
-      name: "runSGP4UnitTest"
-      script: . ./ci/runSGP4UnitTest.sh
+      name: "run_6.5_sgp4_unit_tests"
+      script:
+      - . ./ci/fetchCFE.sh
+      - . ./ci/runSGP4UnitTest.sh
 
     # cFE v6.6+ test cases
     - stage: build
