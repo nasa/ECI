@@ -1,4 +1,4 @@
-/*
+/**
  * File:  eci_app_cfg.h
  * Description:  Contains all of the configurable options (defined as macros) which 
  * change how the ECI interacts with the cFS and external code.  
@@ -42,4 +42,3 @@
 /**@}*/
 
 #endif  /* ECI_APP_CFG_H */
-

@@ -8,19 +8,25 @@ if [[ "$CI" == true ]]; then
 fi
 
 # copy app files to CFS apps dir
-mkdir ./cFE/apps/simpleECIApp
-cp -r ./examples/simpleECIApp/* ./cFE/apps/simpleECIApp/
+mkdir ./cfs/apps/simpleECIApp
+cp -r ./examples/simpleECIApp/* ./cfs/apps/simpleECIApp/
 # copy eci source code to CFS apps dir 
-mkdir ./cFE/apps/eci
-mkdir ./cFE/apps/eci/fsw
-cp -r ./fsw/* ./cFE/apps/eci/fsw/
+mkdir ./cfs/apps/eci
+mkdir ./cfs/apps/eci/fsw
+cp -r ./fsw/* ./cfs/apps/eci/fsw/
 # setup environment for compiling
-cd ./cFE
+cd ./cfs
+# ensure CFS builds new app we added
+sed -i '44a THE_APPS += simpleECIApp' ./build/cpu1/Makefile
+sed -i '50a THE_TBLS += simpleECIApp' ./build/cpu1/Makefile
+
+sed -i '5a CFE_APP, /cf/simpleECIApp.so,          sa_AppMain,     SA_APP,       90,   8192, 0x0, 0;' ./build/cpu1/exe/cfe_es_startup.scr
+sed -i '26a #include "simpleECI_app_msgids.h"' ./apps/sch_lab/fsw/platform_inc/sch_lab_sched_tab.h
+sed -i '74a      { SIMPLE_ECI_TICK_MID,   1, 0 },' ./apps/sch_lab/fsw/platform_inc/sch_lab_sched_tab.h
+
 . ./setvars.sh
 cd ./build/cpu1
-# ensure CFS builds new app we added
-sed -i '44a THE_APPS += simpleECIApp' Makefile
-sed -i '50a THE_TBLS += simpleECIApp' Makefile
+
 # compile
 make clean
 make config

@@ -1,4 +1,4 @@
-/*
+/**
  * File:  eci_app_hk.h
  * Description:  Specification for ECI app housekeeping telemetry packet
  */
@@ -44,4 +44,3 @@ typedef struct ECI_HkPacket_t {
 #endif /* __cplusplus */
 
 #endif /* ECI_APP_HK_H */
-
