@@ -254,7 +254,7 @@ static const ECI_Evs_t ECI_Events[] = {
  * must be defined to enable that ECI interface. Its value is unimportant, 
  * it merely needs to be defined.
  */
-#define ECI_FLAG_TABLE_DEFINED          1
+#define ECI_FLAG_TABLE_DEFINED
 
 /* FIXME: why is this needed??? */
 #define ECI_FLAG_MAX_ID                 1

@@ -1,5 +1,5 @@
 /*!
-\defgroup creating_eci_interface A Tour Through `eci_interface.h`
+\page creating_eci_interface A Tour Through `eci_interface.h`
 \section interface_overview Overview
 As mentioned during the introduction, `eci_interface.h` is the primary way
 to control the function of the ECI. From the interface header, your application
