@@ -38,7 +38,7 @@ Here we define macros used by the ECI in it's core implementation.
 The revision number will be visible when triggering the Noop command, this can
 be useful for checking what version of an app is currently executing on the
 spacecraft.
-Specifics on what each MID used in this section does can be found (add link).
+Specifics on what each MID used in this section does can be found \ref eci_macros "here".
 \skip ECI_APP_REVISION_NUMBER
 \until ECI_SEND_HK_MID
 
