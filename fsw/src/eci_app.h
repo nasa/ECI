@@ -1,4 +1,4 @@
-/*
+/**
  * File: eci_app.h 
  * Description:  Defines the datatypes & macros used by the ECI interface header file.
  */
@@ -139,4 +139,3 @@ typedef CFE_TIME_SysTime_t ECI_TimeStamp_t;
 #endif /* __cplusplus */
 
 #endif /* ECI_APP_H */
-

@@ -1,4 +1,4 @@
-/*
+/** \file
  * Defines utility macros which are used throughout the code.
  */
  
@@ -119,4 +119,3 @@
 
 /**@}*/
 #endif /* ECI_UTIL_MACRO_H */
-

@@ -12,8 +12,6 @@ The ECI has been used with CFE 6.5 on various missions and is tested against the
 
 [![build passing](https://travis-ci.com/nasa/ECI.svg?branch=master)](https://travis-ci.com/nasa/ECI/)
 
-Implementing Travis-CI test pipeline.
-
 # Feedback
 
 Please submit bug reports and feature requests via Github issues. Feature requests will be considered as they align with the requirements of NASA missions which are using the ECI.

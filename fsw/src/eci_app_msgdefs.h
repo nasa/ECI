@@ -1,4 +1,4 @@
-/*
+/**
  * File:  eci_app_msgdefs.h
  * Description:  Specification for ECI app command codes
  */
@@ -47,4 +47,3 @@
 
 /**@}*/
 #endif /* ECI_APP_MSGDEFS_H */
-
