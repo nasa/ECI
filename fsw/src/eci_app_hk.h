@@ -1,6 +1,6 @@
 /**
- * File:  eci_app_hk.h
- * Description:  Specification for ECI app housekeeping telemetry packet
+ * @file
+ * @brief Specification for ECI app housekeeping telemetry packet
  */
 
 #ifndef ECI_APP_HK_H

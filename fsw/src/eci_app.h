@@ -1,6 +1,6 @@
 /**
- * File: eci_app.h 
- * Description:  Defines the datatypes & macros used by the ECI interface header file.
+ * @file
+ * @brief Defines the datatypes & macros used by the ECI interface header file.
  */
 
 #ifndef ECI_APP_H

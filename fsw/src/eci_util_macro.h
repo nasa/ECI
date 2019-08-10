@@ -1,5 +1,6 @@
-/** \file
- * Defines utility macros which are used throughout the code.
+/**
+ * @file
+ * @brief Defines utility macros which are used throughout the code.
  */
  
 #ifndef ECI_UTIL_MACRO_H

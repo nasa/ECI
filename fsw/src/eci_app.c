@@ -1,6 +1,6 @@
 /**
- * File:  eci_app.c
- * Description:  Interface implementation between app-specified Simulink-generated code and cFE
+ * @file
+ * @brief Interface implementation between app-specified Simulink-generated code and cFE
  */
 
 /*************************************************************************
