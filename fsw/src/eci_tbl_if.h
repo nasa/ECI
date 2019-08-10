@@ -39,4 +39,5 @@
         static CFE_TBL_FileDef_t StructName __attribute__((__used__)) = \
         {#ObjName, #TblName, #Desc, #Filename, sizeof(ObjName)};
 
+/** @} */
 #endif /* ECI_TBL_IF_H */
