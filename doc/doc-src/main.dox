@@ -60,6 +60,11 @@ The ECI was designed to support most core CFE features such as:
 For a more in depth explaination of the inner workings of ECI, we've created several diagrams
 indicating the order of events \ref diagrams "here".
 
+\section quick_start Quick Start:
+For people interested in getting their feet wet with the ECI, we've provided a quick start
+section that covers building ECI apps with both the CFE 6.5 and 6.6 \ref example_build "here". This was indended as
+a quick introduction and avoids the implementation details of integrating an ECI app.
+
 \section sec_change_requests Change Requests and Community Involvement:
 ECI development tries to be receptive towards issues posted on the official ECI repository on GitHub. If you find
 yourself having trouble with something that hasn't been provided in this documentation, please consider opening an
