@@ -22,20 +22,18 @@ deploy:
   github_token: $GH_PAGES_TOKEN
   on:
     branch: pages
-  file: docs/html
+  local_dir: docs/html
   script:
-    - sudo apt-get install doxygen
-    - doxygen doc/Doxyfile
 
 jobs:
   include:
     # cFE v6.5 test cases
-    - stage: build
+    - stage: test
       name: 'build_6.5_simple'
       script:
       - . ./ci/fetchCFE.sh
       - . ./ci/buildSimpleExample.sh
-    - stage: build
+    - stage: test
       name: "build_6.5_sgp4"
       script: 
       - . ./ci/fetchCFE.sh
@@ -52,14 +50,17 @@ jobs:
       - . ./ci/runSGP4UnitTest.sh
 
     # cFE v6.6+ test cases
-    - stage: build
+    - stage: test
       name: "build_6.6_simple"
       script:
         - cmake ./ci/simple_app
         - make -C ./cfs
-    - stage: build
+    - stage: test
       name: "build_6.6_sgp4"
       script:
         - cmake ./ci/sgp4
         - make -C ./cfs
-    
+    - stage: deploy
+      script:
+      - sudo apt-get install doxygen
+      - doxygen doc/Doxyfile
