@@ -8,7 +8,7 @@ if [[ "$CI" == true ]]; then
 fi
 
 # setup environment for compiling
-cd ./cFE
+cd ./cfs
 . ./setvars.sh
 # compile
 cd ../unit_test

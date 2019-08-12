@@ -8,7 +8,20 @@
 *.out
 *.exe
 
-cFE/
+cfs/
 *.gcov
 
 .*keyfile
+
+# VSCode rules
+.vscode
+
+# Doc rules
+docs/
+docs-src/build/
+
+# Python rules
+__pycache__/
+
+# Post-build rules
+**/build/

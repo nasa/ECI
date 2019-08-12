@@ -17,26 +17,37 @@ before_install:
   
 jobs:
   include:
+    # cFE v6.5 test cases
     - stage: build
-      name: "BuildSimpleExample"
-      script: . ./ci/buildSimpleExample.sh
+      name: 'build_6.5_simple'
+      script:
+      - . ./ci/fetchCFE.sh
+      - . ./ci/buildSimpleExample.sh
     - stage: build
-      name: "BuildSGP4Example"
-      script: . ./ci/buildSGP4Example.sh
+      name: "build_6.5_sgp4"
+      script: 
+      - . ./ci/fetchCFE.sh
+      - . ./ci/buildSGP4Example.sh
     - stage: test
-      name: "RunECIUnitTest"
-      script: . ./ci/runECIUnitTest.sh
+      name: "run_6.5_eci_unit_tests"
+      script:
+      - . ./ci/fetchCFE.sh
+      - . ./ci/runECIUnitTest.sh
     - stage: test
-      name: "runSGP4UnitTest"
-      script: . ./ci/runSGP4UnitTest.sh
+      name: "run_6.5_sgp4_unit_tests"
+      script:
+      - . ./ci/fetchCFE.sh
+      - . ./ci/runSGP4UnitTest.sh
+
+    # cFE v6.6+ test cases
+    - stage: build
+      name: "build_6.6_simple"
+      script:
+        - cmake ./ci/simple_app
+        - make -C ./cfs
+    - stage: build
+      name: "build_6.6_sgp4"
+      script:
+        - cmake ./ci/sgp4
+        - make -C ./cfs
     
-before_script:
-    # Fetch CFE
-    - . ./ci/fetchCFE.sh
-    
-notifications:
-  email:
-    recipients:
-      - steven.lentine@nasa.gov
-    on_success: change
-    on_failure: always

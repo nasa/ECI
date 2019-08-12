@@ -6,11 +6,7 @@ The ECI accomplishes this by compiling with a interface definition (defined as a
 
 # Getting Started
 
-This branch of the ECI repo has been used with CFE 6.5 on various missions and is tested against the CFE located [here](https://github.com/nasa/cFE/tree/f26967b80cf3654575c35164b73004c3fc9d84ff). There are no known source code incompatibilities with older (or newer) versions of the CFE, however, CFE 6.6 introduced a cmake-based build system which this branch does not support. Please review the [cfe-6.6](https://github.com/nasa/ECI/tree/cfe-6.6) branch of this repo if you're using that version.
-
-Please refer to the [ECI Technical Overview](doc/ECI_Technical_Overview.pptx) for information on the capbilities and operation of the ECI. 
-
-To get started implementing an ECI-based app, the [examples](examples) directory contains the source code for several ECI apps. To see the integration process, refer to the scripts in the [CI](ci) directory or review the test pipeline, linked below.
+The ECI has been used with CFE 6.5 on various missions and is tested against the CFE located [here](https://github.com/nasa/cFE). There are no known incompatibilities with older (or newer) versions of the CFE, but they have not been tested.
 
 # Status
 
