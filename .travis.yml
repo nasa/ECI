@@ -13,6 +13,7 @@ stages:
 
 before_install:
 # needed for compiling 32bit software on 64bit machine
+  - sudo apt-get update
   - sudo apt-get install gcc-multilib
 
 
@@ -63,4 +64,4 @@ jobs:
         github_token: $GH_PAGES_TOKEN
         on:
           branch: pages
-        local_dir: docs/html
+        local_dir: doc/docs/html
