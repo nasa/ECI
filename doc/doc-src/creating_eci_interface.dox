@@ -1,0 +1,153 @@
+/*!
+\page creating_eci_interface A Tour Through `eci_interface.h`
+\section interface_overview Overview
+As mentioned during the introduction, `eci_interface.h` is the primary way
+to control the function of the ECI. From the interface header, your application
+can define each of the cFE services used, software bus messages, common macros,
+the per-tick run function, and other miscellaneous utility functions like
+initialize or teardown. Any functionality can be seperated into numorous header
+files or isolated into `eci_interface.h`. Due to how the ECI works internally,
+the interface file MUST be titled as `eci_interface.h` and linked along side your
+project. To provide a more concrete reference of what's included in the
+interface file, we will accompany our explainations along side the simple
+app source code located in the examples directory.
+
+\dontinclude eci_interface.h
+\section interface_includes Includes
+
+Since later on in the interface header we use event filters,
+we need to include `cfe_evs.h` to gain access to the macros.
+\skipline cfe_evs.h
+
+These next two includes give us access to the ECI data types
+and various settings defined in `eci_app_cfg.h`.
+\until eci_app_cfg.h
+
+\skip external_code.h
+We now begin including our application specific information.
+First, we include the wrapper file written for this app. The wrapper header
+included here contains information for linking such as structures
+and function prototypes. After including the wrapper, we include both id files
+which are commonly written for cFE apps. In the cFE, message ID's are used to
+route messages to their indended target. Performance ID's on the otherhand are
+used to denote messages containing information for housekeeping.
+\until simpleECI_app_perfids.h
+
+\section Macros
+Here we define macros used by the ECI in it's core implementation.
+The revision number will be visible when triggering the Noop command, this can
+be useful for checking what version of an app is currently executing on the
+spacecraft.
+Specifics on what each MID used in this section does can be found \ref eci_macros "here".
+\skip ECI_APP_REVISION_NUMBER
+\until ECI_SEND_HK_MID
+
+\skip ECI_APP_MAIN
+The ECI_APP_MAIN macro defines the entry point for the app defined in the
+cFE startup script. Internally, this function will initialize the app, execute
+it's run loop on wake up, and call the teardown function on termination.
+
+<b>This function is internal to ECI and all this macro does is provide the name</b>
+\line ECI_APP_MAIN
+
+\skip ECI_APP_NAME_UPPER
+ECI registers both the upper case and lower case name of the app with cFE
+event services which appear in various event messages.
+\until ECI_APP_NAME_LOWER
+
+\skip #define ECI_PARAM_TBL_DEFINED
+On account of the ECI only enabling certain features if we request them,
+we need to tell ECI we are using FSW parameter tables by defining
+ECI_PARAM_TBL_DEFINED.
+\line #define ECI_PARAM_TBL_DEFINED
+\section Structures
+ECI operates on the assumption that all tables are NULL terminated. An
+example of what this means for each structure can be found within it's
+source code.
+___
+
+The actual parameter tables are defined by declaring an array of ECI_Tbl_t
+objects. This data is then used to load the corresponding FSW tables on
+startup of the app or whenever ECI_TBL_MANAGE_MID gets sent to the app.
+ECI expects to place all table files into the same directory indicated by
+PARAM_TBL_PATH_PREFIX in the eci_app_cfg.h file thus all filenames will be
+relative to that value.
+\skip ECI_ParamTable
+\until };
+
+\skip #define ECI_STATE_TBL_DEFINED
+ECI allows the output of state tables registered with table services.
+A state table differs from a parameter table in that a state table serves
+as a way to retreive current state information from an app.
+In our simple app, we've commented out this functionality.
+\until #define ECI_STATE_TBL state_TBL
+
+\skip ECI_MsgSnd
+The message table details what messages should be sent out. In
+our simpleECIApp's case, when this app wakes up it sends a message
+if dataUpdated is set to true. The data contained in said massage will
+be the contents of the object pointed to by the second parameter.
+We should expect this sentinel value to be global. Entries in this table
+get registered with the software bus according to the MID provided.
+\until };
+
+\skip ECI_MsgRcv
+Input packets directed to the app will be requested based on what
+was provided in the message recieve table. Similar to the message recieve
+object, the first value will be used as the message ID for the app to
+subscribe to. In the example, we use the first message as a means
+to parse custom commands. The Consultative Committee for Space Data
+Systems (CCSDS) details that the MID for command packets should be formated
+like 0x1*** and this specification tells ECI to allocate buffer space.
+\until };
+
+\section Events
+Since events are optional to ECI, we need to tell ECI to initialize
+events.
+\skipline #define ECI_EVENT_TABLE_DEFINED
+
+\skip ECI_Events
+Much like the message send and receive arrays, events use a similar structure.
+Whether ECI sends the message depends on the status of the flag provided
+(in the first case isOverThresh).
+Since each of the arrays are limited to being declared on the stack,
+the ECI is limited to events with a maximum of 5 arguments. After
+specifying the number of data points, you must specify an ID for the message.
+After the ID, ECI expects to be told what the type of this event
+will be according to CFE table services and an event mask for the ID.
+
+There are two strings present in each example. The first behaves identically
+to the C standard printf() function and follows the same format patterns. The
+second will be printed along side the message which can be useful to
+indicate where the problem occured. The last 5 values in the data
+structure are reserved for pointers to data to be placed inside the
+format string. Even though you might need less than 5 values, ECI expects
+something for each value and thus we fill the structure with zeros.
+\until ECI_Events
+
+\section Flags
+The flag section of ECI allows an app to set its bit flags in
+FDC by defining ECI_FLAG_TABLE_DEFINE.
+\skipline #define ECI_FLAG_TABLE_DEFINE
+The first value of this structure details the flag ID to be set,
+this number will be unique to this app. The second value contains
+the external code flag to check to set a matching flag in the CFE.
+\skip ECI_Flags
+\until };
+
+\section Functions
+To tell ECI what functions to execute at runtime, there are
+3 macros that can be defined. Both the init and term functions
+can be omitted but there ECI_STEP_FCN must be defined.
+
+The init function gets called by the ECI at program startup and
+can be used to set default variables in the external code.
+\skipline ECI_INIT_FCN
+The step function represents the running loop of the external code.
+Each time the app gets woken up according to the ECI_TICK_MID, the
+step function gets called.
+\skipline ECI_STEP_FCN
+The termination function gets called at program termination which can
+be used to free up system resources or do general clean up.
+\skipline ECI_TERM_FCN
+*/
