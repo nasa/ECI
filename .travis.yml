@@ -14,7 +14,19 @@ stages:
 before_install:
 # needed for compiling 32bit software on 64bit machine
   - sudo apt-get install gcc-multilib
-  
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  keep_history: true
+  github_token: $GH_PAGES_TOKEN
+  on:
+    branch: pages
+  file: docs/html
+  script:
+    - sudo apt-get install doxygen
+    - doxygen doc/Doxyfile
+
 jobs:
   include:
     # cFE v6.5 test cases
