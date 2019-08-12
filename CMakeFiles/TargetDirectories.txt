@@ -1,2 +1,0 @@
-/home/travis/build/nasa/ECI/CMakeFiles/rebuild_cache.dir
-/home/travis/build/nasa/ECI/CMakeFiles/edit_cache.dir

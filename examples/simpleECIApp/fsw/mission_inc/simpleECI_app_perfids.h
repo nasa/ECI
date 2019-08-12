@@ -1,6 +1,0 @@
-#ifndef SIMPLEECI_APP_PERFIDS
-#define SIMPLEECI_APP_PERFIDS
-
-#define SIMPLE_ECI_PERF_ID                    0x0AB0
-
-#endif /* SIMPLEECI_APP_PERFIDS */
