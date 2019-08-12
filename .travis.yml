@@ -54,7 +54,8 @@ jobs:
     - stage: deploy
       script:
       - sudo apt-get install doxygen
-      - doxygen doc/Doxyfile
+      - cd doc/
+      - doxygen Doxyfile
       deploy:
         provider: pages
         skip_cleanup: true
