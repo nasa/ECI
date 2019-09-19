@@ -1,4 +1,4 @@
-/*
+/** \file
  * This is a reference interface header file demonstrating the
  * definition of all the ECI interfaces.
  */
@@ -7,26 +7,27 @@
 #define ECI_INTERFACE_H
 
 /* Include ECI/System headers */
-#include "cfe_evs.h"     /* For access to event type/filter macros in defining events */
-#include "eci_app.h"     /* For access to ECI data types */
-#include "eci_app_cfg.h" /* For access to config parameters (including queue sizes)*/
+#include "cfe_evs.h"     /** For access to event type/filter macros in defining events */
+#include "eci_app.h"     /** For access to ECI data types */
+#include "eci_app_cfg.h" /** For access to config parameters (including queue sizes)*/
 
-/* Include all external code to be integrated */
-#include "external_code.h"     /* Include top-level header for external code */
-#include "table_validation.h"  /* Include header file containing definition of 
+/** Include all external code to be integrated */
+#include "external_code.h"     /** Include top-level header for external code */
+#include "table_validation.h"  /** Include header file containing definition of 
                                 * table validation functions that were defined
                                 * for the external code's parameter tables.
                                 */
 
-/* Include headers containing msgIDs and perfIDs for this app */
+/** Include headers containing msgIDs and perfIDs for this app */
 #include "simpleECI_app_msgids.h"
 #include "simpleECI_app_perfids.h"
 
-/* Define code revision identifier... can be used for tracking code versions,
- * used in NoOp and Init event messages */
+/** Define code revision identifier... can be used for tracking code versions,
+ * used in NoOp and Init event messages
+ */
 #define ECI_APP_REVISION_NUMBER                "1.0"
 
-/* Define Message IDs for ECI packets 
+/** Define Message IDs for ECI packets 
  * Its common for these MIDs to be assigned macros containing the MID's
  * which are defined in a central location (ex msgids.h) for a system 
  * (which helps prevent collisions). They could also just contain the MID's.
@@ -60,11 +61,11 @@
 
 /* Begin definition of parameter tables */
 
-/* If the external code is going to use parameter tables, 
+/** If the external code is going to use parameter tables, 
  * ECI_PARAM_TBL_DEFINED must be defined to enable that ECI interface.
  * Its value is unimportant, it merely needs to be defined.
  */
-#define ECI_PARAM_TBL_DEFINED                   1
+#define ECI_PARAM_TBL_DEFINED
 
 /* Its likely that the external code declares its parameters table,
  * but that those declarations are not visible from its header file. We need
@@ -81,12 +82,12 @@ void * checkParamsPtr = (void *) &checkParams;
  */
 static ECI_Tbl_t ECI_ParamTable[] = {
   {
-    &(convParamsPtr),                       /* Pointer to table */
-    "convParams",                           /* Name of table */
-    "SA app's conversion parameter table",  /* Table description */
-    "convParam.tbl",                        /* Name of file which contains table values */
-    sizeof(convParamStruct_t),              /* Size of table (in bytes) */
-    &Table_Validation0                      /* (Optional) pointer to table validation function */
+    &(convParamsPtr),                       /** Pointer to table */
+    "convParams",                           /** Name of table */
+    "SA app's conversion parameter table",  /** Table description */
+    "convParam.tbl",                        /** Name of file which contains table values */
+    sizeof(convParamStruct_t),              /** Size of table (in bytes) */
+    &Table_Validation0                      /** (Optional) pointer to table validation function */
   },
 
   {
@@ -95,28 +96,28 @@ static ECI_Tbl_t ECI_ParamTable[] = {
     "SA app's check parameter table",
     "checkParams.tbl",
     sizeof(checkParamStruct_t),
-    NULL                                    /* NULL if table validation function isn't used */
+    NULL                                    /** NULL if table validation function isn't used */
   },
 
-  { 0, 0, 0, 0, 0 }                         /* The table is null-terminated */
+  { 0, 0, 0, 0, 0 }                         /** The table is null-terminated */
 };
 /* End definition of parameter tables */
 
-/* Begin definition of state table */
-/* Note: This section is commented out because it needs some work*/
+/** Begin definition of state table */
+/** Note: This section is commented out because it needs some work*/
 
-/* If the external code is going to use the state table dump functionality, 
+/** If the external code is going to use the state table dump functionality, 
  * ECI_STATE_TBL_DEFINED must be defined to enable that ECI interface.
  * Its value is unimportant, it merely needs to be defined.
  */
-/*#define ECI_STATE_TBL_DEFINED                   1*/
+/*#define ECI_STATE_TBL_DEFINED*/
 
-/* A macro defining the name of the state table for CFE table services is 
+/** A macro defining the name of the state table for CFE table services is 
  * needed
  */
 /*#define ECI_STATE_TABLE_NAME "SA.STATE"*/
 
-/* Its likely that the external code declares its state table,
+/** Its likely that the external code declares its state table,
  * but that those declarations are not visible from its header file. We need
  * to declare externs so that we can use their values here. If the state
  * table is accessible from the header file included above, then this 
@@ -128,9 +129,9 @@ static ECI_Tbl_t ECI_ParamTable[] = {
 
 /*#define ECI_STATE_TBL state_TBL  */
 
-/* End definition of state table */
+/** End definition of state table */
 
-/* Begin definition of output messages */
+/** Begin definition of output messages */
 
 /* Its likely that the external code declares its output data structures,
  * but that those declarations are not visible from its header file. We need
@@ -144,15 +145,15 @@ extern outputStruct_t outputData;
  */
 extern bool dataUpdated;
 
-/* Place each output packet into the Send Table */
+/** Place each output packet into the Send Table */
 static ECI_Msg_t ECI_MsgSnd[] = {
-  { 0x0AA5,                        /* ApID of message */
-    &outputData,                   /* Pointer to output packet structure */
-    sizeof(outputStruct_t),        /* Size of output packet */
-    NULL,                          /* Unused for output packets */
-    &dataUpdated },                /* Flag indicating when packet should be output, NULL if every cycle */
+  { 0x0AA5,                        /** ApID of message */
+    &outputData,                   /** Pointer to output packet structure */
+    sizeof(outputStruct_t),        /** Size of output packet */
+    NULL,                          /** Unused for output packets */
+    &dataUpdated },                /** Flag indicating when packet should be output, NULL if every cycle */
 
-  { 0, NULL, 0, NULL, NULL }       /* The table is null-terminated */
+  { 0, NULL, 0, NULL, NULL }       /** The table is null-terminated */
 };
 
 /* End definition of output messages */
@@ -177,25 +178,25 @@ static inputCmdPkt_t inputCmdPkt_queue[ECI_CMD_MSG_QUEUE_SIZE];
 
 /* Place each input packet into the Receive Table */
 static ECI_Msg_t ECI_MsgRcv[] = {
-  { 0x1AA1,                   /* ApID of message */
-    &input_CmdPkt,            /* Pointer to input packet structure */
-    sizeof(inputCmdPkt_t),    /* Size of input packet */
-    &inputCmdPkt_queue[0],  /* Pointer to queue for command packets */
-    NULL },                   /* Unused for input packets */
+  { 0x1AA1,                   /** ApID of message */
+    &input_CmdPkt,            /** Pointer to input packet structure */
+    sizeof(inputCmdPkt_t),    /** Size of input packet */
+    &inputCmdPkt_queue[0],    /** Pointer to queue for command packets */
+    NULL },                   /** Unused for input packets */
   { 0x0AA6,
     &inputData,
     sizeof(inputStruct_t),
-    NULL,                      /* Null for telemetry packets */
-    NULL },                    /* Unused for input packets */
+    NULL,                      /** Null for telemetry packets */
+    NULL },                    /** Unused for input packets */
 
-  { 0, NULL, 0, NULL, NULL }   /* The table is null-terminated */
+  { 0, NULL, 0, NULL, NULL }   /** The table is null-terminated */
 };
 
 /* End definition of input messages */
 
 /* Begin definition of events */
 
-/* If the external code is going to use events, ECI_PARAM_TBL_DEFINED 
+/** If the external code is going to use events, ECI_PARAM_TBL_DEFINED 
  * must be defined to enable that ECI interface. Its value is unimportant, 
  * it merely needs to be defined.
  */
@@ -209,62 +210,62 @@ static ECI_Msg_t ECI_MsgRcv[] = {
  */
 extern boolean isOverThresh;
 
-/* Create array of structures with error type, pointer to observable signal location,
+/** Create array of structures with error type, pointer to observable signal location,
    the location comment, and the event message */
 static const ECI_Evs_t ECI_Events[] = {
-  { ECI_EVENT_2_DATA,                          /* Macro defining type of ECI event, 
+  { ECI_EVENT_2_DATA,                          /** Macro defining type of ECI event, 
                                                 * in this case, event with 2 data points*/
     &(uint8){1},                                         /* ID for this event, unqiue to this app */
     &(uint8){CFE_EVS_INFORMATION},                       /* Type of event */
     &(uint32){CFE_EVS_NO_FILTER},                         /* Event mask */
-    &isOverThresh,                             /* Pointer to flag */
-    "Value was over threshold! (%d > %d)",     /* fprintf-style format string */
-    "external code run()",                     /* (Optional) Location in code where event originated*/
-    (double*)&outputData.converted_Value,            /* First data value */
-    &checkParams.checkThresh,                    /* Second data value */
-    0,                                         /* Zeros for unused data points */
+    &isOverThresh,                             /** Pointer to flag */
+    "Value was over threshold! (%d > %d)",     /** fprintf-style format string */
+    "external code run()",                     /** (Optional) Location in code where event originated*/
+    (double*)&outputData.converted_Value,      /** First data value */
+    &checkParams.checkThresh,                  /** Second data value */
+    0,                                         /** Zeros for unused data points */
     0,
     0
   },
 
-  { ECI_EVENT_0_DATA,                          /* Macro defining type of ECI event, 
-                                                * in this case, event with no data points*/
+  { ECI_EVENT_0_DATA,                          /** Macro defining type of ECI event, 
+                                                ** in this case, event with no data points*/
     &(uint8){2},
     &(uint8){CFE_EVS_INFORMATION},
     &(uint32){CFE_EVS_NO_FILTER}, 
     (boolean*)&input_CmdPkt.processData,
     "Got command to process data!",
     "external code run()",
-    0,                                         /* Zeros for unused data points */
+    0,                                         /** Zeros for unused data points */
     0,
     0,
     0,
     0
   },
 
-  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }       /* The table is null-terminated */
+  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }       /** The table is null-terminated */
 };
 
 /* End definition of events */
 
 /* Begin definition of flags */
 
-/* If the external code is going to use status flags, ECI_FLAG_TABLE_DEFINED 
+/** If the external code is going to use status flags, ECI_FLAG_TABLE_DEFINED 
  * must be defined to enable that ECI interface. Its value is unimportant, 
  * it merely needs to be defined.
  */
-#define ECI_FLAG_TABLE_DEFINED          1
+#define ECI_FLAG_TABLE_DEFINED
 
 /* FIXME: why is this needed??? */
 #define ECI_FLAG_MAX_ID                 1
 
 /* Create array of Flag structures with id and flag */
 static const ECI_Flag_t ECI_Flags[] = {
-  { &(uint8){1},                                  /* ID of this flag (unqiue to this app) */
-    (boolean *)&isOverThresh                       /* Flag to be telemetered */
+  { &(uint8){1},                        /** ID of this flag (unqiue to this app) */
+    (boolean *)&isOverThresh            /** Flag to be telemetered */
   },
 
-  { 0, 0 }                              /* The table is null-terminated */
+  { 0, 0 }                              /** The table is null-terminated */
 };
 /* End definition of flags */
 
@@ -272,7 +273,7 @@ static const ECI_Flag_t ECI_Flags[] = {
  * ECI_STEP_TIMESTAMP_DEFINED must be defined to enable that ECI interface. 
  * Its value is unimportant, it merely needs to be defined.
  */
-#define ECI_STEP_TIMESTAMP_DEFINED      1
+#define ECI_STEP_TIMESTAMP_DEFINED
 
 /* Begin definition of external code functions */
 

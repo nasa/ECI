@@ -1,6 +1,6 @@
 /**
- * File:  eci_tbl_if.h
- * Description:  Interface implementation between app-specified Simulink-generated code and cFE table services
+ * @file
+ * @brief Interface implementation between app-specified Simulink-generated code and cFE table services
  */
 
 #ifndef ECI_TBL_IF_H
@@ -39,4 +39,5 @@
         static CFE_TBL_FileDef_t StructName __attribute__((__used__)) = \
         {#ObjName, #TblName, #Desc, #Filename, sizeof(ObjName)};
 
+/** @} */
 #endif /* ECI_TBL_IF_H */
