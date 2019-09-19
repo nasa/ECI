@@ -51,7 +51,7 @@
 #include "lc_msgids.h"
 #endif
 
-static TO_subscription_t  TO_SubTable[] =
+static TO_subsciption_t  TO_SubTable[] =
 {
             /* CFS App Subscriptions */
             {TO_LAB_HK_TLM_MID,     {0,0},  4},
