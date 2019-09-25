@@ -1,33 +1,34 @@
 /*!
 \page example_build Building the ECI sample apps.
-This page acts as a walk through of how to build and run
-the included ECI sample apps using both the CFE 6.5 and 6.6
-versions.
-To reduce confusion, we will refer to the built CFS directory as
+This page provide a tutorial on how to build and run
+the included ECI sample apps using both CFE 6.5 and 6.6.
+For conciseness, we will refer to the built CFS directory as
 cfs_dir and the location of the ECI files as eci_dir in this section.
 
 \section requirements Requirements
-ECI, by design, is as small as possible and doesn't require
-addition software to use but building the CFS has some pre-requisites:
+ECI doesn't have any additional depedencies beyond the requirements of 
+the CFS. For the purposes of this tutorial, we'll be using the CFE targeted 
+for linux and so we assume the following are available on your machine:
  - git
  - gcc-multilib
  - a Unix based OS
- - sudo acess to your machine (not require for the CFS but sudo-less CFS
-    more difficult to configure and out of the scope of this tutorial)
+ - sudo access (not strictly required for the CFS but sudo-less CFS
+    requires additional configuration which is out of the scope of this tutorial)
 
 \section cfe-6-5 Building CFS 6.5 ECI
-Since we don't have access to cmake, the older CFE 6.5 make build system
-requires a few extra tweaks. If you're intending on just trying out the ECI,
-feel free to use our build scripts located in the /ci directory.
-If possible, we recommend migrating to CFE 6.6.
- 1. Clone the [CFE repository](https://github.com/nasa/cFE) from GitHub. If your
-  currently have a working version of CFE 6.5 feel free to use it but there might
-  be errors outside of the standard tree.
+The older CFE 6.5 utilizes a make-based build system, and so requires some tweaks
+ to integrate the apps. If you're intending to just demo the ECI, we recommend
+ using the build scripts located in the /ci directory of the ECI repo.
+ 
+ 1. Clone the [CFE repository](https://github.com/nasa/cFE) from GitHub. If you have a 
+  working version of CFE 6.5 available feel free to try it, but errors caused by modifications
+  in personal working versions are outside the scope of this tutorial.
  2. Due to recent updates, CFE 6.5 is no longer the master branch. We recommend
   using commit SHA f26967b80cf3654575c35164b73004c3fc9d84ff as it's the last commit
-  before the transition. From git we can reset to this hash via:
+  before the transition (and is the commit the ci scripts are tested with). 
+  From git we can reset to this hash via:
   \code git reset --hard f26967b80cf3654575c35164b73004c3fc9d84ff \endcode
- 3. With the respository set to our 6.5 revision, we need to fetch the git submodules
+ 3. With the repository set to our 6.5 revision, we need to fetch the git submodules
   using:
   \code git submodule update --init --recursive \endcode
   
@@ -87,13 +88,13 @@ If possible, we recommend migrating to CFE 6.6.
 
 
 \section cfe-6-6 Building CFS 6.6 ECI
-Building the CFE 6.6 has an additional dependency on cmake3. We use cmake to build/install
-our unit tests for 6.6 but this tutorial was meant to illustrate how to build to
-an arbatrary directory. If you're just interesting in building a fresh CFS with the simple
-eci app, look to the next section.
+Building the CFE 6.6 has an additional dependency on cmake3, which must be availabe 
+on your system. We use cmake to build/install our unit tests for 6.6 but this tutorial 
+was meant to illustrate how to build to an arbitrary directory. If you're just 
+interesting in building a fresh CFS with the simple eci app, look to the next section.
  1. Clone the premade CFS repository.
   \code git clone --recursive https://github.com/nasa/cFS.git \endcode
- 2. Copy the definitions folder into the root of the CFS repository.
+ 2. Copy the build configuration into the root of the CFS repository.
   \verbatim
   cp -r <eci_dir>/ci/simple_app/simpleECIApp_defs <cfs_dir>/
   cp <eci_dir>/ci/common_defs <cfs_dir>/simpleECIApp_defs
@@ -105,7 +106,7 @@ eci app, look to the next section.
   cp <eci_dir>/ci/simple_app/sch_lab/sch_lab_sched_tab.h <cfs_dir>/apps/sch_lab/fsw/platform_inc
   mv <cfs_dir>/cfe/cmake/Makefile.sample <cfs_dir>/Makefile
   \endverbatim
- 4. Add our eci source to the CFS.
+ 4. Add our ECI source to the CFS.
   \verbatim
   mkdir -p <cfs_dir>/apps/eci/fsw
   cp <eci_dir>/fsw/* <cfs_dir>/apps/eci/fsw/

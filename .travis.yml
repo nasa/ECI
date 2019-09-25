@@ -13,17 +13,19 @@ stages:
 
 before_install:
 # needed for compiling 32bit software on 64bit machine
+  - sudo apt-get update
   - sudo apt-get install gcc-multilib
-  
+
+
 jobs:
   include:
     # cFE v6.5 test cases
-    - stage: build
+    - stage: test
       name: 'build_6.5_simple'
       script:
       - . ./ci/fetchCFE.sh
       - . ./ci/buildSimpleExample.sh
-    - stage: build
+    - stage: test
       name: "build_6.5_sgp4"
       script: 
       - . ./ci/fetchCFE.sh
@@ -40,14 +42,26 @@ jobs:
       - . ./ci/runSGP4UnitTest.sh
 
     # cFE v6.6+ test cases
-    - stage: build
+    - stage: test
       name: "build_6.6_simple"
       script:
         - cmake ./ci/simple_app
         - make -C ./cfs
-    - stage: build
+    - stage: test
       name: "build_6.6_sgp4"
       script:
         - cmake ./ci/sgp4
         - make -C ./cfs
-    
+    - stage: deploy
+      script:
+      - sudo apt-get install doxygen
+      - cd doc/
+      - doxygen Doxyfile
+      deploy:
+        provider: pages
+        skip_cleanup: true
+        keep_history: true
+        github_token: $GH_PAGES_TOKEN
+        on:
+          branch: master
+        local_dir: doc/docs/html

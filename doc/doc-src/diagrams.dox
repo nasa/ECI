@@ -3,9 +3,8 @@
 Internal functioning of the ECI showing the passing of
 information between the external code and the CFS. "External
 Code Interface Definition" here refers to `eci_interface.h`.
-\image html eci_flow.png width=850px
+\image html eci_flow.png width=600px
 ___
-Higher level view of the ECI built app function inside of the
-CFS along side other core apps.
-\image html sb_diagram.png width=850px
+ECI-based app shown alongside other applications within a typical CFS "bubble" chart.
+\image html sb_diagram.png width=600px
 */
