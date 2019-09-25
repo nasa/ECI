@@ -81,7 +81,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="interface_overview"></a>
 Overview</h1>
-<p>As mentioned during the introduction, <code>eci_interface.h</code> is the primary way to control the function of the ECI. From the interface header, your application can define each of the cFE services used, software bus messages, common macros, the per-tick run function, and other miscellaneous utility functions like initialize or teardown. Any functionality can be seperated into numorous header files or isolated into <code>eci_interface.h</code>. Due to how the ECI works internally, the interface file MUST be titled as <code>eci_interface.h</code> and linked along side your project. To provide a more concrete reference of what's included in the interface file, we will accompany our explainations along side the simple app source code located in the examples directory.</p>
+<p>As mentioned during the introduction, <code>eci_interface.h</code> defined the interfaces to the external code for the ECI. From the interface header, your application can define a set of the ECI services needed by the app, software bus messages, common macros, the per-tick run function, and other miscellaneous utility functions like initialize or teardown. Any of these definitions may be located anywhere so long as they're accessible (ie, included) in <code>eci_interface.h</code>. Due to how the ECI works internally, the interface file MUST be titled as <code>eci_interface.h</code> and linked along side your project. To provide a more concrete reference of what's included in the interface file, we will accompany our explanations along side the simple app source code located in the examples directory.</p>
  <h1><a class="anchor" id="interface_includes"></a>
 Includes</h1>
 <p>Since later on in the interface header we use event filters, we need to include <code>cfe_evs.h</code> to gain access to the macros. <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;cfe_evs.h&quot;</span>     </div>
@@ -89,14 +89,14 @@ Includes</h1>
 <p>These next two includes give us access to the ECI data types and various settings defined in <code><a class="el" href="eci__app__cfg_8h.html" title="Contains all of the configurable options (defined as macros) which change how the ECI interacts with ...">eci_app_cfg.h</a></code>. <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="eci__app_8h.html">eci_app.h</a>&quot;</span>     </div>
 <div class="line"><span class="preprocessor">#include &quot;<a class="code" href="eci__app__cfg_8h.html">eci_app_cfg.h</a>&quot;</span> </div>
 </div><!-- fragment --></p>
-<p><div class="fragment"></div><!-- fragment --> We now begin including our application specific information. First, we include the wrapper file written for this app. The wrapper header included here contains information for linking such as structures and function prototypes. After including the wrapper, we include both id files which are commonly written for cFE apps. In the cFE, message ID's are used to route messages to their indended target. Performance ID's on the otherhand are used to denote messages containing information for housekeeping. <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;external_code.h&quot;</span>     </div>
+<p><div class="fragment"></div><!-- fragment --> We now begin including our application specific information. First, we include the header file for the external code, which must provide access to structures definitions and function prototypes used in the inerface header. After including the wrapper, we include two headers commonly used to define performance and message IDs for cFE apps. In the cFE, message ID's are used to route messages to their intended target. Performance ID's are used to denote messages containing information for housekeeping. <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;external_code.h&quot;</span>     </div>
 <div class="line"><span class="preprocessor">#include &quot;table_validation.h&quot;</span>  </div>
 <div class="line"><span class="preprocessor">#include &quot;simpleECI_app_msgids.h&quot;</span></div>
 <div class="line"><span class="preprocessor">#include &quot;simpleECI_app_perfids.h&quot;</span></div>
 </div><!-- fragment --></p>
 <h1><a class="anchor" id="Macros"></a>
 Macros</h1>
-<p>Here we define macros used by the ECI in it's core implementation. The revision number will be visible when triggering the Noop command, this can be useful for checking what version of an app is currently executing on the spacecraft. Specifics on what each MID used in this section does can be found <a class="el" href="eci_macros.html">here</a>. <div class="fragment"><div class="line"><span class="preprocessor">#define ECI_APP_REVISION_NUMBER                &quot;1.0&quot;</span></div>
+<p>Here we define the macros which the ECI uses to define the app interace the ECI exposes to the rest of the CFS system. The revision number will be included in the event generated by initialization and the Noop command, and is intended to support verification of app versions. Specifics on what each MID used in this section does can be found <a class="el" href="eci_macros.html">here</a>. <div class="fragment"><div class="line"><span class="preprocessor">#define ECI_APP_REVISION_NUMBER                &quot;1.0&quot;</span></div>
 <div class="line"><span class="preprocessor"></span></div>
 <div class="line"><span class="preprocessor">#define ECI_FLAG_MID                   SIMPLE_ECI_FLAG_MID</span></div>
 <div class="line"><span class="preprocessor"></span><span class="preprocessor">#define ECI_CMD_MID                    SIMPLE_ECI_CMD_MID</span></div>
@@ -106,13 +106,13 @@ Macros</h1>
 <div class="line"><span class="preprocessor"></span><span class="preprocessor">#define ECI_TBL_MANAGE_MID             SIMPLE_ECI_TBL_MANAGE_MID</span></div>
 <div class="line"><span class="preprocessor">#define ECI_SEND_HK_MID                SIMPLE_ECI_SEND_HK_MID</span></div>
 </div><!-- fragment --></p>
-<p><div class="fragment"></div><!-- fragment --> The ECI_APP_MAIN macro defines the entry point for the app defined in the cFE startup script. Internally, this function will initialize the app, execute it's run loop on wake up, and call the teardown function on termination.</p>
-<p><b>This function is internal to ECI and all this macro does is provide the name</b> <div class="fragment"><div class="line"><span class="preprocessor">#define ECI_APP_MAIN                   sa_AppMain</span></div>
+<p><div class="fragment"></div><!-- fragment --> The ECI_APP_MAIN macro defines the entry point for the app defined in the cFE startup script. The ECI will use this name for its main function which initializes the app, execute it's run loop on wake up, and calls the teardown function on termination.</p>
+<p><div class="fragment"><div class="line"><span class="preprocessor">#define ECI_APP_MAIN                   sa_AppMain</span></div>
 </div><!-- fragment --></p>
-<p><div class="fragment"></div><!-- fragment --> ECI registers both the upper case and lower case name of the app with cFE event services which appear in various event messages. <div class="fragment"><div class="line"><span class="preprocessor">#define ECI_APP_NAME_UPPER             &quot;SA&quot;</span></div>
+<p><div class="fragment"></div><!-- fragment --> ECI uses the following versions of the app name in various contexts, such as registering the app with cFE executive services and in various event messages. <div class="fragment"><div class="line"><span class="preprocessor">#define ECI_APP_NAME_UPPER             &quot;SA&quot;</span></div>
 <div class="line"><span class="preprocessor">#define ECI_APP_NAME_LOWER             &quot;sa&quot;</span></div>
 </div><!-- fragment --></p>
-<p><div class="fragment"></div><!-- fragment --> On account of the ECI only enabling certain features if we request them, we need to tell ECI we are using FSW parameter tables by defining ECI_PARAM_TBL_DEFINED. <div class="fragment"><div class="line"><span class="preprocessor">#define ECI_PARAM_TBL_DEFINED</span></div>
+<p><div class="fragment"></div><!-- fragment --> In order to reduce resource usage, ECI only enables features if we request them, we need to tell ECI we are using FSW parameter tables by defining ECI_PARAM_TBL_DEFINED. <div class="fragment"><div class="line"><span class="preprocessor">#define ECI_PARAM_TBL_DEFINED</span></div>
 </div><!-- fragment --> </p>
 <h1><a class="anchor" id="Structures"></a>
 Structures</h1>

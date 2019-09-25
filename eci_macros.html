@@ -86,7 +86,7 @@ Function Macros</h1>
 <tr>
 <th>Required </th><th>Macro </th><th>Description </th></tr>
 <tr>
-<td style="text-align:center"> &check; </td><td>ECI_APP_MAIN </td><td>Name of the main function. Serves as an entry point for the ECI. </td></tr>
+<td style="text-align:center"> &check; </td><td>ECI_APP_MAIN </td><td>Name of the main function defined by ECI. Serves as an entry point for the app. </td></tr>
 <tr>
 <td style="text-align:center"> &cross; </td><td>ECI_FUNC_CODE_START </td><td>?? </td></tr>
 <tr>
@@ -98,7 +98,7 @@ Information Macros</h1>
 <tr>
 <th>Required </th><th>Macro </th><th>Description </th></tr>
 <tr>
-<td style="text-align:center"> &check;</td><td>ECI_APP_REVISION_NUMBER </td><td>Version number to be used in event messages. </td></tr>
+<td style="text-align:center"> &check;</td><td>ECI_APP_REVISION_NUMBER </td><td>Version number for the app, echoed into into event messages. </td></tr>
 <tr>
 <td style="text-align:center"> &check;</td><td>ECI_APP_NAME_UPPER </td><td>Name of the app in upper case. </td></tr>
 <tr>
@@ -116,7 +116,7 @@ Table Macros</h1>
 <tr>
 <th>Required </th><th>Macro </th><th>Description </th></tr>
 <tr>
-<td style="text-align:center"> &cross;</td><td>ECI_PARAM_TBL_DEFINED </td><td>Indicates the app requires a flight software parameter table. <br/>
+<td style="text-align:center"> &cross;</td><td>ECI_PARAM_TBL_DEFINED </td><td>Indicates the app requires the use of the ECI's table services interface. <br/>
  If this is defined, ECI will expect an array of <a class="el" href="struct_e_c_i___tbl__t.html">ECI_Tbl_t</a> objects with the name <br/>
  'ECI_ParamTable' to be declared. </td></tr>
 <tr>
@@ -131,36 +131,36 @@ Table Macros</h1>
 </table>
 </td></tr>
 <tr>
-<td style="text-align:center"> &cross;</td><td>ECI_CDS_TABLE_DEFINED </td><td>Indicates this app uses the critical data store. </td></tr>
+<td style="text-align:center"> &cross;</td><td>ECI_CDS_TABLE_DEFINED </td><td>Indicates this app requires the use of the ECI's critical data store interface. </td></tr>
 <tr>
-<td style="text-align:center"> &cross;</td><td>ECI_EVENT_TABLE_DEFINED </td><td>Indicates this app wishes to output events to CFE event services. <br/>
+<td style="text-align:center"> &cross;</td><td>ECI_EVENT_TABLE_DEFINED </td><td>Indicates this app requires the use of the ECI's event services interface. <br/>
  If this is defined, ECI will expect an array of <a class="el" href="struct_e_c_i___evs__t.html">ECI_Evs_t</a> objects with the name <br/>
  'ECI_Events' to be declared. </td></tr>
 <tr>
-<td style="text-align:center"> &cross;</td><td>ECI_FLAG_TABLE_DEFINED </td><td>Indicates this app wants to trigger FDC messages. <br/>
+<td style="text-align:center"> &cross;</td><td>ECI_FLAG_TABLE_DEFINED </td><td>Indicates this app requires the use to the ECI's status reporting functionality. <br/>
  If this is defined, ECI will expect an array of <a class="el" href="struct_e_c_i___flag__t.html">ECI_Flag_t</a> objects with the name <br/>
  'ECI_Flags' to be defined. </td></tr>
 </table>
 <h1><a class="anchor" id="mid_macros"></a>
 Message ID Macros</h1>
-<p>Each one of these message IDs are unique across all apps including the CFE core and extra care should be taken to avoid collisions. A message ID collision is difficult to diagnose but can usually be found by strange commands or telemetry being relayed to event services.</p>
-<p>According to the CCSDS standard, message IDs should be represented by 8 byte integers. Commonly these IDs are written as hex values (ie. 0xAAAA) even though any value that fits within those 8 bytes will be valid. The 4th bit (0b...[0|1]) represents the type of message the ID is associated with; 0 being telemetry and 1 being a command. In the table below, we've identified each macro's internal type with either TLM or CMD accordingly. ECI expects that every MID that uses the command bit requires an additional buffer to store the incoming command. A third distinction will be made in this table for performance IDs which will be denoted by PERF. Performance IDs are used to track an apps system usage but aren't reference in the CCSDS standard. The CCSDS standard can be referenced <a href="https://public.ccsds.org/Pubs/133x0b1c2.pdf">here</a>.</p>
+<p>Each one of the message IDs listed below must be unique across all apps (including the CFE core) and extra care should be taken to avoid collisions. A message ID collision is difficult to diagnose but can usually be found by strange commands or telemetry being relayed to event services.</p>
+<p>According to the CCSDS standard, message IDs should be represented by 8 byte integers. Commonly these IDs are written as hex values (ie. 0xAAAA) even though any value that fits within those 8 bytes will be valid. The 4th bit (0b...[0|1]) represents the type of message the ID is associated with; 0 being telemetry and 1 being a command. In the table below, we've identified each macro's internal type with either TLM or CMD accordingly. In general, its important these be set correctly for proper handling of the message, and ECI allocates a queue for each command message defined. A third distinction will be made in this table for performance IDs which will be denoted by PERF. Performance IDs are used to track an apps system usage but aren't reference in the CCSDS standard. The CCSDS standard can be referenced <a href="https://public.ccsds.org/Pubs/133x0b1c2.pdf">here</a>.</p>
 <table class="doxtable">
 <tr>
 <th>Required </th><th>Macro </th><th>Type </th><th>Description </th></tr>
 <tr>
-<td style="text-align:center"> &check;</td><td>ECI_CMD_MID </td><td style="text-align:center">CMD </td><td>Standard command message ID. This command ID is used for NOOP and the house keeping command. </td></tr>
+<td style="text-align:center"> &check;</td><td>ECI_CMD_MID </td><td style="text-align:center">CMD </td><td>MID via which ECI recieves all commands to interact with the app. </td></tr>
 <tr>
-<td style="text-align:center"> &cross;</td><td>ECI_FLAG_MID </td><td style="text-align:center">TLM </td><td>Used by FDC to retrieve an apps flags to which the ECI will respond with the state of the registered flags. Only required if ECI_FLAG_TABLE_DEFINED is defined. </td></tr>
+<td style="text-align:center"> &cross;</td><td>ECI_FLAG_MID </td><td style="text-align:center">TLM </td><td>MID used for ECI-generated status reporting message containing the state of the registered flags. Only required if ECI_FLAG_TABLE_DEFINED is defined. </td></tr>
 <tr>
-<td style="text-align:center"> &check;</td><td>ECI_HK_MID </td><td style="text-align:center">TLM </td><td>ID indicating the app's house keeping message. </td></tr>
+<td style="text-align:center"> &check;</td><td>ECI_HK_MID </td><td style="text-align:center">TLM </td><td>MID used for the ECI-generated app house-keeping message. </td></tr>
 <tr>
-<td style="text-align:center"> &check;</td><td>ECI_PERF_ID </td><td style="text-align:center">PERF </td><td>ID to track the performance of the app. This ID will be used before and after the run loop once the ECI recieves the app's tick message. </td></tr>
+<td style="text-align:center"> &check;</td><td>ECI_PERF_ID </td><td style="text-align:center">PERF </td><td>PERF ID to track the execution of the app. This ID will be used before and after the run loop once the ECI recieves the app's tick message. </td></tr>
 <tr>
-<td style="text-align:center"> &check;</td><td>ECI_SEND_HK_MID </td><td style="text-align:center">TLM </td><td>Opens a channel for hk to request new house keeping information. </td></tr>
+<td style="text-align:center"> &check;</td><td>ECI_SEND_HK_MID </td><td style="text-align:center">TLM </td><td>MID which triggers ECI to emit a new house-keeping packet. </td></tr>
 <tr>
-<td style="text-align:center"> &check;</td><td>ECI_TICK_MID </td><td style="text-align:center">TLM </td><td>Allows the ECI to trigger an iteration of the run loop. This message will usually come from the scheduler or a data source. If your app is not running, check to see if this message has been included in your scheduler app. </td></tr>
+<td style="text-align:center"> &check;</td><td>ECI_TICK_MID </td><td style="text-align:center">TLM </td><td>MID which triggers ECI to execute the external code's step function. Typically this message is generated by the scheduler, but it can also be the MID of another packet with the system. If your app is not running, check to see if this message has been included in your scheduler app. </td></tr>
 <tr>
-<td style="text-align:center"> &check;</td><td>ECI_TBL_MANAGE_MID </td><td style="text-align:center">TLM </td><td>Alerts the ECI to changes in table services. This message ID will trigger a table load and update all state/param information accordingly. </td></tr>
+<td style="text-align:center"> &check;</td><td>ECI_TBL_MANAGE_MID </td><td style="text-align:center">TLM </td><td>MID which triggers ECI to manage its tables via table services. This message ID will trigger a table load and update all state/param information accordingly. </td></tr>
 </table>
 </div></div><!-- contents -->

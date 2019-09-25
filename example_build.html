@@ -79,24 +79,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Building the ECI sample apps. </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>This page acts as a walk through of how to build and run the included ECI sample apps using both the CFE 6.5 and 6.6 versions. To reduce confusion, we will refer to the built CFS directory as cfs_dir and the location of the ECI files as eci_dir in this section.</p>
+<div class="textblock"><p>This page provide a tutorial on how to build and run the included ECI sample apps using both CFE 6.5 and 6.6. For conciseness, we will refer to the built CFS directory as cfs_dir and the location of the ECI files as eci_dir in this section.</p>
 <h1><a class="anchor" id="requirements"></a>
 Requirements</h1>
-<p>ECI, by design, is as small as possible and doesn't require addition software to use but building the CFS has some pre-requisites:</p>
+<p>ECI doesn't have any additional depedencies beyond the requirements of the CFS. For the purposes of this tutorial, we'll be using the CFE targeted for linux and so we assume the following are available on your machine:</p>
 <ul>
 <li>git</li>
 <li>gcc-multilib</li>
 <li>a Unix based OS</li>
-<li>sudo acess to your machine (not require for the CFS but sudo-less CFS more difficult to configure and out of the scope of this tutorial)</li>
+<li>sudo access (not strictly required for the CFS but sudo-less CFS requires additional configuration which is out of the scope of this tutorial)</li>
 </ul>
 <h1><a class="anchor" id="cfe-6-5"></a>
 Building CFS 6.5 ECI</h1>
-<p>Since we don't have access to cmake, the older CFE 6.5 make build system requires a few extra tweaks. If you're intending on just trying out the ECI, feel free to use our build scripts located in the /ci directory. If possible, we recommend migrating to CFE 6.6.</p>
+<p>The older CFE 6.5 utilizes a make-based build system, and so requires some tweaks to integrate the apps. If you're intending to just demo the ECI, we recommend using the build scripts located in the /ci directory of the ECI repo.</p>
 <ol type="1">
-<li>Clone the <a href="https://github.com/nasa/cFE">CFE repository</a> from GitHub. If your currently have a working version of CFE 6.5 feel free to use it but there might be errors outside of the standard tree.</li>
-<li>Due to recent updates, CFE 6.5 is no longer the master branch. We recommend using commit SHA f26967b80cf3654575c35164b73004c3fc9d84ff as it's the last commit before the transition. From git we can reset to this hash via: <div class="fragment"><div class="line">git reset --hard f26967b80cf3654575c35164b73004c3fc9d84ff </div>
+<li>Clone the <a href="https://github.com/nasa/cFE">CFE repository</a> from GitHub. If you have a working version of CFE 6.5 available feel free to try it, but errors caused by modifications in personal working versions are outside the scope of this tutorial.</li>
+<li>Due to recent updates, CFE 6.5 is no longer the master branch. We recommend using commit SHA f26967b80cf3654575c35164b73004c3fc9d84ff as it's the last commit before the transition (and is the commit the ci scripts are tested with). From git we can reset to this hash via: <div class="fragment"><div class="line">git reset --hard f26967b80cf3654575c35164b73004c3fc9d84ff </div>
 </div><!-- fragment --></li>
-<li><p class="startli">With the respository set to our 6.5 revision, we need to fetch the git submodules using: </p>
+<li><p class="startli">With the repository set to our 6.5 revision, we need to fetch the git submodules using: </p>
 <div class="fragment"><div class="line">git submodule update --init --recursive </div>
 </div><!-- fragment --><p class="startli">If you'd like to run the UT Assert tests, you will probably also need to apply a fix to this version of UT Assert. We use the stream editor sed to modify these files while in the cloned CFS directory but if you've modified any of these files, the line numbers will most likely be incorrect. </p>
 <pre class="fragment">  sed -i '481s/.*/int32 CFE_ES_PoolCreate(CFE_ES_MemHandle_t *HandlePtr, uint8 *MemPtr, uint32 Size)/' tools/ut_assert/src/ut_cfe_es_stubs.c
@@ -130,17 +130,17 @@ Building CFS 6.5 ECI</h1>
 </ol>
 <h1><a class="anchor" id="cfe-6-6"></a>
 Building CFS 6.6 ECI</h1>
-<p>Building the CFE 6.6 has an additional dependency on cmake3. We use cmake to build/install our unit tests for 6.6 but this tutorial was meant to illustrate how to build to an arbatrary directory. If you're just interesting in building a fresh CFS with the simple eci app, look to the next section.</p>
+<p>Building the CFE 6.6 has an additional dependency on cmake3, which must be availabe on your system. We use cmake to build/install our unit tests for 6.6 but this tutorial was meant to illustrate how to build to an arbitrary directory. If you're just interesting in building a fresh CFS with the simple eci app, look to the next section.</p>
 <ol type="1">
 <li>Clone the premade CFS repository. <div class="fragment"><div class="line">git clone --recursive https:<span class="comment">//github.com/nasa/cFS.git </span></div>
 </div><!-- fragment --></li>
-<li>Copy the definitions folder into the root of the CFS repository. <pre class="fragment">  cp -r &lt;eci_dir&gt;/ci/simple_app/simpleECIApp_defs &lt;cfs_dir&gt;/
+<li>Copy the build configuration into the root of the CFS repository. <pre class="fragment">  cp -r &lt;eci_dir&gt;/ci/simple_app/simpleECIApp_defs &lt;cfs_dir&gt;/
   cp &lt;eci_dir&gt;/ci/common_defs &lt;cfs_dir&gt;/simpleECIApp_defs</pre></li>
 <li>Copy our modified to_lab and sch_lab files into their respective locations. <pre class="fragment">  cp &lt;eci_dir&gt;/ci/simple_app/to_lab/to_lab_sub_table.h &lt;cfs_dir&gt;/apps/to_lab/fsw/platform_inc
   cp &lt;eci_dir&gt;/ci/simple_app/sch_lab/CMakeLists.txt &lt;cfs_dir&gt;/apps/sch_lab/
   cp &lt;eci_dir&gt;/ci/simple_app/sch_lab/sch_lab_sched_tab.h &lt;cfs_dir&gt;/apps/sch_lab/fsw/platform_inc
   mv &lt;cfs_dir&gt;/cfe/cmake/Makefile.sample &lt;cfs_dir&gt;/Makefile</pre></li>
-<li>Add our eci source to the CFS. <pre class="fragment">  mkdir -p &lt;cfs_dir&gt;/apps/eci/fsw
+<li>Add our ECI source to the CFS. <pre class="fragment">  mkdir -p &lt;cfs_dir&gt;/apps/eci/fsw
   cp &lt;eci_dir&gt;/fsw/* &lt;cfs_dir&gt;/apps/eci/fsw/</pre></li>
 <li>Add our simple app source code. <pre class="fragment">  cp -r &lt;eci_dir&gt;/examples/simpleECIApp/ &lt;cfs_dir&gt;/apps/</pre></li>
 <li>Compile our CFS binaries <pre class="fragment">  cd &lt;cfs_dir&gt;
