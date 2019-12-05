@@ -123,7 +123,7 @@ static ECI_Tbl_t ECI_ParamTable[] = {
  * table is accessible from the header file included above, then this 
  * declaration isn't necessary.
  */
-/*extern stateStruct_t stateData;*/
+extern stateStruct_t stateData;
 
 /*ECI_TBL_FILEDEF(CSL_TBL_FileDef_State, state_TBL, SA.STATE, SA STATES, sa_state.tbl)*/
 
@@ -276,6 +276,21 @@ static const ECI_Flag_t ECI_Flags[] = {
 #define ECI_STEP_TIMESTAMP_DEFINED
 
 /* Begin definition of external code functions */
+
+/* Begin CDS definition */
+#define ECI_CDS_TABLE_DEFINED          1
+
+/* Create array of structures with data to be managed by CDS */
+static const ECI_Cds_t ECI_CdsTable[] = {
+  { "stateData",
+    sizeof(stateStruct_t),
+    &stateData,
+  },
+  
+  { NULL, 0, NULL }
+};
+
+/* End CDS definition */
 
 /* model initialization function */
 #define ECI_INIT_FCN                 setup();

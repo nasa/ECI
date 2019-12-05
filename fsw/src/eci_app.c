@@ -134,7 +134,7 @@ typedef struct {
    uint32 RunStatus;              /*  RunStatus variable used in the main processing loop */
 
 #ifdef ECI_CDS_TABLE_DEFINED
-   CFE_ES_CDSHandle_t CDSHandle[SIZEOF_ARRAY(ECI_CDS) - 1];  /*  Handle to CDS memory block */
+   CFE_ES_CDSHandle_t CDSHandle[SIZEOF_ARRAY(ECI_CdsTable) - 1];  /*  Handle to CDS memory block */
    boolean            CDS_Avail;  /* Flag indicating whether CDS is available */
 #endif
 
@@ -623,31 +623,31 @@ static int32 cds_init(void) {
    ECI_AppData.CDS_Avail = TRUE;
 
    /* Register CDS data */
-   for (idx = 0; idx < SIZEOF_ARRAY(ECI_CDS) - 1; idx++)
+   for (idx = 0; idx < SIZEOF_ARRAY(ECI_CdsTable) - 1; idx++)
    {
-      status = CFE_ES_RegisterCDS(&(ECI_AppData.CDSHandle[idx]), ECI_CDS[idx].cdssiz, ECI_CDS[idx].cdsname);
+      status = CFE_ES_RegisterCDS(&(ECI_AppData.CDSHandle[idx]), ECI_CdsTable[idx].cdssiz, ECI_CdsTable[idx].cdsname);
 
       /* If CDS data already exists, will be restored from CDS */
       if (status == CFE_ES_CDS_ALREADY_EXISTS)
       {
-         CFE_EVS_SendEvent(ECI_CDS_RESTORE_INF_EID, CFE_EVS_INFORMATION, "ECI_CDS[%d] already exists in CDS and will be restored", idx);
-         status = CFE_ES_RestoreFromCDS(ECI_CDS[idx].cdsptr, ECI_AppData.CDSHandle[idx]);
+         CFE_EVS_SendEvent(ECI_CDS_RESTORE_INF_EID, CFE_EVS_INFORMATION, "ECI_CdsTable[%d] already exists in CDS and will be restored", idx);
+         status = CFE_ES_RestoreFromCDS(ECI_CdsTable[idx].cdsptr, ECI_AppData.CDSHandle[idx]);
 
          /* If there is an error restoring from CDS */
          if (status < CFE_SUCCESS)
          {
-            CFE_EVS_SendEvent(ECI_CDS_RESTORE_ERR_EID, CFE_EVS_ERROR, "ECI_CDS[%d] failed to restore from CDS, Status = 0x%08X", idx, (int)status);
+            CFE_EVS_SendEvent(ECI_CDS_RESTORE_ERR_EID, CFE_EVS_ERROR, "ECI_CdsTable[%d] failed to restore from CDS, Status = 0x%08X", idx, (int)status);
          } /* End if-statement */
 
       } else if (status == CFE_ES_NOT_IMPLEMENTED) {  /* If CDS is unavailable */
 
          ECI_AppData.CDS_Avail = FALSE;
-         CFE_EVS_SendEvent(ECI_CDS_NOT_AVAIL_INF_EID, CFE_EVS_INFORMATION, "CDS not available for ECI_CDS");
+         CFE_EVS_SendEvent(ECI_CDS_NOT_AVAIL_INF_EID, CFE_EVS_INFORMATION, "CDS not available for ECI_CdsTable");
          break;
 
       } else {
 
-         CFE_EVS_SendEvent(ECI_CDS_REGISTER_INF_EID, CFE_EVS_INFORMATION, "ECI_CDS[%d] registered to CDS", idx);
+         CFE_EVS_SendEvent(ECI_CDS_REGISTER_INF_EID, CFE_EVS_INFORMATION, "ECI_CdsTable[%d] registered to CDS", idx);
 
       } /* End if-else statement */
    } /* End for-statement */
@@ -1373,15 +1373,16 @@ static void cds_update(void) {
       return;
 
    int   idx;
+   int32 status;
 
    /* Saves all specified CDS data */
-   for (idx = 0; idx < SIZEOF_ARRAY(ECI_CDS) - 1; idx++)
+   for (idx = 0; idx < SIZEOF_ARRAY(ECI_CdsTable) - 1; idx++)
    {
-      status = CFE_ES_CopyToCDS(ECI_AppData.CDSHandle[idx], ECI_CDS[idx].cdsptr);
+      status = CFE_ES_CopyToCDS(ECI_AppData.CDSHandle[idx], ECI_CdsTable[idx].cdsptr);
 
       if (status < CFE_SUCCESS){
 
-         CFE_EVS_SendEvent(ECI_CDS_COPYTOCDS_ERR_EID, CFE_EVS_ERROR, "Error saving data in ECI_CDS[%d] to CDS", idx);
+         CFE_EVS_SendEvent(ECI_CDS_COPYTOCDS_ERR_EID, CFE_EVS_ERROR, "Error saving data in ECI_CdsTable[%d] to CDS", idx);
 
       } /* End if-statement */
    } /* End for-loop */
