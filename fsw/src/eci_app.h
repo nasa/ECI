@@ -13,6 +13,7 @@ extern "C"
 
 
 #include "cfe.h"
+#include "eci_app_cfg.h" /* Needed for queue length macros used by eci_interface.h */
 
 /**@defgroup eci_interface ECI Interface
  * This section contains information on how to properly construct
