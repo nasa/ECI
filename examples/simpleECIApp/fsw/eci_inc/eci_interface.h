@@ -9,7 +9,6 @@
 /* Include ECI/System headers */
 #include "cfe_evs.h"     /** For access to event type/filter macros in defining events */
 #include "eci_app.h"     /** For access to ECI data types */
-#include "eci_app_cfg.h" /** For access to config parameters (including queue sizes)*/
 
 /** Include all external code to be integrated */
 #include "external_code.h"     /** Include top-level header for external code */

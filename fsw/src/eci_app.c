@@ -15,18 +15,20 @@
 #include <string.h>
 #include <math.h>
 
-/* External-code interface definition */
-#include "eci_interface.h"
-/* Note: this must be included before the rest of the ECI headers
- * because some of the settings in here affect what's defined by 
- * the headers 
- */
-
-/* ECI headers */
-#include "eci_util_macro.h"
+/* Config-independent ECI headers */
 #include "eci_app_cfg.h"
 #include "eci_app.h"
+#include "eci_util_macro.h"
 #include "eci_app_event.h"
+
+/* External-code interface definition */
+#include "eci_interface.h"
+
+/* Config-dependent ECI headers */
+/* The headers included here must be included after eci_interface.h
+ * which contains configuration macros which affect the definitions 
+ * in the following header files.
+ */
 #include "eci_app_msgdefs.h"
 #include "eci_app_hk.h"
 
