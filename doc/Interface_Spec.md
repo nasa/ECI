@@ -83,8 +83,8 @@ This section specified the interface through which the ECI will interact with th
 
 ## CDS
 1. If the external code is utilizing the ECI table interface, the interface header shall define a macro "ECI_CDS_TABLE_DEFINED". The value assigned to this macro is not important.
-2. The external code shall provide a definition of "static const ECI_CDS_t ECI_CDS[]" 
-2a. Each element of the ECI_CDS shall contain:
+2. The external code shall provide a definition of "static const ECI_CDS_t ECI_CdsTable[]" 
+2a. Each element of the ECI_CdsTable shall contain:
     - A string containing the name of the CDS block
     - An integer containing the length of the CDS block
     - A pointer to the CDS block
