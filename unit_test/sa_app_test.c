@@ -84,8 +84,6 @@ void SA_AppMain_Test_ECI_1001_1050(void) {
    /* Verifies that Error Event message sent and command accepted/error counters updated */
    UtAssert_True(HkPacket->CmdErrorCounter == 1, "Command Rejected Counter Incremented");
    UtAssert_True(HkPacket->CmdAcceptCounter == 0, "Command Accepted Counter NOT Incremented");
-   UtAssert_True(Ut_CFE_EVS_GetEventCount(ECI_INV_MID_ERR_EID, CFE_EVS_ERROR, "Invalid MID Received on Command Pipe: ID = 0x1807") == 1, "Error Event Message Outputted");
-
 } /* End of SA_AppMain_Test_ECI_1001_1050 */
 
 /*

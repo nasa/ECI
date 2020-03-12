@@ -1565,9 +1565,7 @@ static void app_pipe(const CFE_SB_MsgPtr_t msg) {
          break;
 
       default:
-         CFE_EVS_SendEvent(ECI_INV_MID_ERR_EID, CFE_EVS_ERROR, 
-                           "Invalid MID Received on Command Pipe: ID = 0x%X", messageID);
-         ECI_AppData.HkPacket.CmdErrorCounter++;
+         rcv_msg(msg, messageID, ActualLength, CMDPIPE); /* Receive message prior to execution */
          break;
 
    } /* End switch-statement */
