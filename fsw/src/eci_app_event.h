@@ -231,14 +231,6 @@
 #define ECI_INV_CMD_CODE_ERR_EID          168
 
 /**
- * Description:  Application received a message on command pipe with an unrecognized MID<br>
- * Text: "Invalid MID Received on Command Pipe: ID = 0x%X", messageID<br>
- * Type: Error<br>
- * Cause: Application received a message on command pipe with an unrecognized MID<br>
- */
-#define ECI_INV_MID_ERR_EID               169
-
-/**
  * Description:  Application had an error reading the command pipe<br>
  * Text: "SB Command Pipe Read Error, ECI App will Exit."<br>
  * Type: Error<br>
