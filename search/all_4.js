@@ -37,7 +37,6 @@ var searchData=
   ['eci_20interface',['ECI Interface',['../group__eci__interface.html',1,'']]],
   ['eci_5finternalmsg_5ft',['ECI_InternalMsg_t',['../struct_e_c_i___internal_msg__t.html',1,'']]],
   ['eci_5finv_5fcmd_5fcode_5ferr_5feid',['ECI_INV_CMD_CODE_ERR_EID',['../group__error__ids.html#ga71e678080c1c19ead00f11e4f49b7477',1,'eci_app_event.h']]],
-  ['eci_5finv_5fmid_5ferr_5feid',['ECI_INV_MID_ERR_EID',['../group__error__ids.html#gaf58f7b4b4f32d24f94d035f33310ca35',1,'eci_app_event.h']]],
   ['eci_20macros',['ECI Macros',['../eci_macros.html',1,'']]],
   ['eci_5fmanage_5ftbl_5fgetaddr_5ferr_5feid',['ECI_MANAGE_TBL_GETADDR_ERR_EID',['../group__error__ids.html#ga68ed848c261e057a9d7a2209c3338578',1,'eci_app_event.h']]],
   ['eci_5fmanage_5ftbl_5fparam_5fidx_5ferr_5feid',['ECI_MANAGE_TBL_PARAM_IDX_ERR_EID',['../group__error__ids.html#gaa0558dee96472addd56ef7021c48bd89',1,'eci_app_event.h']]],
