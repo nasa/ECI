@@ -40,7 +40,8 @@ void teardown(void){
 /* run() does the all of the processing 
  */
 void run(void){
-    printf("TESTING: simpleECIApp is doing things\n");
+    CFE_EVS_SendEvent(100,100 , "Sending Event :)");
+    //printf("TESTING: 
     /* Only process the input data when we're commanded to */
     if(input_CmdPkt.processData){
         

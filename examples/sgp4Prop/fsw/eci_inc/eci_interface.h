@@ -105,8 +105,11 @@ uint8 line1FailEventID = 1;
 extern line_check_t line1Check;
 uint8 line2FailEventID = 2;
 extern line_check_t line2Check;
+uint8 timeOutOfRangeID = 3;
 uint8 errorEventType = CFE_EVS_ERROR;
 uint32 filterOneEvent = CFE_EVS_FIRST_ONE_STOP;
+
+
 
 /* Create array of structures with error type, pointer to observable signal location,
    the location comment, and the event message */
@@ -140,6 +143,20 @@ static const ECI_Evs_t ECI_Events[] = {
     (double*)&line2Check.expected,  
     0,  0,  0   
   },
+
+  { ECI_EVENT_2_DATA,
+    &timeOutOfRangeID,
+    &errorEventType,
+    &filterOneEvent,
+    &propState.invalid,
+    "FSW time outside TLE range ",
+    " ",
+    (double*)&propState.t,			/* FSW Time */
+    (double*)&propState.epoch,			/* TLE.epoch */
+    0,  0,  0
+  },
+
+
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }       /* The table is null-terminated */
 };
 
