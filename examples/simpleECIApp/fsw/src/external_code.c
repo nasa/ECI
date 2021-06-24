@@ -2,8 +2,7 @@
  * into a CFS app via the ECI. The code in this file need not be modified
  * for integration into ECI.
  */
-
-#include <stdio.h> 
+ 
 #include "external_code.h"
 
 /* Declare globals */
@@ -25,8 +24,7 @@ outputStruct_t          outputData;
 /* setup() does some things at code startup (like allocating memory, 
  * initalizing values, etc.
  */
-void setup(void){
-    
+void setup(void){    
     dataUpdated = false;
     isOverThresh = false;
 }
@@ -40,7 +38,6 @@ void teardown(void){
 /* run() does the all of the processing 
  */
 void run(void){
-    printf("TESTING: simpleECIApp is doing things\n");
     /* Only process the input data when we're commanded to */
     if(input_CmdPkt.processData){
         
