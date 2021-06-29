@@ -6,6 +6,7 @@
 /* Depedencies */
 #include "TLE.h"
 #include "eci_app.h"
+#include <stdbool.h>
 #include <stdint.h>
 
 /* Define types */
@@ -14,6 +15,7 @@ typedef struct  {
     double r[3];
     double v[3];
     double t;
+    bool invalid;
 } propState_t;
 
 typedef struct  {

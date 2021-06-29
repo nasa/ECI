@@ -25,13 +25,14 @@ propState_t propState;
  * function for ECI to call.
  */
 void propagate(void){
-
     /* Get the current time from FSW */
     mins = ((double)ECI_Step_TimeStamp.Seconds + ((double)
         ECI_Step_TimeStamp.Subseconds/4294967296.0)) / 60.0;
 
     propState.t = mins;
     
+    propState.invalid = false;
+
     /* This doesn't need to be re-processed each cycle, only 
      * when the TLE table is updated, but we but need some way 
      * to determine the table has changed in order to not 
@@ -42,6 +43,12 @@ void propagate(void){
     /* Do the propagation */
     getRV(&tle, mins, propState.r, propState.v);
     
+    /* Check to see if current FSW time is outside range of the TLE */
+    if(mins < tle.epoch){
+	propState.invalid = true;
+    }
+
+
     /* The results are stored in outData which ECI will emit
      * onto the software bus for downstream use.
      */
