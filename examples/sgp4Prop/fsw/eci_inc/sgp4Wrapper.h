@@ -15,7 +15,6 @@ typedef struct  {
     double r[3];
     double v[3];
     double t;
-    double epoch;
     bool invalid;
 } propState_t;
 

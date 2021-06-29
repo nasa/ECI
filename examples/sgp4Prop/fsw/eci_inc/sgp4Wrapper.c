@@ -33,7 +33,6 @@ void propagate(void){
     
     propState.invalid = false;
 
-    propState.epoch = tle.epoch;
     /* This doesn't need to be re-processed each cycle, only 
      * when the TLE table is updated, but we but need some way 
      * to determine the table has changed in order to not 
