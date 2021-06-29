@@ -150,7 +150,7 @@ static const ECI_Evs_t ECI_Events[] = {
     &filterOneEvent,
     &propState.invalid,
     "FSW time (%f) outside TLE range (%f)",
-    " ",
+    "propagate()",
     (double*)&propState.t,			/* FSW Time */
     (double*)&propState.epoch,			/* TLE.epoch */
     0,  0,  0
