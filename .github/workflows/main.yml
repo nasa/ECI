@@ -7,3 +7,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: ./actions/build-action
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: ./actions/test-action
