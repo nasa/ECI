@@ -1,11 +1,11 @@
-name: Workflow for ECI
-on: push
+name: Build, Test, and Run
+on: [push, pull_request]
 jobs:
   build:
-    name: Test action
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: ./action-a
+      - uses: ./actions/build-action
         with:
-          MY_NAME: "Oliver"
+          NAME: "Build ECI"

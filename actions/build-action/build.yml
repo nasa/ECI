@@ -1,9 +1,9 @@
-name: "Build and Test"
-description: "Build and test changes made to ECI"
+name: "Build"
+description: "Build ECI"
 author: "oliverhamburger@github.com"
 
 inputs:
-  MY_NAME:
+  NAME:
     description: "Name for testing"
     required: true
     default: "World"
