@@ -1,0 +1,17 @@
+name: "Build and Test"
+description: "Build and test changes made to ECI"
+author: "oliverhamburger@github.com"
+
+inputs:
+  MY_NAME:
+    description: "Name for testing"
+    required: true
+    default: "World"
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+
+branding:
+  icon: "mic"
+  color: "purple"

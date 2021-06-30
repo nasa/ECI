@@ -1,68 +1,13 @@
 name: Build and Test
-dist: trusty
-language: c
-compiler: gcc
-
-# build all branches
-branches:
-  only:
-  - /.*/
-
-stages:
-  - build
-  - test
-
-before_install:
-# needed for compiling 32bit software on 64bit machine
-  - sudo apt-get update
-  - sudo apt-get install gcc-multilib
-
-
+on: 
+  push
+  pull_request
 jobs:
-  include:
-    # cFE v6.5 test cases
-    - stage: test
-      name: 'build_6.5_simple'
-      script:
-      - . ./ci/fetchCFE.sh
-      - . ./ci/buildSimpleExample.sh
-    - stage: test
-      name: "build_6.5_sgp4"
-      script: 
-      - . ./ci/fetchCFE.sh
-      - . ./ci/buildSGP4Example.sh
-    - stage: test
-      name: "run_6.5_eci_unit_tests"
-      script:
-      - . ./ci/fetchCFE.sh
-      - . ./ci/runECIUnitTest.sh
-    - stage: test
-      name: "run_6.5_sgp4_unit_tests"
-      script:
-      - . ./ci/fetchCFE.sh
-      - . ./ci/runSGP4UnitTest.sh
-
-    # cFE v6.6+ test cases
-    - stage: test
-      name: "build_6.6_simple"
-      script:
-        - cmake ./ci/simple_app
-        - make -C ./cfs
-    - stage: test
-      name: "build_6.6_sgp4"
-      script:
-        - cmake ./ci/sgp4
-        - make -C ./cfs
-    - stage: deploy
-      script:
-      - sudo apt-get install doxygen
-      - cd doc/
-      - doxygen Doxyfile
-      deploy:
-        provider: pages
-        skip_cleanup: true
-        keep_history: true
-        github_token: $GH_PAGES_TOKEN
-        on:
-          branch: master
-        local_dir: doc/docs/html
+  build:
+    name: Build and Test Action
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: ./action-a
+	with:
+	  MY_NAME: "Oliver"
