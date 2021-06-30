@@ -1,3 +1,3 @@
 #!/bin/sh -l
 
-echo  "$This action is to build ECI"
+echo "This action is to build ECI"

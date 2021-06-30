@@ -1,0 +1,11 @@
+name: "Test"
+description: "Test ECI"
+author: "oliverhamburger@github.com"
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+
+branding:
+  icon: "mic"
+  color: "purple"
