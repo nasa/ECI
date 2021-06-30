@@ -7,5 +7,3 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: ./actions/build-action
-        with:
-          NAME: "Build ECI"

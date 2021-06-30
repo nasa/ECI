@@ -2,12 +2,6 @@ name: "Build"
 description: "Build ECI"
 author: "oliverhamburger@github.com"
 
-inputs:
-  NAME:
-    description: "Name for testing"
-    required: true
-    default: "World"
-
 runs:
   using: "docker"
   image: "Dockerfile"
