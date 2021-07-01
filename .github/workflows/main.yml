@@ -1,7 +1,7 @@
 name: Build, Test, and Run
 on: [push, pull_request]
 jobs:
-  build_test_run :
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -14,7 +14,7 @@ jobs:
       - run: ./.github/workflows/ci/fetchCFE.sh
       - run: ./.github/workflows/ci/buildSGP4Example.sh
       
-      -name: Test
+      - name: Test
       - run: ./.github/workflows/ci/runECIUnitTest.sh
       - run: ./.github/workflows/ci/runSGP4UnitTest.sh
 
