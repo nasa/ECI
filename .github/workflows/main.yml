@@ -40,7 +40,6 @@ jobs:
       - run: cmake ./.github/workflows/ci/simple_app 
       - run: pwd
       - run: ls
-
-#      - run: make -C ./github/workflows/cfs
+      - run: make -C ./cfs
 #      - run: cmake ./.github/workflows/ci/sgp4
 #      - run: make -C ./github/workflows/ci/cfs
