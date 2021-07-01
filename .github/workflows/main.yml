@@ -24,7 +24,10 @@ jobs:
       - run: ./.github/workflows/ci/fetchCFE.sh
       - run: ./.github/workflows/ci/buildSGP4Example.sh
       - run: ./.github/workflows/ci/runECIUnitTest.sh
-#      - run: ./.github/workflows/ci/runSGP4UnitTest.sh			This unit test not running, finishes with error 
+
+      #This unit test not running, finishes with error
+      - run: ./.github/workflows/ci/runSGP4UnitTest.sh		
+ 
   run:
     name: Run
     runs-on: ubuntu-latest
