@@ -7,6 +7,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: ./.github/workflows/ci/fetchCFE.sh
+      - run: ./.github/workflows/ci/buildSimpleExample.sh
+      - run: ./.github/workflows/ci/fetchCFE.sh
+      - run: ./.github/workflows/ci/buildSGP4Example.sh
   test:
     name: Test
     runs-on: ubuntu-latest
