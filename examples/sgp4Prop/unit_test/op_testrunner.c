@@ -31,11 +31,11 @@ void OP_App_Test_AddTestCases(void) {
  * external code. Linker flag used to specify this function as
  * entry point.
  */
-/*int main(void)
+int main(void)
 {
     OP_App_Test_AddTestCases();
     return UtTest_Run();
-}*/ 
+} 
 
 /* End of main() */
 
