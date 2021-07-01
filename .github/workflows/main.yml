@@ -2,20 +2,32 @@ name: Build, Test, and Run
 on: [push, pull_request]
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - run: sudo apt-get update
       - run: sudo apt-get install gcc-multilib
-
-      - name: Build
       - run: ./.github/workflows/ci/fetchCFE.sh
       - run: ./.github/workflows/ci/buildSimpleExample.sh
       - run: ./.github/workflows/ci/fetchCFE.sh
       - run: ./.github/workflows/ci/buildSGP4Example.sh
-      
-      - name: Test
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: sudo apt-get update
+      - run: sudo apt-get install gcc-multilib
+      - run: ./.github/workflows/ci/fetchCFE.sh
+      - run: ./.github/workflows/ci/buildSimpleExample.sh
+      - run: ./.github/workflows/ci/fetchCFE.sh
+      - run: ./.github/workflows/ci/buildSGP4Example.sh
       - run: ./.github/workflows/ci/runECIUnitTest.sh
-      - run: ./.github/workflows/ci/runSGP4UnitTest.sh
-
-      
+      - run: ./.github/workflows/ci/runSGP4UnitTest.sh      
+  run:
+    name: Run
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: echo "yelller"
