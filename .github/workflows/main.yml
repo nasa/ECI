@@ -6,16 +6,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run: echo "hi"
+      - run: . ./ci/fetchCFE.sh
   test:
     name: Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: ./actions/test-action
+      - run: echo "yelllo"
   run:
     name: Run
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: ./actions/run-action
+      - run: echo "yelller"
