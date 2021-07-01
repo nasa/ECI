@@ -37,7 +37,7 @@ jobs:
       - run: ./.github/workflows/ci/buildSimpleExample.sh
       - run: ./.github/workflows/ci/fetchCFE.sh
       - run: ./.github/workflows/ci/buildSGP4Example.sh
-      - run: cmake ./.github/workflows/ci/simple_app			Cant run without errors, try on local machine to debug 
+      - run: cmake ./.github/workflows/ci/simple_app 
       - run: make -C ./github/workflows/ci/cfs
 #      - run: cmake ./.github/workflows/ci/sgp4
 #      - run: make -C ./github/workflows/ci/cfs
