@@ -139,6 +139,7 @@ void runVER(VERIN *verins, int cnt)
     }
 }
 
+/*
 int main(void)
 {
     int cnt = 0;
@@ -152,4 +153,4 @@ int main(void)
     free(verins);
     return 0;
 }
-
+*/
