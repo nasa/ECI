@@ -38,7 +38,6 @@ jobs:
       - run: ./.github/workflows/ci/fetchCFE.sh
       - run: ./.github/workflows/ci/buildSGP4Example.sh
       - run: cmake ./.github/workflows/ci/simple_app 
-      - run: cd cfs
-      - run: make install
+      - run: make -C ./cfs
 #      - run: cmake ./.github/workflows/ci/sgp4
 #      - run: make -C ./github/workflows/ci/cfs
