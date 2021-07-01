@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run: ./ci/fetchCFE.sh
+      - run: ./workflows/ci/fetchCFE.sh
   test:
     name: Test
     runs-on: ubuntu-latest
