@@ -1,7 +1,7 @@
 function(set_common_paths CI_DIR)
     # Setup variables for root directories
     set(CI_DIR ${CI_DIR} PARENT_SCOPE)
-    get_filename_component(ECI_ROOT "${CI_DIR}/.." ABSOLUTE CACHE)
+    get_filename_component(ECI_ROOT "${CI_DIR}/../../.." ABSOLUTE CACHE)
     get_filename_component(CFS_ROOT "${CMAKE_CURRENT_BINARY_DIR}/cfs" ABSOLUTE CACHE)
     get_filename_component(CFS_APPS "${CFS_ROOT}/apps" ABSOLUTE CACHE)
 endfunction(set_common_paths)
