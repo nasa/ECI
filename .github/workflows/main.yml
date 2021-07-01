@@ -17,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - run: pwd
       - run: ./.github/workflows/ci/runECIUnitTest.sh
       - run: ./.github/workflows/ci/runSGP4UnitTest.sh      
   run:
