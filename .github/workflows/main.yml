@@ -6,6 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - run: sudo apt-get update
+      - run: sudo apt-get install gcc-multilib
       - run: ./.github/workflows/ci/fetchCFE.sh
       - run: ./.github/workflows/ci/buildSimpleExample.sh
       - run: ./.github/workflows/ci/fetchCFE.sh
