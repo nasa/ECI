@@ -63,6 +63,6 @@ jobs:
       - run: sudo apt-get update
       - run: sudo apt-get install gcc-multilib
       - run: sudo apt-get install doxygen
-      - working-directory: ./doc
-      - run: pwd
-      - run: doxygen Doxyfile
+      - run: |
+        cd doc
+        doxygen Doxyfile
