@@ -35,11 +35,8 @@ int main(void)
 {
     OP_App_Test_AddTestCases();
     return UtTest_Run();
-} 
-
-/* End of main() */
+} /* End of main() */
 
 /************************/
 /*  End of File Comment */
 /************************/
-
