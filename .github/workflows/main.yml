@@ -1,8 +1,8 @@
 name: Build, Test, and Run
 on: [push, pull_request]
 jobs:
-  build_6.5_simple:
-    name: build_6.5_simple
+  build_6-5_simple:
+    name: build_6-5_simple
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -10,8 +10,8 @@ jobs:
       - run: sudo apt-get install gcc-multilib
       - run: ./.github/workflows/ci/fetchCFE.sh
       - run: ./.github/workflows/ci/buildSimpleExample.sh
-  build_6.5_sgp4:
-    name: build_6.5_sgp4
+  build_6-5_sgp4:
+    name: build_6-5_sgp4
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -19,8 +19,8 @@ jobs:
       - run: sudo apt-get install gcc-multilib
       - run: ./.github/workflows/ci/fetchCFE.sh
       - run: ./.github/workflows/ci/buildSGP4Example.sh
-  run_6.5_eci_unit_tests:
-    name: run_6.5_eci_unit_tests
+  run_6-5_eci_unit_tests:
+    name: run_6-5_eci_unit_tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -28,8 +28,8 @@ jobs:
       - run: sudo apt-get install gcc-multilib
       - run: ./.github/workflows/ci/fetchCFE.sh
       - run: ./.github/workflows/ci/runECIUnitTest.sh
-  run_6.5_sgp4_unit_tests:
-    name: run_6.5_sgp4_unit_tests
+  run_6-5_sgp4_unit_tests:
+    name: run_6-5_sgp4_unit_tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -37,8 +37,8 @@ jobs:
       - run: sudo apt-get install gcc-multilib
       - run: ./.github/workflows/ci/fetchCFE.sh
       - run: ./.github/workflows/ci/runSGP4UnitTest.sh
-  build_6.6_simple:
-    name: build_6.6_simple
+  build_6-6_simple:
+    name: build_6-6_simple
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
