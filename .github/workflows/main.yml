@@ -1,60 +1,60 @@
 name: Build, Test, and Run
 on: [push, pull_request]
 jobs:
-  build_6-5_simple:
-    name: build_6-5_simple
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - run: sudo apt-get update
-      - run: sudo apt-get install gcc-multilib
-      - run: ./.github/workflows/ci/fetchCFE.sh
-      - run: ./.github/workflows/ci/buildSimpleExample.sh
-  build_6-5_sgp4:
-    name: build_6-5_sgp4
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - run: sudo apt-get update
-      - run: sudo apt-get install gcc-multilib
-      - run: ./.github/workflows/ci/fetchCFE.sh
-      - run: ./.github/workflows/ci/buildSGP4Example.sh
-  run_6-5_eci_unit_tests:
-    name: run_6-5_eci_unit_tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - run: sudo apt-get update
-      - run: sudo apt-get install gcc-multilib
-      - run: ./.github/workflows/ci/fetchCFE.sh
-      - run: ./.github/workflows/ci/runECIUnitTest.sh
-  run_6-5_sgp4_unit_tests:
-    name: run_6-5_sgp4_unit_tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - run: sudo apt-get update
-      - run: sudo apt-get install gcc-multilib
-      - run: ./.github/workflows/ci/fetchCFE.sh
-      - run: ./.github/workflows/ci/runSGP4UnitTest.sh
-  build_6-6_simple:
-    name: build_6-6_simple
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - run: sudo apt-get update
-      - run: sudo apt-get install gcc-multilib
-      - run: cmake ./.github/workflows/ci/simple_app      
-      - run: make -C ./cfs
-  build_6-6_sgp4:
-    name: build_6-6_sgp4
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - run: sudo apt-get update
-      - run: sudo apt-get install gcc-multilib
-      - run: cmake ./.github/workflows/ci/sgp4      
-      - run: make -C ./cfs
+  # build_6-5_simple:
+  #   name: build_6-5_simple
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - run: sudo apt-get update
+  #     - run: sudo apt-get install gcc-multilib
+  #     - run: ./.github/workflows/ci/fetchCFE.sh
+  #     - run: ./.github/workflows/ci/buildSimpleExample.sh
+  # build_6-5_sgp4:
+  #   name: build_6-5_sgp4
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - run: sudo apt-get update
+  #     - run: sudo apt-get install gcc-multilib
+  #     - run: ./.github/workflows/ci/fetchCFE.sh
+  #     - run: ./.github/workflows/ci/buildSGP4Example.sh
+  # run_6-5_eci_unit_tests:
+  #   name: run_6-5_eci_unit_tests
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - run: sudo apt-get update
+  #     - run: sudo apt-get install gcc-multilib
+  #     - run: ./.github/workflows/ci/fetchCFE.sh
+  #     - run: ./.github/workflows/ci/runECIUnitTest.sh
+  # run_6-5_sgp4_unit_tests:
+  #   name: run_6-5_sgp4_unit_tests
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - run: sudo apt-get update
+  #     - run: sudo apt-get install gcc-multilib
+  #     - run: ./.github/workflows/ci/fetchCFE.sh
+  #     - run: ./.github/workflows/ci/runSGP4UnitTest.sh
+  # build_6-6_simple:
+  #   name: build_6-6_simple
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - run: sudo apt-get update
+  #     - run: sudo apt-get install gcc-multilib
+  #     - run: cmake ./.github/workflows/ci/simple_app      
+  #     - run: make -C ./cfs
+  # build_6-6_sgp4:
+  #   name: build_6-6_sgp4
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - run: sudo apt-get update
+  #     - run: sudo apt-get install gcc-multilib
+  #     - run: cmake ./.github/workflows/ci/sgp4      
+  #     - run: make -C ./cfs
   deploy:
     name: deploy
     runs-on: ubuntu-latest
@@ -63,5 +63,6 @@ jobs:
       - run: sudo apt-get update
       - run: sudo apt-get install gcc-multilib
       - run: sudo apt-get install doxygen
+      - run: pwd
       - run: cd doc/
       - run: doxygen Doxyfile
