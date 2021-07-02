@@ -138,7 +138,6 @@ void runVER(VERIN *verins, int cnt)
         fclose(in_file);
     }
 }
-
 /*
 int main(void)
 {
