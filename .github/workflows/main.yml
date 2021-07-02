@@ -46,3 +46,22 @@ jobs:
       - run: sudo apt-get install gcc-multilib
       - run: cmake ./.github/workflows/ci/simple_app      
       - run: make -C ./cfs
+  build_6-6_sgp4:
+    name: build_6-6_sgp4
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: sudo apt-get update
+      - run: sudo apt-get install gcc-multilib
+      - run: cmake ./.github/workflows/ci/sgp4      
+      - run: make -C ./cfs
+  deploy:
+    name: deploy
+    uns-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: sudo apt-get update
+      - run: sudo apt-get install gcc-multilib
+      - run: sudo apt-get install doxygen
+      - run: cd doc/
+      - run: doxygen Doxyfile
