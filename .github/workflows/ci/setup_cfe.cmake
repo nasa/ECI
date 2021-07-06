@@ -19,9 +19,6 @@ function(install_eci)
 
     set(CMAKE_INSTALL_MESSAGE NEVER)
     # Install the configurations for building the app
-    #file(INSTALL "to_lab/to_lab_sub_table.h" DESTINATION "${CFS_APPS}/to_lab/fsw/platform_inc")
-    #file(INSTALL "sch_lab/CMakeLists.txt" DESTINATION "${CFS_APPS}/sch_lab/")
-    #file(INSTALL "sch_lab/sch_lab_sched_tab.h" DESTINATION "${CFS_APPS}/sch_lab/fsw/platform_inc")
     file(COPY "${CFS_ROOT}/cfe/cmake/Makefile.sample" DESTINATION "${CFS_ROOT}")
     file(RENAME "${CFS_ROOT}/Makefile.sample" "${CFS_ROOT}/Makefile")
 
