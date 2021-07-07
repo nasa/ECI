@@ -17,12 +17,8 @@ cp -r ./fsw/* ./cFS/apps/eci/fsw/
 # setup environment for compiling
 cd ./cFS
 # ensure CFS builds new app we added
-sed -i '106a SET(TGT1_APPLIST ci_lab to_lab sch_lab simpleECIApp)'./sample_defs/targets.cmake
-sed -i '6a CFE_APP, /cf/simpleECIApp.so,          sa_AppMain,     SA_APP,       90,   8192, 0x0, 0;' ./sample_defs/cpu1_cfe_es_startup.scr
-sed -i '74a      { SIMPLE_ECI_TICK_MID,   1, 0 },' ./apps/sch_lab/fsw/platform_inc/sch_lab_sched_tab.h
-
-
-cd ./build/cpu1
+sed -i '106a SET(TGT1_APPLIST ci_lab to_lab sch_lab simpleECIApp)' ./sample_defs/targets.cmake
+sed -i '5a CFE_APP, /cf/simpleECIApp.so,          sa_AppMain,     SA_APP,       90,   8192, 0x0, 0;' ./sample_defs/cpu1_cfe_es_startup.scr
 
 # compile
 make prep

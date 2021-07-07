@@ -241,11 +241,12 @@
                 // nodep used without a trigonometric function ahead
                 if ((rec->nodep < 0.0) && (opsmode == 'a'))
                     rec->nodep = rec->nodep + twopi;
-                if (fabs(xnoh - rec->nodep) > pi)
+                if (fabs(xnoh - rec->nodep) > pi){
                     if (rec->nodep < xnoh)
                         rec->nodep = rec->nodep + twopi;
                     else
                         rec->nodep = rec->nodep - twopi;
+                }
                 rec->mp = rec->mp + pl;
                 rec->argpp = xls - rec->mp - cosip * rec->nodep;
             }
@@ -1443,7 +1444,7 @@
         satrec->init = 'n';
 
         //sgp4fix return boolean. satrec->error contains any error codes
-        return TRUE;
+        return true;
     }  // sgp4init
 
     /*-----------------------------------------------------------------------------
@@ -1623,7 +1624,7 @@
         {
             satrec->error = 2;
             // sgp4fix add return
-            return FALSE;
+            return false;
         }
         
         satrec->am = pow((satrec->xke / satrec->nm), x2o3) * tempa * tempa;
@@ -1636,7 +1637,7 @@
         {
             satrec->error = 1;
             // sgp4fix to return if there is an error in eccentricity
-            return FALSE;
+            return false;
         }
         // sgp4fix fix tolerance to avoid a divide by zero
         if (satrec->em < 1.0e-6)
@@ -1696,7 +1697,7 @@
             {
                 satrec->error = 3;
                 // sgp4fix add return
-                return FALSE;
+                return false;
             }
         } // if method = d
 
@@ -1747,7 +1748,7 @@
         {
             satrec->error = 4;
             // sgp4fix add return
-            return FALSE;
+            return false;
         }
         else
         {
@@ -1811,10 +1812,10 @@
         if (mrt < 1.0)
         {
             satrec->error = 6;
-            return FALSE;
+            return false;
         }
 
-        return TRUE;
+        return true;
     }  // sgp4
 
 
