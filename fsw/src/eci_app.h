@@ -58,7 +58,7 @@ typedef struct {
    /** Location of Cmd Queue Buffer - NULL if Tlm Message */
    void           *qptr;
    /** Pointer to the flag indicating whether to send output */
-   boolean*       sendMsg;
+   bool*       sendMsg;
 } ECI_Msg_t;
 /**@}*/
 
@@ -67,7 +67,7 @@ typedef struct {
   /** Pointer to flag ID - unique ID set by the user */
   uint8*   FlagID;
   /** Pointer to status flag */
-  boolean* StatusFlag;
+  bool* StatusFlag;
 } ECI_Flag_t;
 
 /**@ingroup eci_event
@@ -83,7 +83,7 @@ typedef struct {
   /** Event Mask - filter set by user */
   uint32* eventMask;
    /** Flag indicating simulink event has occurred */
-  boolean* eventFlag;
+  bool* eventFlag;
   /** Msgpoint to send with an event taken from observable signal */     
   uint8* eventMsg;
   /** Location string */

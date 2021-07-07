@@ -56,7 +56,7 @@ typedef struct
 ** Local Function Prototypes
 */
 
-static boolean GetFaultDetIdBit(App_FaultRep_Class*  FaultRepObj,
+static bool GetFaultDetIdBit(App_FaultRep_Class*  FaultRepObj,
                                 const char*          CallerStr,
                                 uint16               FaultDetId,
                                 FaultDetBitStruct*   FaultDetBit);
@@ -71,14 +71,14 @@ static boolean GetFaultDetIdBit(App_FaultRep_Class*  FaultRepObj,
 ** Notes:
 **    1. Must clear both the Software Bus report packet and NewReport.
 */
-boolean App_FaultRep_ClearFaultDetCmd(      void*  CmdObjPtr, 
+bool App_FaultRep_ClearFaultDetCmd(      void*  CmdObjPtr, 
                                       const void*  CmdParamPtr)
 {
 
    App_FaultRep_Class* FaultRepObj = (App_FaultRep_Class*)CmdObjPtr;
    App_FaultRep_ClearFaultDetCmdParam*  CmdParam = (App_FaultRep_ClearFaultDetCmdParam*)CmdParamPtr;
 
-   boolean            RetStatus = TRUE;
+   bool            RetStatus = true;
    FaultDetBitStruct  FaultDetBit;
 
    if (CmdParam->FaultDetId == APP_FAULTREP_SELECT_ALL)
@@ -104,7 +104,7 @@ boolean App_FaultRep_ClearFaultDetCmd(      void*  CmdObjPtr,
                                    CmdParam->FaultDetId,
                                    &FaultDetBit);
       
-      if (RetStatus == TRUE)
+      if (RetStatus == true)
       {
 
          FaultDetBit.Mask = (uint16)~FaultDetBit.Mask;
@@ -132,18 +132,18 @@ boolean App_FaultRep_ClearFaultDetCmd(      void*  CmdObjPtr,
 ** Notes:
 **    None
 */
-boolean App_FaultRep_ConfigFaultDetCmd(      void*  CmdObjPtr, 
+bool App_FaultRep_ConfigFaultDetCmd(      void*  CmdObjPtr, 
                                        const void*  CmdParamPtr)
 {
 
    App_FaultRep_Class* FaultRepObj = (App_FaultRep_Class*)CmdObjPtr;
    App_FaultRep_ConfigFaultDetCmdParam*  CmdParam = (App_FaultRep_ConfigFaultDetCmdParam*)CmdParamPtr;
 
-   boolean  RetStatus = TRUE;
+   bool  RetStatus = true;
 
    FaultDetBitStruct  FaultDetBit;
 
-   if (CmdParam->Enable == TRUE || CmdParam->Enable == FALSE)
+   if (CmdParam->Enable == true || CmdParam->Enable == false)
    {
 
       if (CmdParam->FaultDetId == APP_FAULTREP_SELECT_ALL) 
@@ -174,7 +174,7 @@ boolean App_FaultRep_ConfigFaultDetCmd(      void*  CmdObjPtr,
                                       CmdParam->FaultDetId,
                                       &FaultDetBit);
          
-         if (RetStatus == TRUE)
+         if (RetStatus == true)
          {
             
             if (CmdParam->Enable)
@@ -191,11 +191,11 @@ boolean App_FaultRep_ConfigFaultDetCmd(      void*  CmdObjPtr,
    {
 
       CFE_EVS_SendEvent (EVS_ID(APP_FAULTREP_EVS_CONFIG_CMD_ERR),
-                         CFE_EVS_ERROR,
+                         CFE_EVS_EventType_ERROR,
                          "Fault Reporter Reject Config Detector Cmd: Invalid enable value %d",
                          CmdParam->Enable);
 
-      RetStatus = FALSE;
+      RetStatus = false;
 
    } /* End if invalid boolean raange */
   
@@ -256,7 +256,7 @@ void App_FaultRep_FaultDetFailed(App_FaultRep_Class*  FaultRepObj,
                                  uint16 FaultDetId)
 {
 
-   boolean            ValidFaultDetId;
+   bool            ValidFaultDetId;
    FaultDetBitStruct  FaultDetBit;
 
       
@@ -265,7 +265,7 @@ void App_FaultRep_FaultDetFailed(App_FaultRep_Class*  FaultRepObj,
                                       FaultDetId,
                                       &FaultDetBit);
       
-   if (ValidFaultDetId == TRUE)
+   if (ValidFaultDetId == true)
    {
 
       if (FaultRepObj->FaultDet.Enabled[FaultDetBit.WordIndex] & FaultDetBit.Mask)
@@ -349,13 +349,13 @@ void App_FaultRep_SetTlmMode(App_FaultRep_Class*   FaultRepObj,
 **    1. If the ID is invalid (too big) then an event message is sent.
 **
 */
-static boolean GetFaultDetIdBit(App_FaultRep_Class*  FaultRepObj,
+static bool GetFaultDetIdBit(App_FaultRep_Class*  FaultRepObj,
                                 const char*          CallerStr,
                                 uint16               FaultDetId,
                                 FaultDetBitStruct*   FaultDetBit)
 {
 
-   boolean  RetStatus = TRUE;
+   bool  RetStatus = true;
 
 
    if (FaultDetId < FaultRepObj->FaultDet.IdLimit)
@@ -368,9 +368,9 @@ static boolean GetFaultDetIdBit(App_FaultRep_Class*  FaultRepObj,
    else
    {
 
-      RetStatus = FALSE;
+      RetStatus = false;
       CFE_EVS_SendEvent (EVS_ID(APP_FAULTREP_EVS_INV_DETECTOR_ID),
-                         CFE_EVS_ERROR,
+                         CFE_EVS_EventType_ERROR,
                          "%s Invalid fault ID %d (Max ID = %d)",
                          CallerStr,
                          FaultDetId,

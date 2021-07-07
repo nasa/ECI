@@ -44,7 +44,7 @@ typedef struct
 {
 
    uint16   FaultDetId;      /* Single FD identifier or APP_FAULTREP_SELECT_ALL */
-   boolean  Enable;          /* TRUE - Enable a FD; FALSE - Disable a FD        */
+   bool  Enable;          /* TRUE - Enable a FD; FALSE - Disable a FD        */
 
 } App_FaultRep_ConfigFaultDetCmdParam;
 
@@ -69,7 +69,7 @@ typedef struct
 **   - FALSE - Command rejected: An event message is issued describing the
 **             cause of the failure.
 */
-boolean App_FaultRep_ClearFaultDetCmd(      void* CmdObjPtr,  /**< Pointer to an instance of a App_FaultRep_Class */
+bool App_FaultRep_ClearFaultDetCmd(      void* CmdObjPtr,  /**< Pointer to an instance of a App_FaultRep_Class */
                                       const void* CmdParamPtr /**< Pointer to a App_FaultRep_ClearCmd structure.  */
                                      );
 
@@ -92,7 +92,7 @@ boolean App_FaultRep_ClearFaultDetCmd(      void* CmdObjPtr,  /**< Pointer to an
 **   - FALSE - Command rejected: An event message is issued describing the
 **             cause of the failure.
 */
-boolean App_FaultRep_ConfigFaultDetCmd(      void* CmdObjPtr,  /**< Pointer to an instance of a App_FaultRep_Class */
+bool App_FaultRep_ConfigFaultDetCmd(      void* CmdObjPtr,  /**< Pointer to an instance of a App_FaultRep_Class */
                                        const void* CmdParamPtr /**< Pointer to a App_FaultRep_ConfigCmd structure. */
                                       );
 
