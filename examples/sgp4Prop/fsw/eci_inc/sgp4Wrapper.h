@@ -37,6 +37,6 @@ extern bool checksum1Passed, checksum2Passed;
 
 /* Function prototypes for ECI use */
 void propagate(void);
-int32_t validateTLE(tle_lines_t * TblPtr);
+int32_t validateTLE(void * Ptr);
 
 #endif

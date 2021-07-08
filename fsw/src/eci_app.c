@@ -185,7 +185,7 @@ static uint16 prevEventFlag[SIZEOF_ARRAY(ECI_Events) - 1];
 
 /* Internal structures for Telemetry Messages */
 /*FIXME: Move to AppData?? */
-static ECI_InternalMsg_t MsgRcv[SIZEOF_ARRAY(ECI_MsgRcv) - 1];
+static ECI_InternalMsg_t MsgRcv[SIZEOF_ARRAY(ECI_MsgRcv)];
 
 /* ECI App Internal Data */
 static ECI_AppData_t ECI_AppData;
