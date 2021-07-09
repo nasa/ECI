@@ -36,7 +36,7 @@ typedef struct ECI_HkPacket_t {
     uint16   Latched[APP_FAULTREP_BITFIELD_WORDS];
 #endif
     /** Number of each SIL App-Subscribed Messages Received */
-    uint16   MsgRcvCnt[SIZEOF_ARRAY(ECI_MsgRcv)-1];
+    uint16   MsgRcvCnt[SIZEOF_ARRAY(ECI_MsgRcv)];
 } ECI_HkPacket_t;
 
 #ifdef __cplusplus

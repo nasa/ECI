@@ -103,7 +103,7 @@ int computeTLEChecksum(char line[70]){
     return checksum % 10;
 }
 
-int32_t validateTLE(tle_lines_t * TblPtr){
+int32_t validateTLE(void * Ptr){
 /* Validates that each of the TLE lines match their built-in 
  * checksums.
  *
@@ -112,6 +112,8 @@ int32_t validateTLE(tle_lines_t * TblPtr){
  * and return a negative value if the table should fail validation.
  */
  
+    tle_lines_t* TblPtr = (tle_lines_t*)Ptr;
+
     /* Initialize checks */
     line1Check.computed = computeTLEChecksum(TblPtr->line1);
     line1Check.expected = digitToInt(TblPtr->line1[68]);

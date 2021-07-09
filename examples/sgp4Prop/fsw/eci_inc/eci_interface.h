@@ -106,7 +106,7 @@ extern line_check_t line1Check;
 uint8 line2FailEventID = 2;
 extern line_check_t line2Check;
 uint8 timeOutOfRangeID = 3;
-uint8 errorEventType = CFE_EVS_ERROR;
+uint8 errorEventType = CFE_EVS_EventType_ERROR;
 uint32 filterOneEvent = CFE_EVS_FIRST_ONE_STOP;
 
 
@@ -124,7 +124,7 @@ static const ECI_Evs_t ECI_Events[] = {
                                                 * validation is run, which would result in constantly
                                                 * sending this event 
                                                 */
-    (boolean*)&line1Check.failed,                          /* Pointer to flag */
+    (bool*)&line1Check.failed,                          /* Pointer to flag */
     "Checksum for line 1 failed to validate, computed %.0f does not match expected %.0f",  /* fprintf-style format string */
     "validateTLE()",                           /* (Optional) Location in code where event originated*/
     (double*)&line1Check.computed,             /* Data values (not used here) */
@@ -136,7 +136,7 @@ static const ECI_Evs_t ECI_Events[] = {
     &line2FailEventID,
     &errorEventType,
     &filterOneEvent,
-    (boolean*)&line2Check.failed,
+    (bool*)&line2Check.failed,
     "Checksum for line 2 failed to validate, computed %.0f does not match expected %.0f",  /* fprintf-style format string */
     "validateTLE()",                           
     (double*)&line2Check.computed,             /* Data values (not used here) */
