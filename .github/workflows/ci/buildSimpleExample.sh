@@ -8,26 +8,18 @@ if [[ "$CI" == true ]]; then
 fi
 
 # copy app files to CFS apps dir
-mkdir ./cfs/apps/simpleECIApp
-cp -r ./examples/simpleECIApp/* ./cfs/apps/simpleECIApp/
+mkdir ./cFS/apps/simpleECIApp
+cp -r ./examples/simpleECIApp/* ./cFS/apps/simpleECIApp/
 # copy eci source code to CFS apps dir 
-mkdir ./cfs/apps/eci
-mkdir ./cfs/apps/eci/fsw
-cp -r ./fsw/* ./cfs/apps/eci/fsw/
+mkdir ./cFS/apps/eci
+mkdir ./cFS/apps/eci/fsw
+cp -r ./fsw/* ./cFS/apps/eci/fsw/
 # setup environment for compiling
-cd ./cfs
+cd ./cFS
 # ensure CFS builds new app we added
-sed -i '44a THE_APPS += simpleECIApp' ./build/cpu1/Makefile
-sed -i '50a THE_TBLS += simpleECIApp' ./build/cpu1/Makefile
-
-sed -i '5a CFE_APP, /cf/simpleECIApp.so,          sa_AppMain,     SA_APP,       90,   8192, 0x0, 0;' ./build/cpu1/exe/cfe_es_startup.scr
-sed -i '26a #include "simpleECI_app_msgids.h"' ./apps/sch_lab/fsw/platform_inc/sch_lab_sched_tab.h
-sed -i '74a      { SIMPLE_ECI_TICK_MID,   1, 0 },' ./apps/sch_lab/fsw/platform_inc/sch_lab_sched_tab.h
-
-. ./setvars.sh
-cd ./build/cpu1
+sed -i '105a SET(cpu1_APPLIST ci_lab to_lab sch_lab simpleECIApp)' ./sample_defs/targets.cmake
+sed -i '6a CFE_APP, simpleECIApp,sa_AppMain,         SA_APP,       90,   8192,  0x0, 0;' ./sample_defs/cpu1_es_startup.scr
 
 # compile
-make clean
-make config
+make SIMULATION=native prep
 make

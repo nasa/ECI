@@ -2,7 +2,7 @@
 #include "eci_tbl_if.h"
 
 /* Empty table for initalization */
-checkParamStruct_t check_param_tbl = {};
+checkParamStruct_t check_param_tbl = {0};
 
 /*
  ** The macro below identifies:

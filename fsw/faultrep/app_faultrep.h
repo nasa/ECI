@@ -132,7 +132,7 @@ typedef struct
 typedef struct
 {
 
-   uint8          Hdr[CFE_SB_TLM_HDR_SIZE];
+   uint8          Hdr[sizeof (CFE_MSG_TelemetryHeader_t)];
 
    App_FaultRep_Data  Tlm;
 

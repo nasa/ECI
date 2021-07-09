@@ -24,7 +24,7 @@ extern "C"
  */
 typedef struct ECI_HkPacket_t {
     /** cFE Software Bus Telemetry Message Header */
-    uint8    TlmHeader[CFE_SB_TLM_HDR_SIZE];
+    uint8    TlmHeader[sizeof (CFE_MSG_TelemetryHeader_t)];
     /** number of command messages accepted (excluding HK Resets) */
     uint8    CmdAcceptCounter;
     /** number of command messages rejected (excluding HK Resets) */
