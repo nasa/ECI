@@ -215,12 +215,12 @@ void ECI_APP_MAIN(void);
 **
 **************************************************************************/
 
-/*****************************************************************/ /**
-                                                                     * Register Events for this app.
-                                                                     *
-                                                                     * \return CFE_SUCCESS if registration was
-                                                                     *successful.
-                                                                     ********************************************************************/
+/*****************************************************************
+ * Register Events for this app.
+ *
+ * \return CFE_SUCCESS if registration was
+ *successful.
+ ********************************************************************/
 static int32 register_events(void)
 {
 
