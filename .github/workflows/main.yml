@@ -68,7 +68,7 @@ jobs:
         run: doxygen Doxyfile
   format_check:
     name: format check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - name: Install format checker
         run: |
