@@ -1,5 +1,5 @@
 /** \file
-** 
+**
 ** \brief  Define a class that provides a mechanism for objects to report faults
 **
 ** $Id: app_faultrep.h 1.1 2016/05/10 15:29:12EDT myang Exp  $
@@ -17,7 +17,7 @@
 **      detection points to be a multiple of 16 so the telemetry generation
 **      restriction should always be satisfied.
 **   -# The actual fault detection IDs are not known until the GN&C
-**      application is integrated. 
+**      application is integrated.
 **   -# Typically multiple detection points are "ORed" together for a single
 **      fault correction monitor point. This object assumes the combining
 **      of fault detection points is accomplished outside of this object.
@@ -35,13 +35,13 @@
 **
 */
 
-/** 
+/**
 ** @addtogroup framework_gnc
 ** @{
 */
 
-#ifndef  _app_faultrep_
-#define  _app_faultrep_
+#ifndef _app_faultrep_
+#define _app_faultrep_
 
 /*
 ** Include Files
@@ -54,22 +54,20 @@
 ** Macro Definitions
 */
 
-
 #ifdef MISSION_FAULTREP_ID_MAX
-   #define APP_FAULTREP_ID_MAX MISSION_FAULTREP_ID_MAX
+#define APP_FAULTREP_ID_MAX MISSION_FAULTREP_ID_MAX
 #else
-   #define APP_FAULTREP_ID_MAX 80
+#define APP_FAULTREP_ID_MAX 80
 #endif
 
 /*
-** Event Service 
+** Event Service
 */
 
-#define  APP_FAULTREP_EVS_INV_DETECTOR_ID      0
-#define  APP_FAULTREP_EVS_CONFIG_CMD_ERR       1
+#define APP_FAULTREP_EVS_INV_DETECTOR_ID 0
+#define APP_FAULTREP_EVS_CONFIG_CMD_ERR  1
 
-#define  APP_FAULTREP_EVS_MSG_CNT              2
-
+#define APP_FAULTREP_EVS_MSG_CNT 2
 
 /*
 ** The following macros define all possible fault detection points. Applications
@@ -77,8 +75,8 @@
 ** FaultDetId.
 */
 
-#define  APP_FAULTREP_SELECT_ALL  0xFFFF  /* Used by functions to select all IDs */
-                                          /* Must not be a valid detector ID     */
+#define APP_FAULTREP_SELECT_ALL 0xFFFF /* Used by functions to select all IDs */
+                                       /* Must not be a valid detector ID     */
 
 /*
 ** Define constants that are based on the total number of fault detection
@@ -91,17 +89,16 @@
 **                                 bit information
 */
 
-#define APP_FAULTREP_BITS_PER_WORD    16
-#define APP_FAULTREP_BITFIELD_WORDS   (APP_FAULTREP_ID_MAX/APP_FAULTREP_BITS_PER_WORD)
+#define APP_FAULTREP_BITS_PER_WORD  16
+#define APP_FAULTREP_BITFIELD_WORDS (APP_FAULTREP_ID_MAX / APP_FAULTREP_BITS_PER_WORD)
 
 #if (APP_FAULTREP_ID_MAX % APP_FAULTREP_BITS_PER_WORD) != 0
-   #error APP_FAULTREP_ID_MAX must be a multiple of APP_FAULTREP_BITS_PER_WORD
+#error APP_FAULTREP_ID_MAX must be a multiple of APP_FAULTREP_BITS_PER_WORD
 #endif
 
 /*
 ** Type definitions
 */
-
 
 /*
 ** Report types used by App_FaultRep_SendTlmMsg()
@@ -110,12 +107,10 @@
 typedef enum
 {
 
-   APP_FAULTREP_NEW_REPORT,   /**< Output a new report                     */
-   APP_FAULTREP_MERGE_REPORT  /**< Output a new report OR'ed with previous */
+    APP_FAULTREP_NEW_REPORT,  /**< Output a new report                     */
+    APP_FAULTREP_MERGE_REPORT /**< Output a new report OR'ed with previous */
 
 } App_FaultRep_TlmMode;
-
-
 
 /*
 ** Report packet to be monitored by another Application
@@ -124,20 +119,18 @@ typedef enum
 typedef struct
 {
 
-   uint16  Data[APP_FAULTREP_BITFIELD_WORDS];  /* Bit packed status */
+    uint16 Data[APP_FAULTREP_BITFIELD_WORDS]; /* Bit packed status */
 
 } App_FaultRep_Data;
-
 
 typedef struct
 {
 
-   uint8          Hdr[CFE_SB_TLM_HDR_SIZE];
+    uint8 Hdr[CFE_SB_TLM_HDR_SIZE];
 
-   App_FaultRep_Data  Tlm;
+    App_FaultRep_Data Tlm;
 
 } App_FaultRep_SbMsg;
-
 
 /*
 ** Data structures for the Fault Reporter Status
@@ -145,7 +138,7 @@ typedef struct
 ** - A single bit is used for each fault detection point for the enable/disable
 **   configuration and for latched status.
 **
-** - A latched bit is set when an enabled fault detector notifies App_FaultRep of 
+** - A latched bit is set when an enabled fault detector notifies App_FaultRep of
 **   an error. The bit remains set until a command is received to clear the bit.
 **
 */
@@ -153,16 +146,15 @@ typedef struct
 typedef struct
 {
 
-   uint16   IdLimit;
-   
-   uint16   BitfieldWords;
-   uint16   BitfieldRemMask;
+    uint16 IdLimit;
 
-   uint16   Enabled[APP_FAULTREP_BITFIELD_WORDS];   /* 0 = Disabled, 1 = Enabled */
-   uint16   Latched[APP_FAULTREP_BITFIELD_WORDS];   /* 0 = No Error, 1 = Error   */
+    uint16 BitfieldWords;
+    uint16 BitfieldRemMask;
+
+    uint16 Enabled[APP_FAULTREP_BITFIELD_WORDS]; /* 0 = Disabled, 1 = Enabled */
+    uint16 Latched[APP_FAULTREP_BITFIELD_WORDS]; /* 0 = No Error, 1 = Error   */
 
 } App_FaultRep_FaultDet;
-
 
 /*
 ** Fault Reporter Class Definition
@@ -171,19 +163,17 @@ typedef struct
 typedef struct
 {
 
-   uint16                 EvsIdBase;
-   App_FaultRep_TlmMode   TlmMode;
-   App_FaultRep_FaultDet  FaultDet;
-   App_FaultRep_Data      NewReport;  /* Collected between SendTlmMsg() calls */
-   App_FaultRep_SbMsg     SbMsg;      /* Last SB message sent                 */
+    uint16                EvsIdBase;
+    App_FaultRep_TlmMode  TlmMode;
+    App_FaultRep_FaultDet FaultDet;
+    App_FaultRep_Data     NewReport; /* Collected between SendTlmMsg() calls */
+    App_FaultRep_SbMsg    SbMsg;     /* Last SB message sent                 */
 
 } App_FaultRep_Class;
-
 
 /*
 ** Exported Functions
 */
-
 
 /**
 ** \brief  Report that a fault detector failed
@@ -202,17 +192,14 @@ typedef struct
 ** \retcode void \endcode
 ** \endreturns
 */
-void App_FaultRep_FaultDetFailed(App_FaultRep_Class*  FaultRepObj,
-                                 uint16               FaultDetId);
-
-
+void App_FaultRep_FaultDetFailed(App_FaultRep_Class *FaultRepObj, uint16 FaultDetId);
 
 /**
 ** \brief  Set the telemetry reporting mode.
 **
 ** \note
 **   -# If fault detectors could not execute during the current control
-**      cycle then ReportMode should be set to APP_FAULTREP_MERGE_REPORT which 
+**      cycle then ReportMode should be set to APP_FAULTREP_MERGE_REPORT which
 **      allows consecutive counters in an external monitoring appication to
 **      continue to count for a detected fault.
 **
@@ -223,10 +210,7 @@ void App_FaultRep_FaultDetFailed(App_FaultRep_Class*  FaultRepObj,
 ** \retcode void \endcode
 ** \endreturns
 */
-void App_FaultRep_SetTlmMode(App_FaultRep_Class*  FaultRepObj,
-                             App_FaultRep_TlmMode TlmMode);
+void App_FaultRep_SetTlmMode(App_FaultRep_Class *FaultRepObj, App_FaultRep_TlmMode TlmMode);
 
-
-
-#endif  /* _app_faultrep_ */
+#endif /* _app_faultrep_ */
 /** @} */

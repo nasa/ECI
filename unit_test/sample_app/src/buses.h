@@ -19,127 +19,136 @@
 #include "paramTable2_b.h"
 #include "rtwtypes.h"
 
-typedef struct {
-  /* Description */
-  uint8_T StreamID[2];
+typedef struct
+{
+    /* Description */
+    uint8_T StreamID[2];
 
-  /* Description */
-  uint8_T Sequence[2];
+    /* Description */
+    uint8_T Sequence[2];
 
-  /* Description */
-  uint8_T PktLength[2];
+    /* Description */
+    uint8_T PktLength[2];
 
-  /* Description */
-  uint8_T TimeSec[4];
+    /* Description */
+    uint8_T TimeSec[4];
 
-  /* Description */
-  uint8_T TimeSubsec[2];
+    /* Description */
+    uint8_T TimeSubsec[2];
 } CCSDS_TlmHdr;
 
-typedef struct {
-  /* Description */
-  uint8_T StreamID[2];
+typedef struct
+{
+    /* Description */
+    uint8_T StreamID[2];
 
-  /* Description */
-  uint8_T Sequence[2];
+    /* Description */
+    uint8_T Sequence[2];
 
-  /* Description */
-  uint8_T PktLength[2];
+    /* Description */
+    uint8_T PktLength[2];
 
-  /* Description */
-  uint8_T FcnCode;
+    /* Description */
+    uint8_T FcnCode;
 
-  /* Description */
-  uint8_T ChkSum;
+    /* Description */
+    uint8_T ChkSum;
 } CCSDS_CmdHdr;
 
-typedef struct {
-  /* Description */
-  CCSDS_TlmHdr TlmHdr;
+typedef struct
+{
+    /* Description */
+    CCSDS_TlmHdr TlmHdr;
 
-  /* Description */
-  uint8_T inVal1;
+    /* Description */
+    uint8_T inVal1;
 
-  /* Description */
-  uint8_T inVal2;
+    /* Description */
+    uint8_T inVal2;
 
-  /* Description */
-  uint8_T inVal3;
+    /* Description */
+    uint8_T inVal3;
 
-  /* Description */
-  uint8_T inVal4;
+    /* Description */
+    uint8_T inVal4;
 } inputTlmPkt1_b;
 
-typedef struct {
-  /* Description */
-  CCSDS_TlmHdr TlmHdr;
+typedef struct
+{
+    /* Description */
+    CCSDS_TlmHdr TlmHdr;
 
-  /* Description */
-  uint8_T inVal1;
+    /* Description */
+    uint8_T inVal1;
 
-  /* Description */
-  uint8_T inVal2;
+    /* Description */
+    uint8_T inVal2;
 
-  /* Description */
-  uint8_T inVal3;
+    /* Description */
+    uint8_T inVal3;
 } inputTlmPkt2_b;
 
-typedef struct {
-  /* Description */
-  CCSDS_CmdHdr CmdHdr;
+typedef struct
+{
+    /* Description */
+    CCSDS_CmdHdr CmdHdr;
 
-  /* Description */
-  uint8_T arg1;
+    /* Description */
+    uint8_T arg1;
 } inputCmdPkt_b;
 
-typedef struct {
-  /* Description */
-  CCSDS_TlmHdr TlmHdr;
+typedef struct
+{
+    /* Description */
+    CCSDS_TlmHdr TlmHdr;
 
-  /* Description */
-  uint8_T outVal1;
+    /* Description */
+    uint8_T outVal1;
 
-  /* Description */
-  uint8_T outVal2;
+    /* Description */
+    uint8_T outVal2;
 
-  /* Description */
-  uint8_T outVal3;
+    /* Description */
+    uint8_T outVal3;
 } outputTlmPkt2_b;
 
-typedef struct {
-  /* Description */
-  CCSDS_TlmHdr TlmHdr;
+typedef struct
+{
+    /* Description */
+    CCSDS_TlmHdr TlmHdr;
 
-  /* Description */
-  uint8_T outVal1;
+    /* Description */
+    uint8_T outVal1;
 
-  /* Description */
-  uint8_T outVal2;
+    /* Description */
+    uint8_T outVal2;
 
-  /* Description */
-  uint8_T outVal3;
+    /* Description */
+    uint8_T outVal3;
 
-  /* Description */
-  uint8_T outVal4;
+    /* Description */
+    uint8_T outVal4;
 } outputTlmPkt1_b;
 
-typedef struct {
-  /* Description */
-  CCSDS_TlmHdr TlmHdr;
+typedef struct
+{
+    /* Description */
+    CCSDS_TlmHdr TlmHdr;
 
-  /* Description */
-  paramTable1_b vals;
+    /* Description */
+    paramTable1_b vals;
 } outputTlmPkt3_b;
 
-typedef struct {
-  /* Description */
-  CCSDS_TlmHdr TlmHdr;
+typedef struct
+{
+    /* Description */
+    CCSDS_TlmHdr TlmHdr;
 
-  /* Description */
-  paramTable2_b vals;
+    /* Description */
+    paramTable2_b vals;
 } outputTlmPkt4_b;
 
-#endif                                 /* RTW_HEADER_buses_h_ */
+#endif /* RTW_HEADER_buses_h_ */
 
 /*
  * File trailer for generated code.

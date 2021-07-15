@@ -19,10 +19,10 @@
 #include "rtwtypes.h"
 #include "rt_nonfinite.h"
 
-extern real_T rtGetNaN(void);
+extern real_T   rtGetNaN(void);
 extern real32_T rtGetNaNF(void);
 
-#endif                                 /* RTW_HEADER_rtGetNaN_h_ */
+#endif /* RTW_HEADER_rtGetNaN_h_ */
 
 /*
  * File trailer for generated code.
