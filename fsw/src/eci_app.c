@@ -258,12 +258,12 @@ static int32 register_events(void)
 
 } /* End of register_events() */
 
-/*****************************************************************/ /**
-                                                                     * Initializes/subscribes software bus messages.
-                                                                     *
-                                                                     * \return int32 - return state of
-                                                                     *CFE_SB_Subscribe()
-                                                                     ********************************************************************/
+/*****************************************************************
+ * Initializes/subscribes software bus messages.
+ *
+ * \return int32 - return state of
+ *CFE_SB_Subscribe()
+ ********************************************************************/
 static int32 sb_init(void)
 {
     unsigned int idx;
@@ -391,12 +391,12 @@ static int32 sb_init(void)
 
 } /* End of sb_init() */
 
-/*****************************************************************/ /**
-                                                                     * Registers and loads app-specified parameter
-                                                                     *tables.
-                                                                     *
-                                                                     * \return int32 - Status of #CFE_TBL_Register.
-                                                                     ********************************************************************/
+/*****************************************************************
+ * Registers and loads app-specified parameter
+ *tables.
+ *
+ * \return int32 - Status of #CFE_TBL_Register.
+ ********************************************************************/
 static int32 param_table_register(void)
 {
 
@@ -447,12 +447,12 @@ static int32 param_table_register(void)
 
 } /* End of param_table_register() */
 
-/*****************************************************************/ /**
-                                                                     * Load data to app-specified parameter table(s).
-                                                                     *
-                                                                     * \return Status of #CFE_TBL_Load, #CFE_TBL_Manage
-                                                                     *or #CFE_TBL_GetAddress.
-                                                                     ********************************************************************/
+/*****************************************************************
+ * Load data to app-specified parameter table(s).
+ *
+ * \return Status of #CFE_TBL_Load, #CFE_TBL_Manage
+ *or #CFE_TBL_GetAddress.
+ ********************************************************************/
 static int32 load_param_table(void)
 {
     int32 status = CFE_SUCCESS;
@@ -532,12 +532,12 @@ static int32 load_param_table(void)
 
 } /* End of load_param_table() */
 
-/*****************************************************************/ /**
-                                                                     * Registers and loads state table
-                                                                     *
-                                                                     * \return int32 Status of CFE_TBL_Register() or
-                                                                     *CFE_TBL_Load().
-                                                                     ********************************************************************/
+/*****************************************************************
+ * Registers and loads state table
+ *
+ * \return int32 Status of CFE_TBL_Register() or
+ *CFE_TBL_Load().
+ ********************************************************************/
 static int32 state_table_register(void)
 {
     int32 state_status = CFE_SUCCESS;
@@ -582,12 +582,12 @@ static int32 state_table_register(void)
 
 } /* End of state_table_register() */
 
-/*****************************************************************/ /**
-                                                                     * Initialize parameter and state tables
-                                                                     *
-                                                                     * \return Status of param_table_register(),
-                                                                     *state_table_register(), and load_param_table()
-                                                                     ********************************************************************/
+/*****************************************************************
+ * Initialize parameter and state tables
+ *
+ * \return Status of param_table_register(),
+ *state_table_register(), and load_param_table()
+ ********************************************************************/
 static int32 table_init(void)
 {
 
@@ -629,12 +629,12 @@ static int32 table_init(void)
 
 } /* End of table_init() */
 
-/*****************************************************************/ /**
-                                                                     * Initialize Critical Data Store (if available)
-                                                                     *
-                                                                     * \return Status of CFE_ES_RegisterCDS and/or
-                                                                     *CFE_ES_RestoreFromCDS
-                                                                     ********************************************************************/
+/*****************************************************************
+ * Initialize Critical Data Store (if available)
+ *
+ * \return Status of CFE_ES_RegisterCDS and/or
+ *CFE_ES_RestoreFromCDS
+ ********************************************************************/
 static int32 cds_init(void)
 {
 
@@ -796,20 +796,20 @@ static int32 app_init(void)
 
 } /* End of app_init() */
 
-/*****************************************************************/ /**
-                                                                     * Verifies msg packet length (cmd or tlm).
-                                                                     *
-                                                                     * \param[in] messageID = Message ID software bus
-                                                                     *message packet. \param[in] actualLength = Actual
-                                                                     *length of packet. \param[in] expectedLength =
-                                                                     *Expected length of packet. \param[in]
-                                                                     *cmdMsgTypeCheck = specify type of check to be done
-                                                                     *(See ECI_MsgLengthVerify_t)
-                                                                     *
-                                                                     * \retval TRUE  = The message packet passes message
-                                                                     *length check. \retval FALSE = The message packet
-                                                                     *failes message length check.
-                                                                     ********************************************************************/
+/******************************************************************
+ * Verifies msg packet length (cmd or tlm).
+ *
+ * \param[in] messageID = Message ID software bus
+ *message packet. \param[in] actualLength = Actual
+ *length of packet. \param[in] expectedLength =
+ *Expected length of packet. \param[in]
+ *cmdMsgTypeCheck = specify type of check to be done
+ *(See ECI_MsgLengthVerify_t)
+ *
+ * \retval TRUE  = The message packet passes message
+ *length check. \retval FALSE = The message packet
+ *failes message length check.
+ ********************************************************************/
 static boolean verify_msg_length(CFE_SB_MsgId_t messageID, uint16 actualLength, uint16 expectedLength,
                                  int cmdMsgTypeCheck)
 {
@@ -870,10 +870,10 @@ static boolean verify_msg_length(CFE_SB_MsgId_t messageID, uint16 actualLength, 
 
 } /* verify_msg_length() */
 
-/*****************************************************************/ /**
-                                                                     * Increments command accept counter and outputs
-                                                                     *no-op event
-                                                                     ********************************************************************/
+/*****************************************************************
+ * Increments command accept counter and outputs
+ *no-op event
+ ********************************************************************/
 static void no_op_cmd(void)
 {
 
@@ -882,9 +882,9 @@ static void no_op_cmd(void)
 
 } /* End of no_op_cmd() */
 
-/*****************************************************************/ /**
-                                                                     * Resets HK counters
-                                                                     ********************************************************************/
+/*****************************************************************
+ * Resets HK counters
+ ********************************************************************/
 static void reset_hk_counters(void)
 {
 
@@ -901,9 +901,9 @@ static void reset_hk_counters(void)
 
 } /* End of reset_hk_counters() */
 
-/*****************************************************************/ /**
-                                                                     * Ground command to reset HK counters.
-                                                                     ********************************************************************/
+/*****************************************************************
+ * Ground command to reset HK counters.
+ ********************************************************************/
 static void reset_hk_counter_cmd(void)
 {
 
@@ -913,21 +913,21 @@ static void reset_hk_counter_cmd(void)
 
 } /* End of reset_hk_counter_cmd() */
 
-/******************************************************************/ /**
-                                                                      * Add data to ring buffer
-                                                                      *
-                                                                      * Pre-requisite:  Assumes that space available on
-                                                                      *ring buffer
-                                                                      *
-                                                                      * \param[in, out] qtl = Tail of the ring buffer
-                                                                      * \param[in, out] qcnt = Number of items in the
-                                                                      *ring buffer \param[in] data = data to be added to
-                                                                      *the ring buffer. \param[in] data_size = size of
-                                                                      *the data \param[in] q = ring buffer pointer
-                                                                      * \param[in] qsize = total length of the ring
-                                                                      *buffer
-                                                                      *
-                                                                      *********************************************************************/
+/******************************************************************
+ * Add data to ring buffer
+ *
+ * Pre-requisite:  Assumes that space available on
+ *ring buffer
+ *
+ * \param[in, out] qtl = Tail of the ring buffer
+ * \param[in, out] qcnt = Number of items in the
+ *ring buffer \param[in] data = data to be added to
+ *the ring buffer. \param[in] data_size = size of
+ *the data \param[in] q = ring buffer pointer
+ * \param[in] qsize = total length of the ring
+ *buffer
+ *
+ *********************************************************************/
 static void add_to_ring_buffer(int *qtl, int *qcnt, void *data, size_t data_size, char *q, int qsize)
 {
 
@@ -953,19 +953,19 @@ static void add_to_ring_buffer(int *qtl, int *qcnt, void *data, size_t data_size
 
 } /* add_to_ring_buffer() */
 
-/******************************************************************/ /**
-                                                                      * Enqueue CMD messages.
-                                                                      *
-                                                                      * \param[in] msg = Pointer to command message data
-                                                                      * \param[in] idx = Index into global ECI_MsgRcv
-                                                                      *that contains pointer to queue
-                                                                      *
-                                                                      * Pre-requisite:
-                                                                      *      1)  'msg' is a command message
-                                                                      *      2)  'idx' is a valid index value
-                                                                      *
-                                                                      * \return #ECI_MsgControl_t
-                                                                      *********************************************************************/
+/******************************************************************
+ * Enqueue CMD messages.
+ *
+ * \param[in] msg = Pointer to command message data
+ * \param[in] idx = Index into global ECI_MsgRcv
+ *that contains pointer to queue
+ *
+ * Pre-requisite:
+ *      1)  'msg' is a command message
+ *      2)  'idx' is a valid index value
+ *
+ * \return #ECI_MsgControl_t
+ *********************************************************************/
 static ECI_MsgControl_t enqueue_cmd_msg(const CFE_SB_MsgPtr_t msg, const unsigned int idx)
 {
 
@@ -987,16 +987,16 @@ static ECI_MsgControl_t enqueue_cmd_msg(const CFE_SB_MsgPtr_t msg, const unsigne
 
 } /* end of enqueue_cmd_msg() */
 
-/******************************************************************/ /**
-                                                                      * Manage the counters/queues for TLM and CMD
-                                                                      *messages.
-                                                                      *
-                                                                      * \param[in] msg = Pointer to software bus message
-                                                                      * \param[in] idx = Index into global MsgRcv that
-                                                                      *contains queue/buffer
-                                                                      *
-                                                                      * \return #ECI_MsgControl_t
-                                                                      *********************************************************************/
+/******************************************************************
+ * Manage the counters/queues for TLM and CMD
+ *messages.
+ *
+ * \param[in] msg = Pointer to software bus message
+ * \param[in] idx = Index into global MsgRcv that
+ *contains queue/buffer
+ *
+ * \return #ECI_MsgControl_t
+ *********************************************************************/
 static ECI_MsgControl_t msg_manage(const CFE_SB_MsgPtr_t msg, const unsigned int idx)
 {
 
@@ -1109,9 +1109,9 @@ static void rcv_msg(const CFE_SB_MsgPtr_t msg, CFE_SB_MsgId_t mid, uint16 Actual
 
 } /* End of rcv_msg() */
 
-/*****************************************************************/ /**
-                                                                     * Outputs to housekeeping message to software bus.
-                                                                     ********************************************************************/
+/*****************************************************************
+ * Outputs to housekeeping message to software bus.
+ ********************************************************************/
 static void housekeeping_cmd(void)
 {
 
@@ -1176,9 +1176,9 @@ static void table_manage_cmd(CFE_SB_MsgPtr_t MessagePtr)
 
 } /* End table_manage_cmd() */
 
-/*****************************************************************/ /**
-                                                                     * Manage state table if state table present
-                                                                     ********************************************************************/
+/*****************************************************************
+ * Manage state table if state table present
+ ********************************************************************/
 static void manage_state_tables(void)
 {
 
@@ -1269,17 +1269,17 @@ static void increment_cmd_msg_sequence(unsigned int idx)
 
 } /* End of increment_cmd_msg_sequence() */
 
-/******************************************************************/ /**
-                                                                      * Dequeues command messages
-                                                                      *
-                                                                      * \param[in] idx = Index into global ECI_MsgRcv
-                                                                      *that contains pointer to buffer
-                                                                      *
-                                                                      * Pre-requisite:
-                                                                      *      1)  'idx' is a valid index value that
-                                                                      *points to an array with a queue
-                                                                      *
-                                                                      *********************************************************************/
+/******************************************************************
+ * Dequeues command messages
+ *
+ * \param[in] idx = Index into global ECI_MsgRcv
+ *that contains pointer to buffer
+ *
+ * Pre-requisite:
+ *      1)  'idx' is a valid index value that
+ *points to an array with a queue
+ *
+ *********************************************************************/
 static ECI_MsgControl_t dequeue_cmd_msg(const unsigned int idx)
 {
 
@@ -1371,10 +1371,10 @@ static void event_signal(void)
 
 } /* End of event_signal() */
 
-/******************************************************************/ /**
-                                                                      * Executes Fault Reporting based on interface
-                                                                      *status flags
-                                                                      *********************************************************************/
+/******************************************************************
+ * Executes Fault Reporting based on interface
+ *status flags
+ *********************************************************************/
 static void fdc_signal(void)
 {
 
@@ -1539,12 +1539,12 @@ static void do_step(void)
 
 } /* End of do_step() */
 
-/*****************************************************************/ /**
-                                                                     * Processes command pipe messages.
-                                                                     *
-                                                                     * \param[in] msg = Pointer to a software bus
-                                                                     *message.
-                                                                     ********************************************************************/
+/*****************************************************************
+ * Processes command pipe messages.
+ *
+ * \param[in] msg = Pointer to a software bus
+ *message.
+ ********************************************************************/
 static void app_pipe(const CFE_SB_MsgPtr_t msg)
 {
 
@@ -1672,9 +1672,9 @@ static void app_pipe(const CFE_SB_MsgPtr_t msg)
 
 } /* app_pipe() */
 
-/*****************************************************************/ /**
-                                                                     * Application entry point and main process loop.
-                                                                     ********************************************************************/
+/*****************************************************************
+ * Application entry point and main process loop.
+ ********************************************************************/
 void ECI_APP_MAIN(void)
 {
     int32 status;
