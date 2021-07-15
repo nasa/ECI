@@ -8,7 +8,6 @@
 
 #ifdef __cplusplus
 extern "C"
-{
 #endif /* __cplusplus */
 
 #include "cfe.h"
@@ -138,9 +137,5 @@ extern "C"
 
     /** Time Interface Structure */
     typedef CFE_TIME_SysTime_t ECI_TimeStamp_t;
-
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
 
 #endif /* ECI_APP_H */
