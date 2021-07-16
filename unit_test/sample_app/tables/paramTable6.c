@@ -16,15 +16,9 @@
 #include "unitTestModel_types.h"
 #include "eci_tbl_if.h"
 
-paramTable2_b UT_param_TBL6 = {
-  7U,
-  6U,
-  6U,
-  6U,
-  6U
-} ;
+paramTable2_b UT_param_TBL6 = {7U, 6U, 6U, 6U, 6U};
 
-#define PARAM_TBL6_TBL_NAME_LEN        (11)                      /* sizeof("param_TBL2") */
+#define PARAM_TBL6_TBL_NAME_LEN (11) /* sizeof("param_TBL2") */
 #if PARAM_TBL6_TBL_NAME_LEN > ECI_PARAM_TBL_MAX_NAME_LEN
 #error Table name param_TBL6 must be less than ECI_PARAM_TBL_MAX_NAME_LEN characters
 #endif
@@ -36,8 +30,7 @@ paramTable2_b UT_param_TBL6 = {
  **    3) a brief description of the contents of the file image
  **    4) the desired name of the table image binary file that is CFS compatible
  */
-ECI_TBL_FILEDEF(CFE_TBL_FileDef, UT_param_TBL6, unitTestModel.param_TBL6,
-                unitTestModel param_TBL6, paramTable6.tbl )
+ECI_TBL_FILEDEF(CFE_TBL_FileDef, UT_param_TBL6, unitTestModel.param_TBL6, unitTestModel param_TBL6, paramTable6.tbl)
 /*
  * File trailer for generated code.
  *

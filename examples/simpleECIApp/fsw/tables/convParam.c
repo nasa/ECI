@@ -11,5 +11,4 @@ convParamStruct_t conv_param_tbl = {};
  **    3) a brief description of the contents of the file image
  **    4) the desired name of the table image binary file that is CFS compatible
  */
-ECI_TBL_FILEDEF(CFE_TBL_FileDef, conv_param_tbl, SA_APP.convParams,
-                Empty conv_param table, convParam.tbl)
+ECI_TBL_FILEDEF(CFE_TBL_FileDef, conv_param_tbl, SA_APP.convParams, Empty conv_param table, convParam.tbl)
