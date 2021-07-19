@@ -6,64 +6,64 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Update and install packages
-      - uses: actions/checkout@v1
-      - run: |
+        uses: actions/checkout@v1
+        run: |
           sudo apt-get update
           sudo apt-get install gcc-multilib
       - name: Fetch cFE
-      - run: ./.github/workflows/ci/fetchCFE.sh
+        run: ./.github/workflows/ci/fetchCFE.sh
       - name: Build Simple Example
-      - run: ./.github/workflows/ci/buildSimpleExample.sh
+        run: ./.github/workflows/ci/buildSimpleExample.sh
   build_6-5_sgp4:
     name: build_6-5_sgp4
     runs-on: ubuntu-latest
     steps:
       - name: Update and install packages
-      - uses: actions/checkout@v1
-      - run: |
+        uses: actions/checkout@v1
+        run: |
           sudo apt-get update
           sudo apt-get install gcc-multilib
       - name: Fetch cFE
-      - run: ./.github/workflows/ci/fetchCFE.sh
+        run: ./.github/workflows/ci/fetchCFE.sh
       - name: Build SGP4
-      - run: ./.github/workflows/ci/buildSGP4Example.sh
+        run: ./.github/workflows/ci/buildSGP4Example.sh
   run_6-5_eci_unit_tests:
     name: run_6-5_eci_unit_tests
     runs-on: ubuntu-latest
     steps:
       - name: Update and install packages
-      - uses: actions/checkout@v1
-      - run: |
+        uses: actions/checkout@v1
+        run: |
           sudo apt-get update
           sudo apt-get install gcc-multilib
       - name: Fetch cFE
-      - run: ./.github/workflows/ci/fetchCFE.sh
+        run: ./.github/workflows/ci/fetchCFE.sh
       - name: Run ECI unit tests
-      - run: ./.github/workflows/ci/runECIUnitTest.sh
+        run: ./.github/workflows/ci/runECIUnitTest.sh
   run_6-5_sgp4_unit_tests:
     name: run_6-5_sgp4_unit_tests
     runs-on: ubuntu-latest
     steps:
       - name: Update and install packages
-      - uses: actions/checkout@v1
-      - run: |
+        uses: actions/checkout@v1
+        run: |
           sudo apt-get update
           sudo apt-get install gcc-multilib
       - name: Fetch cFE
-      - run: ./.github/workflows/ci/fetchCFE.sh
+        run: ./.github/workflows/ci/fetchCFE.sh
       - name: Run SGP4 unit tests
-      - run: ./.github/workflows/ci/runSGP4UnitTest.sh
+        run: ./.github/workflows/ci/runSGP4UnitTest.sh
   build_6-6_simple:
     name: build_6-6_simple
     runs-on: ubuntu-latest
     steps:
       - name: Update and install packages
-      - uses: actions/checkout@v1
-      - run: |
+        uses: actions/checkout@v1
+        run: |
           sudo apt-get update
           sudo apt-get install gcc-multilib
       - name: Build
-      - run: |
+        run: |
           cmake ./.github/workflows/ci/simple_app      
           make -C ./cfs
   build_6-6_sgp4:
@@ -71,12 +71,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Update and install packages
-      - uses: actions/checkout@v1
-      - run: |
+        uses: actions/checkout@v1
+        run: |
           sudo apt-get update
           sudo apt-get install gcc-multilib
       - name: Build
-      - run: |
+        run: |
           cmake ./.github/workflows/ci/sgp4      
           make -C ./cfs
   deploy:
@@ -84,7 +84,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Update and install packages
-      - uses: actions/checkout@v1
+        uses: actions/checkout@v1
         run: |
           sudo apt-get update
           sudo apt-get install gcc-multilib
