@@ -8,6 +8,7 @@
 
 #ifdef __cplusplus
 extern "C"
+{
 #endif /* __cplusplus */
 
 #include "cfe.h"
@@ -38,5 +39,9 @@ extern "C"
         /** Number of each SIL App-Subscribed Messages Received */
         uint16 MsgRcvCnt[SIZEOF_ARRAY(ECI_MsgRcv)];
     } ECI_HkPacket_t;
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* ECI_APP_HK_H */

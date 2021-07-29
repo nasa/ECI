@@ -215,12 +215,12 @@ void ECI_APP_MAIN(void);
 **
 **************************************************************************/
 
-/*****************************************************************
- * Register Events for this app.
- *
- * \return CFE_SUCCESS if registration was
- *successful.
- ********************************************************************/
+/*****************************************************************/ /**
+                                                                     * Register Events for this app.
+                                                                     *
+                                                                     * \return CFE_SUCCESS if registration was
+                                                                     *successful.
+                                                                     ********************************************************************/
 static int32 register_events(void)
 {
 
@@ -258,16 +258,17 @@ static int32 register_events(void)
 
 } /* End of register_events() */
 
-/*****************************************************************
- * Initializes/subscribes software bus messages.
- *
- * \return int32 - return state of
- *CFE_SB_Subscribe()
- ********************************************************************/
+/*****************************************************************/ /**
+                                                                     * Initializes/subscribes software bus messages.
+                                                                     *
+                                                                     * \return int32 - return state of
+                                                                     *CFE_SB_Subscribe()
+                                                                     ********************************************************************/
 static int32 sb_init(void)
 {
-    unsigned int idx;
-    int          status;
+    unsigned int   idx;
+    int            status;
+    CFE_MSG_Type_t messageType;
 
     /* Subscribe to app-specific ECI_CMD Msg */
     status = CFE_SB_Subscribe(ECI_CMD_MID, ECI_AppData.CmdPipe);
@@ -394,12 +395,12 @@ static int32 sb_init(void)
 
 } /* End of sb_init() */
 
-/*****************************************************************
- * Registers and loads app-specified parameter
- *tables.
- *
- * \return int32 - Status of #CFE_TBL_Register.
- ********************************************************************/
+/*****************************************************************/ /**
+                                                                     * Registers and loads app-specified parameter
+                                                                     *tables.
+                                                                     *
+                                                                     * \return int32 - Status of #CFE_TBL_Register.
+                                                                     ********************************************************************/
 static int32 param_table_register(void)
 {
 
@@ -450,12 +451,12 @@ static int32 param_table_register(void)
 
 } /* End of param_table_register() */
 
-/*****************************************************************
- * Load data to app-specified parameter table(s).
- *
- * \return Status of #CFE_TBL_Load, #CFE_TBL_Manage
- *or #CFE_TBL_GetAddress.
- ********************************************************************/
+/*****************************************************************/ /**
+                                                                     * Load data to app-specified parameter table(s).
+                                                                     *
+                                                                     * \return Status of #CFE_TBL_Load, #CFE_TBL_Manage
+                                                                     *or #CFE_TBL_GetAddress.
+                                                                     ********************************************************************/
 static int32 load_param_table(void)
 {
     int32 status = CFE_SUCCESS;
@@ -535,12 +536,12 @@ static int32 load_param_table(void)
 
 } /* End of load_param_table() */
 
-/*****************************************************************
- * Registers and loads state table
- *
- * \return int32 Status of CFE_TBL_Register() or
- *CFE_TBL_Load().
- ********************************************************************/
+/*****************************************************************/ /**
+                                                                     * Registers and loads state table
+                                                                     *
+                                                                     * \return int32 Status of CFE_TBL_Register() or
+                                                                     *CFE_TBL_Load().
+                                                                     ********************************************************************/
 static int32 state_table_register(void)
 {
     int32 state_status = CFE_SUCCESS;
@@ -585,12 +586,12 @@ static int32 state_table_register(void)
 
 } /* End of state_table_register() */
 
-/*****************************************************************
- * Initialize parameter and state tables
- *
- * \return Status of param_table_register(),
- *state_table_register(), and load_param_table()
- ********************************************************************/
+/*****************************************************************/ /**
+                                                                     * Initialize parameter and state tables
+                                                                     *
+                                                                     * \return Status of param_table_register(),
+                                                                     *state_table_register(), and load_param_table()
+                                                                     ********************************************************************/
 static int32 table_init(void)
 {
 
@@ -632,12 +633,12 @@ static int32 table_init(void)
 
 } /* End of table_init() */
 
-/*****************************************************************
- * Initialize Critical Data Store (if available)
- *
- * \return Status of CFE_ES_RegisterCDS and/or
- *CFE_ES_RestoreFromCDS
- ********************************************************************/
+/*****************************************************************/ /**
+                                                                     * Initialize Critical Data Store (if available)
+                                                                     *
+                                                                     * \return Status of CFE_ES_RegisterCDS and/or
+                                                                     *CFE_ES_RestoreFromCDS
+                                                                     ********************************************************************/
 static int32 cds_init(void)
 {
 
@@ -893,9 +894,9 @@ static void no_op_cmd(void)
 
 } /* End of no_op_cmd() */
 
-/*****************************************************************
- * Resets HK counters
- ********************************************************************/
+/*****************************************************************/ /**
+                                                                     * Resets HK counters
+                                                                     ********************************************************************/
 static void reset_hk_counters(void)
 {
 
@@ -912,9 +913,9 @@ static void reset_hk_counters(void)
 
 } /* End of reset_hk_counters() */
 
-/*****************************************************************
- * Ground command to reset HK counters.
- ********************************************************************/
+/*****************************************************************/ /**
+                                                                     * Ground command to reset HK counters.
+                                                                     ********************************************************************/
 static void reset_hk_counter_cmd(void)
 {
 
