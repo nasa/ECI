@@ -308,8 +308,9 @@
 /** \{ */
 #define CFE_MISSION_ES_CRC_8  1 /**< \brief CRC ( 8 bit additive - returns 32 bit total) (Currently not implemented) */
 #define CFE_MISSION_ES_CRC_16 2 /**< \brief CRC (16 bit additive - returns 32 bit total) */
-#define CFE_MISSION_ES_CRC_32 3 /**< \brief CRC (32 bit additive - returns 32 bit total) (Currently not implemented) \
-                                 */
+#define CFE_MISSION_ES_CRC_32                                                              \
+    3 /**< \brief CRC (32 bit additive - returns 32 bit total) (Currently not implemented) \
+       */
 /** \} */
 
 /**
