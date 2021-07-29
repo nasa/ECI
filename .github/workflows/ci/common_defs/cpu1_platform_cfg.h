@@ -5,9 +5,13 @@
 **  the Administrator of the National Aeronautics and Space Administration.
 **  All Rights Reserved.
 **
-**  Licensed under the Apache License, Version 2.0 (the "License");
-**  you may not use this file except in compliance with the License.
-**  You may obtain a copy of the License at
+** Purpose:
+**   This header file contains the platform configuration parameters.
+**
+** Notes:
+**   The impact of changing these configurations from their default value is
+**   not yet documented.  Changing these values may impact the performance
+**   and functionality of the system.
 **
 **    http://www.apache.org/licenses/LICENSE-2.0
 **
@@ -155,28 +159,43 @@
 #define CFE_PLATFORM_SB_BUF_MEMORY_BYTES 524288
 
 /**
+**  \cfesbcfg Maximum depth allowed when creating an SB pipe
+**
+**  \par Description:
+**       The value of this constant dictates the maximum pipe depth that an
+**       application may request. The pipe depth is given as a paramter in the
+**       #CFE_SB_CreatePipe API.
+**
+**  \par Limits
+**       This parameter has a lower limit of 1.  There are no restrictions on the
+**       upper limit however, the maximum pipe depth is system dependent and should
+**       be verified.  Pipe Depth values that are checked against this configuration
+**       are defined by a 16 bit data word.
+*/
+#define CFE_PLATFORM_SB_MAX_PIPE_DEPTH 256
+
+/**
 **  \cfesbcfg Highest Valid Message Id
 **
 **  \par Description:
-**       The value of this constant dictates the range of valid message ID's, from 0
-**       to CFE_PLATFORM_SB_HIGHEST_VALID_MSGID (inclusive).
+**       The value of this constant dictates the size of the SB message map. The SB
+**       message map is a lookup table that provides the routing table index for
+**       fast access into the routing table. The default setting of 0x1FFF was chosen
+**       to save memory. This reduces the message map from 128Kbytes to 16Kbytes.
+**       See CFE_FSW_DCR 504 for more details.
+**
+**       If this value is different in a distributed architecture some platforms may not
+**       be able to subscribe to messages generated on other platforms since the message id
+**       would exceed the mapping table's highest index. Care would have to be taken to ensure the
+**       constrained platform did not subscribe to message Ids that exceed
+**       CFE_PLATFORM_SB_HIGHEST_VALID_MSGID
 **
 **       Altough this can be defined differently across platforms, each platform can
 **       only publish/subscribe to message ids within their allowable range. Typically
 **       this value is set the same across all mission platforms to avoid this complexity.
 **
 **  \par Limits
-**       CFE_SB_INVALID_MSG is set to the maxumum representable number of type CFE_SB_MsgId_t.
-**       CFE_PLATFORM_SB_HIGHEST_VALID_MSGID lower limit is 1, up to CFE_SB_INVALID_MSG_ID - 1.
-**
-**       When using the direct message map implementation for software bus routing, this
-**       value is used to size the map where a value of 0x1FFF results in a 16 KBytes map
-**       and 0xFFFF is 128 KBytes.
-**
-**       When using the hash implementation for software bus routing, a multiple of the
-**       CFE_PLATFORM_SB_MAX_MSG_IDS is used to size the message map.  In that case
-**       the range selected here does not impact message map memory use, so it's
-**       resonable to use up to the full range supported by the message ID implementation.
+**       This parameter has a lower limit of 1 and an upper limit of 0xFFFF.
 */
 #define CFE_PLATFORM_SB_HIGHEST_VALID_MSGID 0x1FFF
 
@@ -284,7 +303,7 @@
 **  \par Limits
 **       These sizes MUST be increasing and MUST be an integral multiple of 4.
 **       The number of block sizes defined cannot exceed
-**       #CFE_PLATFORM_ES_POOL_MAX_BUCKETS
+**       #CFE_ES_MAX_MEMPOOL_BLOCK_SIZES
 */
 #define CFE_PLATFORM_SB_MEM_BLOCK_SIZE_01 8
 #define CFE_PLATFORM_SB_MEM_BLOCK_SIZE_02 16
@@ -305,6 +324,20 @@
 #define CFE_PLATFORM_SB_MAX_BLOCK_SIZE    (CFE_MISSION_SB_MAX_SB_MSG_SIZE + 40)
 
 /**
+**  \cfesbcfg Define Default Sender Information Storage Mode
+**
+**  \par Description:
+**       Defines the default mode for the storing of sender information when sending
+**       a software bus message. If set to 1, the sender information will be stored.
+**       If set to 0, the sender information will not be stored.
+**
+**  \par Limits
+**       There is a lower limit of 0 and an upper limit of 1 on this configuration
+**       paramater.
+*/
+#define CFE_PLATFORM_SB_DEFAULT_REPORT_SENDER 1
+
+/**
 **  \cfetimecfg Time Server or Time Client Selection
 **
 **  \par Description:
@@ -316,8 +349,8 @@
 **       Enable one, and only one by defining either CFE_PLATFORM_TIME_CFG_SERVER or
 **       CFE_PLATFORM_TIME_CFG_CLIENT AS true.  The other must be defined as false.
 */
-#define CFE_PLATFORM_TIME_CFG_SERVER true
-#define CFE_PLATFORM_TIME_CFG_CLIENT false
+#define CFE_PLATFORM_TIME_CFG_SERVER TRUE
+#define CFE_PLATFORM_TIME_CFG_CLIENT FALSE
 
 /**
 ** \cfetimecfg Time Tone In Big-Endian Order
@@ -349,7 +382,7 @@
 **  \par Limits
 **       Only applies if #CFE_PLATFORM_TIME_CFG_SERVER is set to true.
 */
-#define CFE_PLATFORM_TIME_CFG_VIRTUAL true
+#define CFE_PLATFORM_TIME_CFG_VIRTUAL TRUE
 
 /**
 **  \cfetimecfg Include or Exclude the Primary/Redundant Tone Selection Cmd
@@ -364,7 +397,7 @@
 **  \par Limits
 **       Not Applicable
 */
-#define CFE_PLATFORM_TIME_CFG_SIGNAL false
+#define CFE_PLATFORM_TIME_CFG_SIGNAL FALSE
 
 /**
 **  \cfetimecfg Include or Exclude the Internal/External Time Source Selection Cmd
@@ -384,7 +417,7 @@
 **  \par Limits
 **       Only applies if #CFE_PLATFORM_TIME_CFG_SERVER is set to true.
 */
-#define CFE_PLATFORM_TIME_CFG_SOURCE false
+#define CFE_PLATFORM_TIME_CFG_SOURCE FALSE
 
 /**
 **  \cfetimecfg Choose the External Time Source for Server only
@@ -400,9 +433,9 @@
 **       #CFE_PLATFORM_TIME_CFG_SRC_MET, #CFE_PLATFORM_TIME_CFG_SRC_GPS, #CFE_PLATFORM_TIME_CFG_SRC_TIME
 **       -# Only applies if #CFE_PLATFORM_TIME_CFG_SERVER is set to true.
 */
-#define CFE_PLATFORM_TIME_CFG_SRC_MET  false
-#define CFE_PLATFORM_TIME_CFG_SRC_GPS  false
-#define CFE_PLATFORM_TIME_CFG_SRC_TIME false
+#define CFE_PLATFORM_TIME_CFG_SRC_MET  FALSE
+#define CFE_PLATFORM_TIME_CFG_SRC_GPS  FALSE
+#define CFE_PLATFORM_TIME_CFG_SRC_TIME FALSE
 
 /**
 **  \cfetimecfg Define the Max Delta Limits for Time Servers using an Ext Time Source
@@ -531,7 +564,7 @@
 **       in the error log. Any context information beyond this size will
 **       be truncated.
 */
-#define CFE_PLATFORM_ES_ER_LOG_MAX_CONTEXT_SIZE 256
+#define CFE_PLATFORM_ES_ER_LOG_MAX_CONTEXT_SIZE 128
 
 /**
 **  \cfeescfg Define Size of the cFE System Log.
@@ -682,6 +715,22 @@
 #define CFE_PLATFORM_ES_RAM_DISK_PERCENT_RESERVED 30
 
 /**
+**  \cfeescfg RAM Disk Mount string
+**
+**  \par Description:
+**      The #CFE_PLATFORM_ES_RAM_DISK_MOUNT_STRING parameter is used to set the cFE mount path
+**      for the CFE RAM disk. This is a parameter for missions that do not want to
+**      use the default value of "/ram", or for missions that need to have a different
+**      value for different CPUs or Spacecraft.
+**      Note that the vxWorks OSAL cannot currently handle names that have more than one
+**      path separator in it. The names "/ram", "/ramdisk", "/disk123" will all work, but
+**      "/disks/ram" will not.
+**      Multiple separators can be used with the posix or RTEMS ports.
+**
+*/
+#define CFE_PLATFORM_ES_RAM_DISK_MOUNT_STRING "/ram"
+
+/**
 **  \cfeescfg Define Critical Data Store Size
 **
 **  \par Description:
@@ -789,6 +838,67 @@
 #define CFE_PLATFORM_ES_VOLATILE_STARTUP_FILE "/ram/cfe_es_startup.scr"
 
 /**
+**  \cfeescfg Default Shell Filename
+**
+**  \par Description:
+**       The value of this constant defines the filename used to store the shell
+**       output after a shell command is received by ES. This file contains the
+**       entire shell output. The fsw also sends the shell output in series of fixed
+**       size telemetry packets. This filename is used only when no filename
+**       is specified in the shell command.
+**
+**  \par Limits
+**       The length of each string, including the NULL terminator cannot exceed the
+**       #OS_MAX_PATH_LEN value.
+*/
+#define CFE_PLATFORM_ES_DEFAULT_SHELL_FILENAME "/ram/ShellCmd.out"
+
+/**
+**  \cfeescfg Define Max Shell Command Size
+**
+**  \par Description:
+**       Defines the maximum size in characters of the shell command.
+**
+**  \par Limits
+**       There is a lower limit of 64 and an upper limit of #OS_MAX_CMD_LEN. Units are
+**       characters.
+*/
+#define CFE_PLATFORM_ES_MAX_SHELL_CMD 64
+
+/**
+**  \cfeescfg Define Shell Command Telemetry Pkt Segment Size
+**
+**  \par Description:
+**       Defines the size of the shell command tlm packet segments.The shell command
+**       output size is dependant on the shell command itself. If the shell output
+**       size is greater than the size of the packet defined here, the fsw will
+**       generate a series of tlm packets (of the size defined here) that can be
+**       reconstructed by the ground system.
+**
+**  \par Limits
+**       There is a lower limit of 32 and an upper limit of #CFE_SB_MAX_SB_MSG_SIZE.
+*/
+#define CFE_PLATFORM_ES_MAX_SHELL_PKT 64
+
+/**
+**  \cfeescfg Define OS Task Delay Value for ES Shell Command
+**
+**  \par Description:
+**       This parameter defines the length of time (in milliseconds) ES will
+**       delay when sending shell command packets over the software bus to not
+**       flood the pipe on large messages.
+**
+**       Note: The milliseconds passed into OS_TaskDelay are converted into the
+**       units the underlying OS uses to measure time passing.  Many platforms
+**       limit the precision of this value however, a delay may not be
+**       needed at all in which the value may be set to zero.
+**
+**  \par Limits
+**       Not Applicable
+*/
+#define CFE_PLATFORM_ES_SHELL_OS_DELAY_MILLISEC 200
+
+/**
 **  \cfeescfg Default Application Information Filename
 **
 **  \par Description:
@@ -816,7 +926,7 @@
 **       The length of each string, including the NULL terminator cannot exceed the
 **       #OS_MAX_PATH_LEN value.
 */
-#define CFE_PLATFORM_ES_DEFAULT_TASK_LOG_FILE "/ram/cfe_es_taskinfo.log"
+#define CFE_PLATFORM_ES_DEFAULT_TASK_LOG_FILE "/ram/cfe_es_task_info.log"
 
 /**
 **  \cfeescfg Default System Log Filename
@@ -893,7 +1003,7 @@
 **       There is a lower limit of 0 and an upper limit of 1 on this configuration
 **       paramater.
 */
-#define CFE_PLATFORM_ES_DEFAULT_POR_SYSLOG_MODE 0
+#define CFE_PLATFORM_ES_DEFAULT_SYSLOG_MODE 1
 
 /**
 **  \cfeescfg Define Default System Log Mode following Processor Reset
@@ -911,7 +1021,7 @@
 **       There is a lower limit of 0 and an upper limit of 1 on this configuration
 **       paramater.
 */
-#define CFE_PLATFORM_ES_DEFAULT_PR_SYSLOG_MODE 1
+#define CFE_PLATFORM_ES_PERF_MAX_IDS 128
 
 /**
 **  \cfeescfg Define Max Size of Performance Data Buffer
@@ -1231,39 +1341,6 @@
 */
 #define CFE_PLATFORM_ES_MAX_PROCESSOR_RESETS 2
 
-/** \cfeescfg Maximum number of block sizes in pool structures
-**
-**  \par Description:
-**      The upper limit for the number of block sizes supported in the generic
-**      pool implementation, which in turn implements the memory pools and CDS.
-**
-**  \par Limits:
-**       Must be at least one.  No specific upper limit, but the number is
-**       anticipated to be reasonably small (i.e. tens, not hundreds).  Large
-**       values have not been tested.
-**
-**       The ES and CDS block size lists must correlate with this value
-*/
-#define CFE_PLATFORM_ES_POOL_MAX_BUCKETS 17
-
-/** \cfeescfg Maximum number of memory pools
-**
-**  \par Description:
-**      The upper limit for the number of memory pools than can concurrently
-**      exist within the system.
-**
-**      The CFE_SB and CFE_TBL core subsystems each define a memory pool.
-**
-**      Individual applications may also create memory pools, so this value
-**      should be set sufficiently high enough to support the applications
-**      being used on this platform.
-**
-**  \par Limits:
-**       Must be at least 2 to support CFE core - SB and TBL pools.  No
-**       specific upper limit.
-*/
-#define CFE_PLATFORM_ES_MAX_MEMORY_POOLS 10
-
 /**
 **  \cfeescfg Define Default ES Memory Pool Block Sizes
 **
@@ -1279,7 +1356,8 @@
 **       CFE_PLATFORM_ES_MAX_BLOCK_SIZE must be larger than CFE_MISSION_SB_MAX_SB_MSG_SIZE and both
 **       CFE_PLATFORM_TBL_MAX_SNGL_TABLE_SIZE and CFE_PLATFORM_TBL_MAX_DBL_TABLE_SIZE.  Note that if Table
 **       Services have been removed from the CFE, the table size limits are still
-**       enforced although the table size definitions may be reduced.
+**       enforced although the table size definitions may be reduced.  Refer to the CFS
+**       Deployment Guide for information about removing CFE Table Services from the CFE.
 */
 #define CFE_PLATFORM_ES_MEM_BLOCK_SIZE_01 8
 #define CFE_PLATFORM_ES_MEM_BLOCK_SIZE_02 16
@@ -1338,6 +1416,19 @@
 **       verified.
 */
 #define CFE_PLATFORM_EVS_MAX_EVENT_FILTERS 8
+
+/**
+**  \cfeevscfg Enable or Disable EVS Local Event Log
+**
+**  \par Description:
+**       The CFE_PLATFORM_EVS_LOG_ON configuration parameter must be defined to enable EVS
+**       event logging. In order to disable the local event log this definition needs
+**       to be commented out.
+**
+**  \par Limits
+**       Not Applicable
+*/
+#define CFE_PLATFORM_EVS_LOG_ON
 
 /**
 **  \cfeevscfg Default Event Log Filename
@@ -1605,7 +1696,7 @@
 **  \par Limits
 **       This value can be any 32 bit unsigned integer.
 */
-#define CFE_PLATFORM_TBL_VALID_SCID_1 (0x42)
+#define CFE_PLATFORM_TBL_VALID_SCID_1 (CFE_MISSION_SPACECRAFT_ID)
 #define CFE_PLATFORM_TBL_VALID_SCID_2 (CFE_PLATFORM_TBL_U32FROM4CHARS('a', 'b', 'c', 'd'))
 
 /**
@@ -1639,10 +1730,25 @@
 **  \par Limits
 **       This value can be any 32 bit unsigned integer.
 */
-#define CFE_PLATFORM_TBL_VALID_PRID_1 (1)
+#define CFE_PLATFORM_TBL_VALID_PRID_1 (CFE_PLATFORM_CPU_ID)
 #define CFE_PLATFORM_TBL_VALID_PRID_2 (CFE_PLATFORM_TBL_U32FROM4CHARS('a', 'b', 'c', 'd'))
 #define CFE_PLATFORM_TBL_VALID_PRID_3 0
 #define CFE_PLATFORM_TBL_VALID_PRID_4 0
+
+/** \cfeescfg Mission specific version number for cFE
+**
+**  \par Description:
+**       The cFE version number consists of four parts:
+**       major version number, minor version number, revision
+**       number and mission specific revision number. The mission
+**       specific revision number is defined here and the other
+**       parts are defined in "cfe_version.h".
+**
+**  \par Limits:
+**       Must be defined as a numeric value that is greater than
+**       or equal to zero.
+*/
+#define CFE_MISSION_REV 0
 
 /** \cfeescfg Poll timer for startup sync delay
 **
@@ -1708,4 +1814,212 @@
 */
 #define CFE_PLATFORM_ES_STARTUP_SCRIPT_TIMEOUT_MSEC 1000
 
-#endif /* CPU1_PLATFORM_CFG_H */
+/*
+ * Compatibility layer for CFE release 6.6
+ * During development of CFE 6.6 a naming convention was introduced such
+ * that all platform-specific symbols use a CFE_PLATFORM_ prefix.
+ *
+ * The following section provides a mapping from the historical name to
+ * the new name for compatibility with existing code.  The code can then be
+ * compiled with the CFE_OMIT_DEPRECATED_6_6 macro defined, and an error will
+ * be triggered if any of the old symbol names are referenced in the code.
+ *
+ * It is expected that this compatibility layer will be removed in the next
+ * release following 6.6, so all code must be fixed to use the new name.
+ */
+#ifndef CFE_OMIT_DEPRECATED_6_6
+
+#define CFE_CPU_ID                         CFE_PLATFORM_CPU_ID
+#define CFE_CPU_NAME                       CFE_PLATFORM_CPU_NAME
+#define CFE_SB_MAX_MSG_IDS                 CFE_PLATFORM_SB_MAX_MSG_IDS
+#define CFE_SB_MAX_PIPES                   CFE_PLATFORM_SB_MAX_PIPES
+#define CFE_SB_MAX_DEST_PER_PKT            CFE_PLATFORM_SB_MAX_DEST_PER_PKT
+#define CFE_SB_DEFAULT_MSG_LIMIT           CFE_PLATFORM_SB_DEFAULT_MSG_LIMIT
+#define CFE_SB_BUF_MEMORY_BYTES            CFE_PLATFORM_SB_BUF_MEMORY_BYTES
+#define CFE_SB_MAX_PIPE_DEPTH              CFE_PLATFORM_SB_MAX_PIPE_DEPTH
+#define CFE_SB_HIGHEST_VALID_MSGID         CFE_PLATFORM_SB_HIGHEST_VALID_MSGID
+#define CFE_SB_DEFAULT_ROUTING_FILENAME    CFE_PLATFORM_SB_DEFAULT_ROUTING_FILENAME
+#define CFE_SB_DEFAULT_PIPE_FILENAME       CFE_PLATFORM_SB_DEFAULT_PIPE_FILENAME
+#define CFE_SB_DEFAULT_MAP_FILENAME        CFE_PLATFORM_SB_DEFAULT_MAP_FILENAME
+#define CFE_SB_FILTERED_EVENT1             CFE_PLATFORM_SB_FILTERED_EVENT1
+#define CFE_SB_FILTER_MASK1                CFE_PLATFORM_SB_FILTER_MASK1
+#define CFE_SB_FILTERED_EVENT2             CFE_PLATFORM_SB_FILTERED_EVENT2
+#define CFE_SB_FILTER_MASK2                CFE_PLATFORM_SB_FILTER_MASK2
+#define CFE_SB_FILTERED_EVENT3             CFE_PLATFORM_SB_FILTERED_EVENT3
+#define CFE_SB_FILTER_MASK3                CFE_PLATFORM_SB_FILTER_MASK3
+#define CFE_SB_FILTERED_EVENT4             CFE_PLATFORM_SB_FILTERED_EVENT4
+#define CFE_SB_FILTER_MASK4                CFE_PLATFORM_SB_FILTER_MASK4
+#define CFE_SB_FILTERED_EVENT5             CFE_PLATFORM_SB_FILTERED_EVENT5
+#define CFE_SB_FILTER_MASK5                CFE_PLATFORM_SB_FILTER_MASK5
+#define CFE_SB_FILTERED_EVENT6             CFE_PLATFORM_SB_FILTERED_EVENT6
+#define CFE_SB_FILTER_MASK6                CFE_PLATFORM_SB_FILTER_MASK6
+#define CFE_SB_FILTERED_EVENT7             CFE_PLATFORM_SB_FILTERED_EVENT7
+#define CFE_SB_FILTER_MASK7                CFE_PLATFORM_SB_FILTER_MASK7
+#define CFE_SB_FILTERED_EVENT8             CFE_PLATFORM_SB_FILTERED_EVENT8
+#define CFE_SB_FILTER_MASK8                CFE_PLATFORM_SB_FILTER_MASK8
+#define CFE_SB_MEM_BLOCK_SIZE_01           CFE_PLATFORM_SB_MEM_BLOCK_SIZE_01
+#define CFE_SB_MEM_BLOCK_SIZE_02           CFE_PLATFORM_SB_MEM_BLOCK_SIZE_02
+#define CFE_SB_MEM_BLOCK_SIZE_03           CFE_PLATFORM_SB_MEM_BLOCK_SIZE_03
+#define CFE_SB_MEM_BLOCK_SIZE_04           CFE_PLATFORM_SB_MEM_BLOCK_SIZE_04
+#define CFE_SB_MEM_BLOCK_SIZE_05           CFE_PLATFORM_SB_MEM_BLOCK_SIZE_05
+#define CFE_SB_MEM_BLOCK_SIZE_06           CFE_PLATFORM_SB_MEM_BLOCK_SIZE_06
+#define CFE_SB_MEM_BLOCK_SIZE_07           CFE_PLATFORM_SB_MEM_BLOCK_SIZE_07
+#define CFE_SB_MEM_BLOCK_SIZE_08           CFE_PLATFORM_SB_MEM_BLOCK_SIZE_08
+#define CFE_SB_MEM_BLOCK_SIZE_09           CFE_PLATFORM_SB_MEM_BLOCK_SIZE_09
+#define CFE_SB_MEM_BLOCK_SIZE_10           CFE_PLATFORM_SB_MEM_BLOCK_SIZE_10
+#define CFE_SB_MEM_BLOCK_SIZE_11           CFE_PLATFORM_SB_MEM_BLOCK_SIZE_11
+#define CFE_SB_MEM_BLOCK_SIZE_12           CFE_PLATFORM_SB_MEM_BLOCK_SIZE_12
+#define CFE_SB_MEM_BLOCK_SIZE_13           CFE_PLATFORM_SB_MEM_BLOCK_SIZE_13
+#define CFE_SB_MEM_BLOCK_SIZE_14           CFE_PLATFORM_SB_MEM_BLOCK_SIZE_14
+#define CFE_SB_MEM_BLOCK_SIZE_15           CFE_PLATFORM_SB_MEM_BLOCK_SIZE_15
+#define CFE_SB_MEM_BLOCK_SIZE_16           CFE_PLATFORM_SB_MEM_BLOCK_SIZE_16
+#define CFE_SB_MAX_BLOCK_SIZE              CFE_PLATFORM_SB_MAX_BLOCK_SIZE
+#define CFE_SB_DEFAULT_REPORT_SENDER       CFE_PLATFORM_SB_DEFAULT_REPORT_SENDER
+#define CFE_TIME_CFG_SERVER                CFE_PLATFORM_TIME_CFG_SERVER
+#define CFE_TIME_CFG_CLIENT                CFE_PLATFORM_TIME_CFG_CLIENT
+#define CFE_TIME_CFG_VIRTUAL               CFE_PLATFORM_TIME_CFG_VIRTUAL
+#define CFE_TIME_CFG_SIGNAL                CFE_PLATFORM_TIME_CFG_SIGNAL
+#define CFE_TIME_CFG_SOURCE                CFE_PLATFORM_TIME_CFG_SOURCE
+#define CFE_TIME_CFG_SRC_MET               CFE_PLATFORM_TIME_CFG_SRC_MET
+#define CFE_TIME_CFG_SRC_GPS               CFE_PLATFORM_TIME_CFG_SRC_GPS
+#define CFE_TIME_CFG_SRC_TIME              CFE_PLATFORM_TIME_CFG_SRC_TIME
+#define CFE_TIME_MAX_DELTA_SECS            CFE_PLATFORM_TIME_MAX_DELTA_SECS
+#define CFE_TIME_MAX_DELTA_SUBS            CFE_PLATFORM_TIME_MAX_DELTA_SUBS
+#define CFE_TIME_MAX_LOCAL_SECS            CFE_PLATFORM_TIME_MAX_LOCAL_SECS
+#define CFE_TIME_MAX_LOCAL_SUBS            CFE_PLATFORM_TIME_MAX_LOCAL_SUBS
+#define CFE_TIME_CFG_TONE_LIMIT            CFE_PLATFORM_TIME_CFG_TONE_LIMIT
+#define CFE_TIME_CFG_START_FLY             CFE_PLATFORM_TIME_CFG_START_FLY
+#define CFE_TIME_CFG_LATCH_FLY             CFE_PLATFORM_TIME_CFG_LATCH_FLY
+#define CFE_ES_MAX_APPLICATIONS            CFE_PLATFORM_ES_MAX_APPLICATIONS
+#define CFE_ES_MAX_LIBRARIES               CFE_PLATFORM_ES_MAX_LIBRARIES
+#define CFE_ES_ER_LOG_ENTRIES              CFE_PLATFORM_ES_ER_LOG_ENTRIES
+#define CFE_ES_ER_LOG_MAX_CONTEXT_SIZE     CFE_PLATFORM_ES_ER_LOG_MAX_CONTEXT_SIZE
+#define CFE_ES_SYSTEM_LOG_SIZE             CFE_PLATFORM_ES_SYSTEM_LOG_SIZE
+#define CFE_ES_OBJECT_TABLE_SIZE           CFE_PLATFORM_ES_OBJECT_TABLE_SIZE
+#define CFE_ES_MAX_GEN_COUNTERS            CFE_PLATFORM_ES_MAX_GEN_COUNTERS
+#define CFE_ES_APP_SCAN_RATE               CFE_PLATFORM_ES_APP_SCAN_RATE
+#define CFE_ES_APP_KILL_TIMEOUT            CFE_PLATFORM_ES_APP_KILL_TIMEOUT
+#define CFE_ES_RAM_DISK_SECTOR_SIZE        CFE_PLATFORM_ES_RAM_DISK_SECTOR_SIZE
+#define CFE_ES_RAM_DISK_NUM_SECTORS        CFE_PLATFORM_ES_RAM_DISK_NUM_SECTORS
+#define CFE_ES_RAM_DISK_PERCENT_RESERVED   CFE_PLATFORM_ES_RAM_DISK_PERCENT_RESERVED
+#define CFE_ES_RAM_DISK_MOUNT_STRING       CFE_PLATFORM_ES_RAM_DISK_MOUNT_STRING
+#define CFE_ES_CDS_SIZE                    CFE_PLATFORM_ES_CDS_SIZE
+#define CFE_ES_USER_RESERVED_SIZE          CFE_PLATFORM_ES_USER_RESERVED_SIZE
+#define CFE_ES_RESET_AREA_SIZE             CFE_PLATFORM_ES_RESET_AREA_SIZE
+#define CFE_ES_NONVOL_STARTUP_FILE         CFE_PLATFORM_ES_NONVOL_STARTUP_FILE
+#define CFE_ES_VOLATILE_STARTUP_FILE       CFE_PLATFORM_ES_VOLATILE_STARTUP_FILE
+#define CFE_ES_DEFAULT_SHELL_FILENAME      CFE_PLATFORM_ES_DEFAULT_SHELL_FILENAME
+#define CFE_ES_MAX_SHELL_CMD               CFE_PLATFORM_ES_MAX_SHELL_CMD
+#define CFE_ES_MAX_SHELL_PKT               CFE_PLATFORM_ES_MAX_SHELL_PKT
+#define CFE_ES_DEFAULT_APP_LOG_FILE        CFE_PLATFORM_ES_DEFAULT_APP_LOG_FILE
+#define CFE_ES_DEFAULT_TASK_LOG_FILE       CFE_PLATFORM_ES_DEFAULT_TASK_LOG_FILE
+#define CFE_ES_DEFAULT_SYSLOG_FILE         CFE_PLATFORM_ES_DEFAULT_SYSLOG_FILE
+#define CFE_ES_DEFAULT_ER_LOG_FILE         CFE_PLATFORM_ES_DEFAULT_ER_LOG_FILE
+#define CFE_ES_DEFAULT_PERF_DUMP_FILENAME  CFE_PLATFORM_ES_DEFAULT_PERF_DUMP_FILENAME
+#define CFE_ES_DEFAULT_CDS_REG_DUMP_FILE   CFE_PLATFORM_ES_DEFAULT_CDS_REG_DUMP_FILE
+#define CFE_ES_DEFAULT_SYSLOG_MODE         CFE_PLATFORM_ES_DEFAULT_SYSLOG_MODE
+#define CFE_ES_PERF_MAX_IDS                CFE_PLATFORM_ES_PERF_MAX_IDS
+#define CFE_ES_PERF_DATA_BUFFER_SIZE       CFE_PLATFORM_ES_PERF_DATA_BUFFER_SIZE
+#define CFE_ES_PERF_FILTMASK_NONE          CFE_PLATFORM_ES_PERF_FILTMASK_NONE
+#define CFE_ES_PERF_FILTMASK_ALL           CFE_PLATFORM_ES_PERF_FILTMASK_ALL
+#define CFE_ES_PERF_FILTMASK_INIT          CFE_PLATFORM_ES_PERF_FILTMASK_INIT
+#define CFE_ES_PERF_TRIGMASK_NONE          CFE_PLATFORM_ES_PERF_TRIGMASK_NONE
+#define CFE_ES_PERF_TRIGMASK_ALL           CFE_PLATFORM_ES_PERF_TRIGMASK_ALL
+#define CFE_ES_PERF_TRIGMASK_INIT          CFE_PLATFORM_ES_PERF_TRIGMASK_INIT
+#define CFE_ES_PERF_CHILD_PRIORITY         CFE_PLATFORM_ES_PERF_CHILD_PRIORITY
+#define CFE_ES_PERF_CHILD_STACK_SIZE       CFE_PLATFORM_ES_PERF_CHILD_STACK_SIZE
+#define CFE_ES_PERF_CHILD_MS_DELAY         CFE_PLATFORM_ES_PERF_CHILD_MS_DELAY
+#define CFE_ES_PERF_ENTRIES_BTWN_DLYS      CFE_PLATFORM_ES_PERF_ENTRIES_BTWN_DLYS
+#define CFE_ES_DEFAULT_STACK_SIZE          CFE_PLATFORM_ES_DEFAULT_STACK_SIZE
+#define CFE_ES_EXCEPTION_FUNCTION          CFE_PLATFORM_ES_EXCEPTION_FUNCTION
+#define CFE_EVS_START_TASK_PRIORITY        CFE_PLATFORM_EVS_START_TASK_PRIORITY
+#define CFE_EVS_START_TASK_STACK_SIZE      CFE_PLATFORM_EVS_START_TASK_STACK_SIZE
+#define CFE_SB_START_TASK_PRIORITY         CFE_PLATFORM_SB_START_TASK_PRIORITY
+#define CFE_SB_START_TASK_STACK_SIZE       CFE_PLATFORM_SB_START_TASK_STACK_SIZE
+#define CFE_ES_START_TASK_PRIORITY         CFE_PLATFORM_ES_START_TASK_PRIORITY
+#define CFE_ES_START_TASK_STACK_SIZE       CFE_PLATFORM_ES_START_TASK_STACK_SIZE
+#define CFE_TIME_START_TASK_PRIORITY       CFE_PLATFORM_TIME_START_TASK_PRIORITY
+#define CFE_TIME_TONE_TASK_PRIORITY        CFE_PLATFORM_TIME_TONE_TASK_PRIORITY
+#define CFE_TIME_1HZ_TASK_PRIORITY         CFE_PLATFORM_TIME_1HZ_TASK_PRIORITY
+#define CFE_TIME_START_TASK_STACK_SIZE     CFE_PLATFORM_TIME_START_TASK_STACK_SIZE
+#define CFE_TIME_TONE_TASK_STACK_SIZE      CFE_PLATFORM_TIME_TONE_TASK_STACK_SIZE
+#define CFE_TIME_1HZ_TASK_STACK_SIZE       CFE_PLATFORM_TIME_1HZ_TASK_STACK_SIZE
+#define CFE_TBL_START_TASK_PRIORITY        CFE_PLATFORM_TBL_START_TASK_PRIORITY
+#define CFE_TBL_START_TASK_STACK_SIZE      CFE_PLATFORM_TBL_START_TASK_STACK_SIZE
+#define CFE_ES_CDS_MAX_NUM_ENTRIES         CFE_PLATFORM_ES_CDS_MAX_NUM_ENTRIES
+#define CFE_ES_MAX_PROCESSOR_RESETS        CFE_PLATFORM_ES_MAX_PROCESSOR_RESETS
+#define CFE_ES_MEM_BLOCK_SIZE_01           CFE_PLATFORM_ES_MEM_BLOCK_SIZE_01
+#define CFE_ES_MEM_BLOCK_SIZE_02           CFE_PLATFORM_ES_MEM_BLOCK_SIZE_02
+#define CFE_ES_MEM_BLOCK_SIZE_03           CFE_PLATFORM_ES_MEM_BLOCK_SIZE_03
+#define CFE_ES_MEM_BLOCK_SIZE_04           CFE_PLATFORM_ES_MEM_BLOCK_SIZE_04
+#define CFE_ES_MEM_BLOCK_SIZE_05           CFE_PLATFORM_ES_MEM_BLOCK_SIZE_05
+#define CFE_ES_MEM_BLOCK_SIZE_06           CFE_PLATFORM_ES_MEM_BLOCK_SIZE_06
+#define CFE_ES_MEM_BLOCK_SIZE_07           CFE_PLATFORM_ES_MEM_BLOCK_SIZE_07
+#define CFE_ES_MEM_BLOCK_SIZE_08           CFE_PLATFORM_ES_MEM_BLOCK_SIZE_08
+#define CFE_ES_MEM_BLOCK_SIZE_09           CFE_PLATFORM_ES_MEM_BLOCK_SIZE_09
+#define CFE_ES_MEM_BLOCK_SIZE_10           CFE_PLATFORM_ES_MEM_BLOCK_SIZE_10
+#define CFE_ES_MEM_BLOCK_SIZE_11           CFE_PLATFORM_ES_MEM_BLOCK_SIZE_11
+#define CFE_ES_MEM_BLOCK_SIZE_12           CFE_PLATFORM_ES_MEM_BLOCK_SIZE_12
+#define CFE_ES_MEM_BLOCK_SIZE_13           CFE_PLATFORM_ES_MEM_BLOCK_SIZE_13
+#define CFE_ES_MEM_BLOCK_SIZE_14           CFE_PLATFORM_ES_MEM_BLOCK_SIZE_14
+#define CFE_ES_MEM_BLOCK_SIZE_15           CFE_PLATFORM_ES_MEM_BLOCK_SIZE_15
+#define CFE_ES_MEM_BLOCK_SIZE_16           CFE_PLATFORM_ES_MEM_BLOCK_SIZE_16
+#define CFE_ES_MAX_BLOCK_SIZE              CFE_PLATFORM_ES_MAX_BLOCK_SIZE
+#define CFE_ES_CDS_MEM_BLOCK_SIZE_01       CFE_PLATFORM_ES_CDS_MEM_BLOCK_SIZE_01
+#define CFE_ES_CDS_MEM_BLOCK_SIZE_02       CFE_PLATFORM_ES_CDS_MEM_BLOCK_SIZE_02
+#define CFE_ES_CDS_MEM_BLOCK_SIZE_03       CFE_PLATFORM_ES_CDS_MEM_BLOCK_SIZE_03
+#define CFE_ES_CDS_MEM_BLOCK_SIZE_04       CFE_PLATFORM_ES_CDS_MEM_BLOCK_SIZE_04
+#define CFE_ES_CDS_MEM_BLOCK_SIZE_05       CFE_PLATFORM_ES_CDS_MEM_BLOCK_SIZE_05
+#define CFE_ES_CDS_MEM_BLOCK_SIZE_06       CFE_PLATFORM_ES_CDS_MEM_BLOCK_SIZE_06
+#define CFE_ES_CDS_MEM_BLOCK_SIZE_07       CFE_PLATFORM_ES_CDS_MEM_BLOCK_SIZE_07
+#define CFE_ES_CDS_MEM_BLOCK_SIZE_08       CFE_PLATFORM_ES_CDS_MEM_BLOCK_SIZE_08
+#define CFE_ES_CDS_MEM_BLOCK_SIZE_09       CFE_PLATFORM_ES_CDS_MEM_BLOCK_SIZE_09
+#define CFE_ES_CDS_MEM_BLOCK_SIZE_10       CFE_PLATFORM_ES_CDS_MEM_BLOCK_SIZE_10
+#define CFE_ES_CDS_MEM_BLOCK_SIZE_11       CFE_PLATFORM_ES_CDS_MEM_BLOCK_SIZE_11
+#define CFE_ES_CDS_MEM_BLOCK_SIZE_12       CFE_PLATFORM_ES_CDS_MEM_BLOCK_SIZE_12
+#define CFE_ES_CDS_MEM_BLOCK_SIZE_13       CFE_PLATFORM_ES_CDS_MEM_BLOCK_SIZE_13
+#define CFE_ES_CDS_MEM_BLOCK_SIZE_14       CFE_PLATFORM_ES_CDS_MEM_BLOCK_SIZE_14
+#define CFE_ES_CDS_MEM_BLOCK_SIZE_15       CFE_PLATFORM_ES_CDS_MEM_BLOCK_SIZE_15
+#define CFE_ES_CDS_MEM_BLOCK_SIZE_16       CFE_PLATFORM_ES_CDS_MEM_BLOCK_SIZE_16
+#define CFE_ES_CDS_MAX_BLOCK_SIZE          CFE_PLATFORM_ES_CDS_MAX_BLOCK_SIZE
+#define CFE_EVS_MAX_EVENT_FILTERS          CFE_PLATFORM_EVS_MAX_EVENT_FILTERS
+#define CFE_EVS_LOG_ON                     CFE_PLATFORM_EVS_LOG_ON
+#define CFE_EVS_DEFAULT_LOG_FILE           CFE_PLATFORM_EVS_DEFAULT_LOG_FILE
+#define CFE_EVS_LOG_MAX                    CFE_PLATFORM_EVS_LOG_MAX
+#define CFE_EVS_DEFAULT_APP_DATA_FILE      CFE_PLATFORM_EVS_DEFAULT_APP_DATA_FILE
+#define CFE_EVS_PORT_DEFAULT               CFE_PLATFORM_EVS_PORT_DEFAULT
+#define CFE_EVS_DEFAULT_TYPE_FLAG          CFE_PLATFORM_EVS_DEFAULT_TYPE_FLAG
+#define CFE_EVS_DEFAULT_LOG_MODE           CFE_PLATFORM_EVS_DEFAULT_LOG_MODE
+#define CFE_EVS_DEFAULT_MSG_FORMAT_MODE    CFE_PLATFORM_EVS_DEFAULT_MSG_FORMAT_MODE
+#define CFE_TBL_BUF_MEMORY_BYTES           CFE_PLATFORM_TBL_BUF_MEMORY_BYTES
+#define CFE_TBL_MAX_DBL_TABLE_SIZE         CFE_PLATFORM_TBL_MAX_DBL_TABLE_SIZE
+#define CFE_TBL_MAX_SNGL_TABLE_SIZE        CFE_PLATFORM_TBL_MAX_SNGL_TABLE_SIZE
+#define CFE_TBL_MAX_NUM_TABLES             CFE_PLATFORM_TBL_MAX_NUM_TABLES
+#define CFE_TBL_MAX_CRITICAL_TABLES        CFE_PLATFORM_TBL_MAX_CRITICAL_TABLES
+#define CFE_TBL_MAX_NUM_HANDLES            CFE_PLATFORM_TBL_MAX_NUM_HANDLES
+#define CFE_TBL_MAX_SIMULTANEOUS_LOADS     CFE_PLATFORM_TBL_MAX_SIMULTANEOUS_LOADS
+#define CFE_TBL_MAX_NUM_VALIDATIONS        CFE_PLATFORM_TBL_MAX_NUM_VALIDATIONS
+#define CFE_TBL_DEFAULT_REG_DUMP_FILE      CFE_PLATFORM_TBL_DEFAULT_REG_DUMP_FILE
+#define CFE_TBL_VALID_SCID_COUNT           CFE_PLATFORM_TBL_VALID_SCID_COUNT
+#define CFE_TBL_U32FROM4CHARS              CFE_PLATFORM_TBL_U32FROM4CHARS
+#define CFE_TBL_VALID_SCID_1               CFE_PLATFORM_TBL_VALID_SCID_1
+#define CFE_TBL_VALID_SCID_2               CFE_PLATFORM_TBL_VALID_SCID_2
+#define CFE_TBL_VALID_PRID_COUNT           CFE_PLATFORM_TBL_VALID_PRID_COUNT
+#define CFE_TBL_VALID_PRID_1               CFE_PLATFORM_TBL_VALID_PRID_1
+#define CFE_TBL_VALID_PRID_2               CFE_PLATFORM_TBL_VALID_PRID_2
+#define CFE_TBL_VALID_PRID_3               CFE_PLATFORM_TBL_VALID_PRID_3
+#define CFE_TBL_VALID_PRID_4               CFE_PLATFORM_TBL_VALID_PRID_4
+#define CFE_ES_STARTUP_SYNC_POLL_MSEC      CFE_PLATFORM_ES_STARTUP_SYNC_POLL_MSEC
+#define CFE_CORE_MAX_STARTUP_MSEC          CFE_PLATFORM_CORE_MAX_STARTUP_MSEC
+#define CFE_ES_STARTUP_SCRIPT_TIMEOUT_MSEC CFE_PLATFORM_ES_STARTUP_SCRIPT_TIMEOUT_MSEC
+
+/*
+ * This was previously configurable, now fixed.
+ * Keeping it here will trigger a "redefined" warning if some mission
+ * had configured it as "false" for some reason.
+ */
+#define CFE_TIME_ENA_1HZ_CMD_PKT TRUE
+
+#endif /* CFE_OMIT_DEPRECATED_6_6 */
+
+#endif /* _cfe_platform_cfg_ */
