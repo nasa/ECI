@@ -2,7 +2,7 @@
 #include "eci_tbl_if.h"
 
 /* Empty table for initialization */
-convParamStruct_t conv_param_tbl = {};
+convParamStruct_t conv_param_tbl = {0};
 
 /*
  ** The macro below identifies:

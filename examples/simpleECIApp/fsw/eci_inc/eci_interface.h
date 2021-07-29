@@ -199,28 +199,29 @@ static ECI_Msg_t ECI_MsgRcv[] = {
  * is accessible from the header file included above, then this declaration
  * isn't necessary.
  */
-extern boolean isOverThresh;
+extern bool isOverThresh;
 
 /** Create array of structures with error type, pointer to observable signal location,
    the location comment, and the event message */
 static const ECI_Evs_t ECI_Events[] = {
-    {ECI_EVENT_2_DATA,                      /** Macro defining type of ECI event,
-                                             * in this case, event with 2 data points*/
-     &(uint8) {1},                          /* ID for this event, unqiue to this app */
-     &(uint8) {CFE_EVS_INFORMATION},        /* Type of event */
-     &(uint32) {CFE_EVS_NO_FILTER},         /* Event mask */
-     &isOverThresh,                         /** Pointer to flag */
-     "Value was over threshold! (%d > %d)", /** fprintf-style format string */
-     "external code run()",                 /** (Optional) Location in code where event originated*/
-     (double *)&outputData.converted_Value, /** First data value */
-     &checkParams.checkThresh,              /** Second data value */
-     0,                                     /** Zeros for unused data points */
+    {ECI_EVENT_2_DATA,                         /** Macro defining type of ECI event,
+                                                * in this case, event with 2 data points*/
+     &(uint8) {1},                             /* ID for this event, unqiue to this app */
+     &(uint8) {CFE_EVS_EventType_INFORMATION}, /* Type of event */
+     &(uint32) {CFE_EVS_NO_FILTER},            /* Event mask */
+     &isOverThresh,                            /** Pointer to flag */
+     "Value was over threshold! (%d > %d)",    /** fprintf-style format string */
+     "external code run()",                    /** (Optional) Location in code where event originated*/
+     (double *)&outputData.converted_Value,    /** First data value */
+     &checkParams.checkThresh,                 /** Second data value */
+     0,                                        /** Zeros for unused data points */
      0, 0},
 
     {ECI_EVENT_0_DATA, /** Macro defining type of ECI event,
                         ** in this case, event with no data points*/
-     &(uint8) {2}, &(uint8) {CFE_EVS_INFORMATION}, &(uint32) {CFE_EVS_NO_FILTER}, (boolean *)&input_CmdPkt.processData,
-     "Got command to process data!", "external code run()", 0, /** Zeros for unused data points */
+     &(uint8) {2}, &(uint8) {CFE_EVS_EventType_INFORMATION}, &(uint32) {CFE_EVS_NO_FILTER},
+     (bool *)&input_CmdPkt.processData, "Got command to process data!", "external code run()",
+     0, /** Zeros for unused data points */
      0, 0, 0, 0},
 
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0} /** The table is null-terminated */
@@ -242,8 +243,8 @@ static const ECI_Evs_t ECI_Events[] = {
 /* Create array of Flag structures with id and flag */
 static const ECI_Flag_t ECI_Flags[] = {
     {
-        &(uint8) {1},            /** ID of this flag (unqiue to this app) */
-        (boolean *)&isOverThresh /** Flag to be telemetered */
+        &(uint8) {1},         /** ID of this flag (unqiue to this app) */
+        (bool *)&isOverThresh /** Flag to be telemetered */
     },
 
     {0, 0} /** The table is null-terminated */

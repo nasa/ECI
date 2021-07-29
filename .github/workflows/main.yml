@@ -128,4 +128,4 @@ jobs:
           then
             cat style_differences.txt
             exit -1
-          fi 
+          fi

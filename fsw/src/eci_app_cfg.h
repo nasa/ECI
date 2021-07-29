@@ -32,7 +32,7 @@
 /**
  * Length of a no data parameter command message
  */
-#define ECI_NO_DATA_CMD_MSG_LENGTH CFE_SB_CMD_HDR_SIZE
+#define ECI_NO_DATA_CMD_MSG_LENGTH sizeof(CFE_MSG_CommandHeader_t)
 /** Start of valid function code values */
 #define ECI_FUNC_CODE_START 100
 /** End of valid function code values */

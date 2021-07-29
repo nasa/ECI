@@ -8,6 +8,7 @@
 
 #ifdef __cplusplus
 extern "C"
+
 #endif /* __cplusplus */
 
 #include "cfe.h"
@@ -24,7 +25,7 @@ extern "C"
     typedef struct ECI_HkPacket_t
 {
     /** cFE Software Bus Telemetry Message Header */
-    uint8 TlmHeader[CFE_SB_TLM_HDR_SIZE];
+    uint8 TlmHeader[sizeof(CFE_MSG_TelemetryHeader_t)];
     /** number of command messages accepted (excluding HK Resets) */
     uint8 CmdAcceptCounter;
     /** number of command messages rejected (excluding HK Resets) */
@@ -36,7 +37,11 @@ extern "C"
     uint16 Latched[APP_FAULTREP_BITFIELD_WORDS];
 #endif
     /** Number of each SIL App-Subscribed Messages Received */
-    uint16 MsgRcvCnt[SIZEOF_ARRAY(ECI_MsgRcv) - 1];
+    uint16 MsgRcvCnt[SIZEOF_ARRAY(ECI_MsgRcv)];
 } ECI_HkPacket_t;
+
+#ifdef __cplusplus
+
+#endif /* __cplusplus */
 
 #endif /* ECI_APP_HK_H */

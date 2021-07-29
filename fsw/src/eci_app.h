@@ -8,6 +8,7 @@
 
 #ifdef __cplusplus
 extern "C"
+{
 #endif /* __cplusplus */
 
 #include "cfe.h"
@@ -47,95 +48,99 @@ extern "C"
      *  sent over the software bus.
      */
     typedef struct
-{
-    /** Message ID */
-    CFE_SB_MsgId_t mid;
-    /** Input/Output Buffer */
-    void *mptr;
-    /** Message Size (including header) */
-    size_t siz;
-    /** Location of Cmd Queue Buffer - NULL if Tlm Message */
-    void *qptr;
-    /** Pointer to the flag indicating whether to send output */
-    boolean *sendMsg;
-} ECI_Msg_t;
-/**@}*/
+    {
+        /** Message ID */
+        CFE_SB_MsgId_t mid;
+        /** Input/Output Buffer */
+        void *mptr;
+        /** Message Size (including header) */
+        size_t siz;
+        /** Location of Cmd Queue Buffer - NULL if Tlm Message */
+        void *qptr;
+        /** Pointer to the flag indicating whether to send output */
+        bool *sendMsg;
+    } ECI_Msg_t;
+    /**@}*/
 
-/** FDC Reporting Interface Structure */
-typedef struct
-{
-    /** Pointer to flag ID - unique ID set by the user */
-    uint8 *FlagID;
-    /** Pointer to status flag */
-    boolean *StatusFlag;
-} ECI_Flag_t;
+    /** FDC Reporting Interface Structure */
+    typedef struct
+    {
+        /** Pointer to flag ID - unique ID set by the user */
+        uint8 *FlagID;
+        /** Pointer to status flag */
+        bool *StatusFlag;
+    } ECI_Flag_t;
 
-/**@ingroup eci_event
- * Struct to define an EVS event message to be registered.
- */
-typedef struct
-{
-    /** Event Block describes how many data points  */
-    uint8 eventBlock;
-    /** Event Id  - unique id set by the user*/
-    uint8 *eventID;
-    /** Event Type - debug, info, error, crit set by user */
-    uint8 *eventType;
-    /** Event Mask - filter set by user */
-    uint32 *eventMask;
-    /** Flag indicating simulink event has occurred */
-    boolean *eventFlag;
-    /** Msgpoint to send with an event taken from observable signal */
-    uint8 *eventMsg;
-    /** Location string */
-    char *loc;
-    /** First data point */
-    double *data_1;
-    /** Second data point */
-    double *data_2;
-    /** Third data point */
-    double *data_3;
-    /** Fourth data point */
-    double *data_4;
-    /** Fifth data point */
-    double *data_5;
-} ECI_Evs_t;
+    /**@ingroup eci_event
+     * Struct to define an EVS event message to be registered.
+     */
+    typedef struct
+    {
+        /** Event Block describes how many data points  */
+        uint8 eventBlock;
+        /** Event Id  - unique id set by the user*/
+        uint8 *eventID;
+        /** Event Type - debug, info, error, crit set by user */
+        uint8 *eventType;
+        /** Event Mask - filter set by user */
+        uint32 *eventMask;
+        /** Flag indicating simulink event has occurred */
+        bool *eventFlag;
+        /** Msgpoint to send with an event taken from observable signal */
+        const char *eventMsg;
+        /** Location string */
+        const char *loc;
+        /** First data point */
+        double *data_1;
+        /** Second data point */
+        double *data_2;
+        /** Third data point */
+        double *data_3;
+        /** Fourth data point */
+        double *data_4;
+        /** Fifth data point */
+        double *data_5;
+    } ECI_Evs_t;
 
-/**@defgroup eci_table ECI Table
- * @ingroup eci_interface
- * How to define a FSW table
- * @{
- */
-/** Table Interface Structure */
-typedef struct
-{
-    /** Pointer to table  */
-    void **tblptr;
-    /** Name of table  */
-    char *tblname;
-    /** Description of table  */
-    char *tbldesc;
-    /** Filename of table  */
-    char *tblfilename;
-    /** Size of table */
-    uint32 tblsize;
-    /** Table validation func */
-    void *tblvalfunc;
-} ECI_Tbl_t;
-/**@}*/
+    /**@defgroup eci_table ECI Table
+     * @ingroup eci_interface
+     * How to define a FSW table
+     * @{
+     */
+    /** Table Interface Structure */
+    typedef struct
+    {
+        /** Pointer to table  */
+        void **tblptr;
+        /** Name of table  */
+        const char *tblname;
+        /** Description of table  */
+        const char *tbldesc;
+        /** Filename of table  */
+        const char *tblfilename;
+        /** Size of table */
+        uint32 tblsize;
+        /** Table validation func */
+        int32_t (*tblvalfunc)(void *);
+    } ECI_Tbl_t;
+    /**@}*/
 
-/** Critical Data Store Structure */
-typedef struct
-{
-    /** Name of CDS block */
-    char *cdsname;
-    /** Size of CDS block */
-    size_t cdssiz;
-    /** Address of Critical Data  */
-    void *cdsptr;
-} ECI_Cds_t;
+    /** Critical Data Store Structure */
+    typedef struct
+    {
+        /** Name of CDS block */
+        const char *cdsname;
+        /** Size of CDS block */
+        size_t cdssiz;
+        /** Address of Critical Data  */
+        void *cdsptr;
+    } ECI_Cds_t;
 
-/** Time Interface Structure */
-typedef CFE_TIME_SysTime_t ECI_TimeStamp_t;
+    /** Time Interface Structure */
+    typedef CFE_TIME_SysTime_t ECI_TimeStamp_t;
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* ECI_APP_H */
