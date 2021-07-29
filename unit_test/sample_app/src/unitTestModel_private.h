@@ -18,15 +18,15 @@
 #include "rtwtypes.h"
 
 extern ECI_TimeStamp_t ECI_Step_TimeStamp;
-extern real_T rt_modd_snf(real_T u0, real_T u1);
+extern real_T          rt_modd_snf(real_T u0, real_T u1);
 
 /* Exported data declaration */
 
 /* Declaration of data with custom storage class cfsParmTable */
-extern paramTable1_b *param_TBL1 ;
-extern paramTable2_b *param_TBL2 ;
+extern paramTable1_b *param_TBL1;
+extern paramTable2_b *param_TBL2;
 
-#endif                                 /* RTW_HEADER_unitTestModel_private_h_ */
+#endif /* RTW_HEADER_unitTestModel_private_h_ */
 
 /*
  * File trailer for generated code.

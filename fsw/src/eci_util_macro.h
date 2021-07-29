@@ -2,7 +2,7 @@
  * @file
  * @brief Defines utility macros which are used throughout the code.
  */
- 
+
 #ifndef ECI_UTIL_MACRO_H
 #define ECI_UTIL_MACRO_H
 
@@ -28,7 +28,7 @@
  * @param ar array to calculate size of
  * @returns size of the array
  */
-#define SIZEOF_ARRAY(ar) (sizeof(ar)/sizeof(ar[0]))
+#define SIZEOF_ARRAY(ar) (sizeof(ar) / sizeof(ar[0]))
 
 /**
  * Returns the number of bytes for the member of the structure.
@@ -36,7 +36,7 @@
  * @param member name of the member to calculate
  * @returns size of the struct member
  */
-#define SIZEOF_MEMBER(memberOf, member) sizeof(((memberOf*)0)->member)
+#define SIZEOF_MEMBER(memberOf, member) sizeof(((memberOf *)0)->member)
 
 /**
  * Returns the number of elements of an array for a member of a structure.
@@ -44,38 +44,33 @@
  * @param member array to calculate the size of
  * @returns size of the struct array
  */
-#define SIZEOF_ARRAY_MEMBER(memberOf, member) (sizeof(((memberOf*)0)->member)/sizeof(((memberOf*)0)->member[0]))
+#define SIZEOF_ARRAY_MEMBER(memberOf, member) (sizeof(((memberOf *)0)->member) / sizeof(((memberOf *)0)->member[0]))
 
 /**
  * Swaps the low and high bytes of a 16 bit value
  * @param x 16 bit value to swap
  * @returns a byte swapped x
  */
-#define BSWAP_16(x)  (((uint16_t)(x) << 8) | \
-                      ((uint16_t)(x) >> 8))
+#define BSWAP_16(x) (((uint16_t)(x) << 8) | ((uint16_t)(x) >> 8))
 
 /**
  * Swaps the 2 lowest and 2 highest bytes of a 32 bit value
  * @param x 32 bit value to swap
  * @returns a byte swapped x
  */
-#define BSWAP_32(x)  (((uint32_t)(x) << 24) | \
-                     (((uint32_t)(x) <<  8) & 0xff0000) | \
-                     (((uint32_t)(x) >>  8) & 0xff00) | \
-                      ((uint32_t)(x) >> 24))
+#define BSWAP_32(x)                                                                                \
+    (((uint32_t)(x) << 24) | (((uint32_t)(x) << 8) & 0xff0000) | (((uint32_t)(x) >> 8) & 0xff00) | \
+     ((uint32_t)(x) >> 24))
 /**
  * Swap the 4 lowest and 4 highest bytes of a 64 bit value
  * @param x 64 bit value to swap
  * @returns a byte swapped x
  */
-#define BSWAP_64(x)  (((uint64_t)(x) << 56) | \
-                     (((uint64_t)(x) << 40) & 0xff000000000000ULL) | \
-                     (((uint64_t)(x) << 24) & 0xff0000000000ULL) | \
-                     (((uint64_t)(x) <<  8) & 0xff00000000ULL) | \
-                     (((uint64_t)(x) >>  8) & 0xff000000ULL) | \
-                     (((uint64_t)(x) >> 24) & 0xff0000ULL) | \
-                     (((uint64_t)(x) >> 40) & 0xff00ULL) | \
-                      ((uint64_t)(x) >> 56))
+#define BSWAP_64(x)                                                                           \
+    (((uint64_t)(x) << 56) | (((uint64_t)(x) << 40) & 0xff000000000000ULL) |                  \
+     (((uint64_t)(x) << 24) & 0xff0000000000ULL) | (((uint64_t)(x) << 8) & 0xff00000000ULL) | \
+     (((uint64_t)(x) >> 8) & 0xff000000ULL) | (((uint64_t)(x) >> 24) & 0xff0000ULL) |         \
+     (((uint64_t)(x) >> 40) & 0xff00ULL) | ((uint64_t)(x) >> 56))
 
 /*
  * Binary Constant Generator Macros
@@ -96,14 +91,10 @@
 /**
  * 8-bit Conversion Function
  */
-#define B8__(x)   ((x&0x0000000FLU)?1:0) \
-                + ((x&0x000000F0LU)?2:0) \
-                + ((x&0x00000F00LU)?4:0) \
-                + ((x&0x0000F000LU)?8:0) \
-                + ((x&0x000F0000LU)?16:0) \
-                + ((x&0x00F00000LU)?32:0) \
-                + ((x&0x0F000000LU)?64:0) \
-                + ((x&0xF0000000LU)?128:0)
+#define B8__(x)                                                                                        \
+    ((x & 0x0000000FLU) ? 1 : 0) + ((x & 0x000000F0LU) ? 2 : 0) + ((x & 0x00000F00LU) ? 4 : 0) +       \
+        ((x & 0x0000F000LU) ? 8 : 0) + ((x & 0x000F0000LU) ? 16 : 0) + ((x & 0x00F00000LU) ? 32 : 0) + \
+        ((x & 0x0F000000LU) ? 64 : 0) + ((x & 0xF0000000LU) ? 128 : 0)
 
 /** For up to 8-bit binary constants. */
 #define B8(d) ((uint8_t)B8__(HEX__(d)))

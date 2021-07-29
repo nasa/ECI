@@ -6,33 +6,39 @@
 #include <stdint.h>
 
 /* Parameter tables */
-typedef struct {
+typedef struct
+{
     double scaleFactor;
     double biasFactor;
 } convParamStruct_t;
 
-typedef struct {
+typedef struct
+{
     double checkThresh;
 } checkParamStruct_t;
 
 /* State table */
-typedef struct {
+typedef struct
+{
     uint32_t cycleCounter;
     uint32_t numOverThresh;
 } stateStruct_t;
 
 /* Packets */
-typedef struct{
+typedef struct
+{
     uint8_t sensorMeas;
 } inputStruct_t;
 
-typedef struct{
+typedef struct
+{
     bool processData;
 } inputCmdPkt_t;
 
-typedef struct{
+typedef struct
+{
     uint8_t converted_Value;
-    bool overThresh;
+    bool    overThresh;
 } outputStruct_t;
 
 /* Function Prototypes */

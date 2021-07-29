@@ -15,16 +15,16 @@
 
 #ifndef RTW_HEADER_rtGetInf_h_
 #define RTW_HEADER_rtGetInf_h_
-#include <stddef.h>
-#include "rtwtypes.h"
 #include "rt_nonfinite.h"
+#include "rtwtypes.h"
+#include <stddef.h>
 
-extern real_T rtGetInf(void);
+extern real_T   rtGetInf(void);
 extern real32_T rtGetInfF(void);
-extern real_T rtGetMinusInf(void);
+extern real_T   rtGetMinusInf(void);
 extern real32_T rtGetMinusInfF(void);
 
-#endif                                 /* RTW_HEADER_rtGetInf_h_ */
+#endif /* RTW_HEADER_rtGetInf_h_ */
 
 /*
  * File trailer for generated code.

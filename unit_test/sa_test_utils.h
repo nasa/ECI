@@ -2,13 +2,13 @@
 #define _sa_test_utils_
 
 /* UT Test includes */
-#include "eci_app_cfg.h"
 #include "cfe.h"
+#include "eci_app_cfg.h"
 
 #define CAT_TBL_PATH(PATH) PARAM_TBL_PATH_PREFIX PATH
 
 void SA_Test_Setup(void);
-void SA_Test_TearDown(void); 
+void SA_Test_TearDown(void);
 
 void SA_Test_CFE_ES_ExitApp(uint32 ExitStatus);
 
@@ -18,7 +18,7 @@ CFE_TIME_SysTime_t SA_Test_CFE_TIME_GetTime(void);
 
 void SA_Test_Iteration_Reset(void);
 
-int32 SA_Test_CFE_TBL_Manage( CFE_TBL_Handle_t TblHandle );
+int32 SA_Test_CFE_TBL_Manage(CFE_TBL_Handle_t TblHandle);
 
 void set_SA_Test_CFE_SB_RcvMsg(CFE_SB_MsgId_t MsgId);
 
