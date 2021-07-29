@@ -14,7 +14,7 @@
  * Command Verification:  HK command counter increments and event# ECI_NOOP_INF_EID issued<br>
  * Error Condition:  None<br>
  */
-#define ECI_NOOP_CC                    0   
+#define ECI_NOOP_CC 0
 
 /**
  * Description:  HK Counters Reset<br>
@@ -22,7 +22,7 @@
  *                         ECI_RESET_HK_CTR_INF_EID issued<br>
  * Error Condition:  None<br>
  */
-#define ECI_RESET_HK_COUNTER_CC        1   
+#define ECI_RESET_HK_COUNTER_CC 1
 
 #ifdef ECI_FLAG_TABLE_DEFINED
 
@@ -32,7 +32,7 @@
  *                         accordingly and command counter incremented<br>
  * Error Condition:  Invalid FDC ID specified in command<br>
  */
-#define ECI_FAULTREP_CONFIG_CC         2
+#define ECI_FAULTREP_CONFIG_CC 2
 
 /**
  * Description:  Clears Fault Reporter if FDC reporting enabled<br>
@@ -41,7 +41,7 @@
  *                         command counter incremented<br>
  * Error Condition:  Invalid FDC ID specified in command<br>
  */
-#define ECI_FAULTREP_CLEAR_CC          3
+#define ECI_FAULTREP_CLEAR_CC 3
 
 #endif /* ECI_FLAG_TABLE_DEFINED */
 

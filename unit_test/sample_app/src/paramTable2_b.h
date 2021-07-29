@@ -17,15 +17,16 @@
 #define RTW_HEADER_paramTable2_b_h_
 #include "rtwtypes.h"
 
-typedef struct {
-  uint8_T param1;
-  uint8_T param2;
-  uint8_T param3;
-  uint8_T param4;
-  uint8_T param5;
+typedef struct
+{
+    uint8_T param1;
+    uint8_T param2;
+    uint8_T param3;
+    uint8_T param4;
+    uint8_T param5;
 } paramTable2_b;
 
-#endif                                 /* RTW_HEADER_paramTable2_b_h_ */
+#endif /* RTW_HEADER_paramTable2_b_h_ */
 
 /*
  * File trailer for generated code.

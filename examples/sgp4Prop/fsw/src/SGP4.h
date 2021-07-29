@@ -1,34 +1,35 @@
 #ifndef __sgp4header__
-#define __sgp4header__  
+#define __sgp4header__
 
 #define wgs72old 1
-#define wgs72 2
-#define wgs84 3
-#define pi 3.14159265358979323846
+#define wgs72    2
+#define wgs84    3
+#define pi       3.14159265358979323846
 
-#define twopi  (2.0*pi)
-#define deg2rad  (pi/180.0)
+#define twopi   (2.0 * pi)
+#define deg2rad (pi / 180.0)
 
 #include <stdbool.h>
 
 /**
  * This class implements the elsetrec data type from Vallado's SGP4 code.
- * 
+ *
  * From SGP4.h
  * #define SGP4Version  "SGP4 Version 2016-03-09"
- * 
+ *
  * @author aholinch
  *
  */
-typedef struct ElsetRec {
-    int whichconst;
-    int satnum;
-    int epochyr;
-    int epochtynumrev;
-    int error;
-    char operationmode;
-    char init;
-    char method;    
+typedef struct ElsetRec
+{
+    int    whichconst;
+    int    satnum;
+    int    epochyr;
+    int    epochtynumrev;
+    int    error;
+    char   operationmode;
+    char   init;
+    char   method;
     double a;
     double altp;
     double alta;
@@ -45,17 +46,17 @@ typedef struct ElsetRec {
     double argpo;
     double mo;
     double no_kozai;
-    
+
     // sgp4fix add new variables from tle
     char classification;
     char intldesg[12];
-    int ephtype;
+    int  ephtype;
     long elnum;
     long revnum;
-    
+
     // sgp4fix add unkozai'd variable
     double no_unkozai;
-    
+
     // sgp4fix add singly averaged variables
     double am;
     double em;
@@ -65,23 +66,23 @@ typedef struct ElsetRec {
     double mm;
     double nm;
     double t;
-    
+
     // sgp4fix add constant parameters to eliminate mutliple calls during execution
     double tumin;
     double mu;
     double radiusearthkm;
-    double xke; 
+    double xke;
     double j2;
     double j3;
     double j4;
     double j3oj2;
-    
-    //       Additional elements to capture relevant TLE and object information:       
-    long dia_mm; // RSO dia in mm
-    double period_sec; // Period in seconds
-    char active; // "Active S/C" flag (0=n, 1=y) 
-    char not_orbital; // "Orbiting S/C" flag (0=n, 1=y)  
-    double rcs_m2; // "RCS (m^2)" storage  
+
+    //       Additional elements to capture relevant TLE and object information:
+    long   dia_mm;      // RSO dia in mm
+    double period_sec;  // Period in seconds
+    char   active;      // "Active S/C" flag (0=n, 1=y)
+    char   not_orbital; // "Orbiting S/C" flag (0=n, 1=y)
+    double rcs_m2;      // "RCS (m^2)" storage
 
     // temporary variables because the original authors call the same method with different variables
     double ep;
@@ -90,8 +91,7 @@ typedef struct ElsetRec {
     double argpp;
     double mp;
 
-
-    int isimp;
+    int    isimp;
     double aycof;
     double con41;
     double cc1;
@@ -118,7 +118,7 @@ typedef struct ElsetRec {
     double nodecf;
 
     // deep space
-    int irez;
+    int    irez;
     double d2201;
     double d2211;
     double d3210;
@@ -183,14 +183,14 @@ typedef struct ElsetRec {
     double day;
     double emsq;
     double gam;
-    double rtemsq; 
+    double rtemsq;
     double s1;
     double s2;
     double s3;
     double s4;
     double s5;
     double s6;
-    double s7; 
+    double s7;
     double ss1;
     double ss2;
     double ss3;
@@ -227,7 +227,7 @@ typedef struct ElsetRec {
     double nodem;
     double dndt;
     double eccsq;
-        
+
     // for initl
     double ainv;
     double ao;
@@ -239,30 +239,25 @@ typedef struct ElsetRec {
     double rp;
     double rteosq;
     double sinio;
-} ElsetRec;  // end struct
+} ElsetRec; // end struct
 
+void dpper(double e3, double ee2, double peo, double pgho, double pho, double pinco, double plo, double se2, double se3,
+           double sgh2, double sgh3, double sgh4, double sh2, double sh3, double si2, double si3, double sl2,
+           double sl3, double sl4, double t, double xgh2, double xgh3, double xgh4, double xh2, double xh3, double xi2,
+           double xi3, double xl2, double xl3, double xl4, double zmol, double zmos, char init, ElsetRec *rec,
+           char opsmode);
 
-void dpper ( double e3, double ee2, double peo, double pgho, double pho,
-             double pinco, double plo, double se2, double se3, double sgh2,
-             double sgh3, double sgh4, double sh2, double sh3, double si2,
-             double si3, double sl2, double sl3, double sl4, double t,
-             double xgh2, double xgh3, double xgh4, double xh2, double xh3,
-             double xi2, double xi3, double xl2, double xl3, double xl4,
-             double zmol, double zmos, char init,
-             ElsetRec *rec, char opsmode);
+void dscom(double epoch, double ep, double argpp, double tc, double inclp, double nodep, double np, ElsetRec *rec);
 
-void dscom ( double epoch, double ep, double argpp, double tc, double inclp,
-             double nodep, double np, ElsetRec *rec);
-
-void dsinit ( double tc, double xpidot, ElsetRec *rec);
+void dsinit(double tc, double xpidot, ElsetRec *rec);
 
 void dspace(double tc, ElsetRec *rec);
 
 void initl(double epoch, ElsetRec *rec);
 
-bool sgp4init ( char opsmode,ElsetRec *satrec);
+bool sgp4init(char opsmode, ElsetRec *satrec);
 
-bool sgp4 ( ElsetRec *satrec, double tsince, double *r, double *v);
+bool sgp4(ElsetRec *satrec, double tsince, double *r, double *v);
 
 void getgravconst(int whichconst, ElsetRec *rec);
 

@@ -21,11 +21,12 @@
 #ifndef DEFINED_TYPEDEF_FOR_CFEEventType_
 #define DEFINED_TYPEDEF_FOR_CFEEventType_
 
-typedef enum {
-  CFEEventType_Debug = 1,              /* Default value */
-  CFEEventType_Info,
-  CFEEventType_Error,
-  CFEEventType_Critical
+typedef enum
+{
+    CFEEventType_Debug = 1, /* Default value */
+    CFEEventType_Info,
+    CFEEventType_Error,
+    CFEEventType_Critical
 } CFEEventType;
 
 #endif
@@ -33,18 +34,19 @@ typedef enum {
 #ifndef DEFINED_TYPEDEF_FOR_CFEEventMask_
 #define DEFINED_TYPEDEF_FOR_CFEEventMask_
 
-typedef enum {
-  CFEEventMask_NoFilter = 0,           /* Default value */
-  CFEEventMask_First1 = 65535,
-  CFEEventMask_First2 = 65534,
-  CFEEventMask_First4 = 65532,
-  CFEEventMask_First8 = 65528,
-  CFEEventMask_First16 = 65520,
-  CFEEventMask_First32 = 65504,
-  CFEEventMask_First64 = 65472,
-  CFEEventMask_EveryOther = 1,
-  CFEEventMask_EveryTwo,
-  CFEEventMask_EveryFour
+typedef enum
+{
+    CFEEventMask_NoFilter   = 0, /* Default value */
+    CFEEventMask_First1     = 65535,
+    CFEEventMask_First2     = 65534,
+    CFEEventMask_First4     = 65532,
+    CFEEventMask_First8     = 65528,
+    CFEEventMask_First16    = 65520,
+    CFEEventMask_First32    = 65504,
+    CFEEventMask_First64    = 65472,
+    CFEEventMask_EveryOther = 1,
+    CFEEventMask_EveryTwo,
+    CFEEventMask_EveryFour
 } CFEEventMask;
 
 #endif
@@ -52,7 +54,7 @@ typedef enum {
 /* Forward declaration for rtModel */
 typedef struct tag_RTM_unitTestModel_T RT_MODEL_unitTestModel_T;
 
-#endif                                 /* RTW_HEADER_unitTestModel_types_h_ */
+#endif /* RTW_HEADER_unitTestModel_types_h_ */
 
 /*
  * File trailer for generated code.

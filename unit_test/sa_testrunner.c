@@ -5,7 +5,7 @@ int main(void)
 {
     SA_App_Test_AddTestCases();
 
-    return(UtTest_Run());
+    return (UtTest_Run());
 
 } /* End of main() */
 

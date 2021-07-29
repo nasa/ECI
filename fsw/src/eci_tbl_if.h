@@ -19,7 +19,7 @@
  * Maximum parameter table length. If this variable isn't defined
  *  it will be set to :c:macro:`CFE_TBL_MAX_NAME_LENGTH`.
  */
-#define ECI_PARAM_TBL_MAX_NAME_LEN    CFE_TBL_MAX_NAME_LENGTH
+#define ECI_PARAM_TBL_MAX_NAME_LEN CFE_TBL_MAX_NAME_LENGTH
 #endif /* ECI_PARAM_TBL_MAX_NAME_LEN */
 
 /**
@@ -36,8 +36,8 @@
  * @returns Static declaration of CFE_TBL_FileDef_t to be used with elf2cfetbl<br/>
  */
 #define ECI_TBL_FILEDEF(StructName, ObjName, TblName, Desc, Filename) \
-        static CFE_TBL_FileDef_t StructName __attribute__((__used__)) = \
-        {#ObjName, #TblName, #Desc, #Filename, sizeof(ObjName)};
+    static CFE_TBL_FileDef_t StructName                               \
+        __attribute__((__used__)) = {#ObjName, #TblName, #Desc, #Filename, sizeof(ObjName)};
 
 /** @} */
 #endif /* ECI_TBL_IF_H */

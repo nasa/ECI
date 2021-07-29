@@ -6,63 +6,126 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run: sudo apt-get update
-      - run: sudo apt-get install gcc-multilib
-      - run: ./.github/workflows/ci/fetchCFE.sh
-      - run: ./.github/workflows/ci/buildSimpleExample.sh
+      - name: Update and install packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install gcc-multilib
+      - name: Fetch cFE
+        run: ./.github/workflows/ci/fetchCFE.sh
+      - name: Build Simple Example
+        run: ./.github/workflows/ci/buildSimpleExample.sh
   build_6-5_sgp4:
     name: build_6-5_sgp4
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run: sudo apt-get update
-      - run: sudo apt-get install gcc-multilib
-      - run: ./.github/workflows/ci/fetchCFE.sh
-      - run: ./.github/workflows/ci/buildSGP4Example.sh
+      - name: Update and install packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install gcc-multilib
+      - name: Fetch cFE
+        run: ./.github/workflows/ci/fetchCFE.sh
+      - name: Build SGP4
+        run: ./.github/workflows/ci/buildSGP4Example.sh
   run_6-5_eci_unit_tests:
     name: run_6-5_eci_unit_tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run: sudo apt-get update
-      - run: sudo apt-get install gcc-multilib
-      - run: ./.github/workflows/ci/fetchCFE.sh
-      - run: ./.github/workflows/ci/runECIUnitTest.sh
+      - name: Update and install packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install gcc-multilib
+      - name: Fetch cFE
+        run: ./.github/workflows/ci/fetchCFE.sh
+      - name: Run ECI unit tests
+        run: ./.github/workflows/ci/runECIUnitTest.sh
   run_6-5_sgp4_unit_tests:
     name: run_6-5_sgp4_unit_tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run: sudo apt-get update
-      - run: sudo apt-get install gcc-multilib
-      - run: ./.github/workflows/ci/fetchCFE.sh
-      - run: ./.github/workflows/ci/runSGP4UnitTest.sh
+      - name: Update and install packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install gcc-multilib
+      - name: Fetch cFE
+        run: ./.github/workflows/ci/fetchCFE.sh
+      - name: Run SGP4 unit tests
+        run: ./.github/workflows/ci/runSGP4UnitTest.sh
   build_6-6_simple:
     name: build_6-6_simple
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run: sudo apt-get update
-      - run: sudo apt-get install gcc-multilib
-      - run: cmake ./.github/workflows/ci/simple_app      
-      - run: make -C ./cfs
+      - name: Update and install packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install gcc-multilib
+      - name: Build
+        run: |
+          cmake ./.github/workflows/ci/simple_app      
+          make -C ./cfs
   build_6-6_sgp4:
     name: build_6-6_sgp4
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run: sudo apt-get update
-      - run: sudo apt-get install gcc-multilib
-      - run: cmake ./.github/workflows/ci/sgp4      
-      - run: make -C ./cfs
+      - name: Update and install packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install gcc-multilib
+      - name: Build
+        run: |
+          cmake ./.github/workflows/ci/sgp4      
+          make -C ./cfs
   deploy:
     name: deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run: sudo apt-get update
-      - run: sudo apt-get install gcc-multilib
-      - run: sudo apt-get install doxygen
-      - name: Doxygen
+      - name: Update and install packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install gcc-multilib
+          sudo apt-get install doxygen
+      - name: Run Doxygen
         working-directory: ./doc
         run: doxygen Doxyfile
+  format_check:
+    name: format check
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Install format checker
+        run: |
+          wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+          sudo add-apt-repository 'deb http://apt.llvm.org/bionic/   llvm-toolchain-bionic-10 main'
+          sudo apt-get update && sudo apt-get install clang-format-10
+      - name: Checkout bundle
+        uses: actions/checkout@v2
+        with:
+          repository: nasa/cFS
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: repo
+
+      - name: Generate format differences
+        run: |
+          cd repo
+          find . -name "*.[ch]" -exec clang-format-10 -i -style=file {} +
+          git diff > $GITHUB_WORKSPACE/style_differences.txt
+      - name: Archive Static Analysis Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: style_differences
+          path: style_differences.txt
+
+      - name: Error on differences
+        run: |
+          if [[ -s style_differences.txt ]];
+          then
+            cat style_differences.txt
+            exit -1
+          fi
