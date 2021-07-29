@@ -15,7 +15,6 @@ void setValsToRec(TLE *tle, ElsetRec *rec);
  
 void parseLines(TLE *tle, char *line1, char *line2)
 {
-    int i=0;
     tle->rec.whichconst=wgs72;
     // copy the lines
     strncpy(tle->line1,line1,69);
@@ -67,22 +66,22 @@ bool isLeap(int year)
 {
     if(year % 4 != 0)
     {
-        return FALSE;
+        return false;
     }
     
     if(year % 100 == 0)
     {
         if(year % 400 == 0) 
         {
-            return TRUE;
+            return true;
         }
         else
         {
-            return FALSE;
+            return false;
         }
     }
         
-    return TRUE;
+    return true;
 }
 
 long parseEpoch(ElsetRec *rec, char *str)
@@ -116,24 +115,22 @@ long parseEpoch(ElsetRec *rec, char *str)
     strncpy(&tmp2[1],&tmp[5],9);
     tmp2[11]=0;
     double dfrac = strtod(tmp2,NULL);
-    double odfrac = dfrac;        
     rec->epochdays = doy;
     rec->epochdays += dfrac;
         
         
-    dfrac *= 24.0d;
+    dfrac *= 24.0;
     int hr = (int)dfrac;
-    dfrac = 60.0d*(dfrac - hr);
+    dfrac = 60.0*(dfrac - hr);
     int mn = (int)dfrac;
-    dfrac = 60.0d*(dfrac - mn);
+    dfrac = 60.0*(dfrac - mn);
     int sc = (int)dfrac;
         
 
         
-    dfrac = 1000.d*(dfrac-sc);
-    int milli = (int)dfrac;
+    dfrac = 1000.0*(dfrac-sc);
 
-    double sec = ((double)sc)+dfrac/1000.0d;
+    double sec = ((double)sc)+dfrac/1000.0;
 
     int mon = 0;
     int day = 0;
@@ -214,8 +211,8 @@ void setValsToRec(TLE *tle, ElsetRec *rec)
     rec->mo = tle->maDeg*deg2rad;
     rec->ecco = tle->ecc;
     rec->no_kozai = tle->n/xpdotp;
-    rec->ndot = tle->ndot / (xpdotp*1440.0d);
-    rec->nddot = tle->nddot / (xpdotp*1440.0d*1440.0d);
+    rec->ndot = tle->ndot / (xpdotp*1440.0);
+    rec->nddot = tle->nddot / (xpdotp*1440.0*1440.0);
         
     sgp4init('a', rec);
 }
