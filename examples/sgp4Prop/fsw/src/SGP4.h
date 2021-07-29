@@ -9,9 +9,7 @@
 #define twopi  (2.0*pi)
 #define deg2rad  (pi/180.0)
 
-typedef int bool;
-#define TRUE 1
-#define FALSE 0
+#include <stdbool.h>
 
 /**
  * This class implements the elsetrec data type from Vallado's SGP4 code.
