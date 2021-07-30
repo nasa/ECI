@@ -15,8 +15,8 @@
 
 #ifndef RTW_HEADER_rt_nonfinite_h_
 #define RTW_HEADER_rt_nonfinite_h_
-#include <stddef.h>
 #include "rtwtypes.h"
+#include <stddef.h>
 
 extern real_T    rtInf;
 extern real_T    rtMinusInf;

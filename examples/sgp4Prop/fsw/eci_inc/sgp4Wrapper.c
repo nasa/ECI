@@ -1,7 +1,7 @@
 
-#include <math.h>
-#include <ctype.h>
 #include "sgp4Wrapper.h"
+#include <ctype.h>
+#include <math.h>
 
 /* Declare variables with global scope so ECI can access them */
 /* Inputs */
@@ -107,7 +107,7 @@ int computeTLEChecksum(char line[70])
     return checksum % 10;
 }
 
-int32_t validateTLE(tle_lines_t *TblPtr)
+int32_t validateTLE(void *Ptr)
 {
     /* Validates that each of the TLE lines match their built-in
      * checksums.
@@ -116,6 +116,8 @@ int32_t validateTLE(tle_lines_t *TblPtr)
             int32 validateFcn(void * TblPtr);
      * and return a negative value if the table should fail validation.
      */
+
+    tle_lines_t *TblPtr = (tle_lines_t *)Ptr;
 
     /* Initialize checks */
     line1Check.computed = computeTLEChecksum(TblPtr->line1);

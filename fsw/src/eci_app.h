@@ -57,7 +57,7 @@ extern "C"
     /** Location of Cmd Queue Buffer - NULL if Tlm Message */
     void *qptr;
     /** Pointer to the flag indicating whether to send output */
-    boolean *sendMsg;
+    bool *sendMsg;
 } ECI_Msg_t;
 /**@}*/
 
@@ -67,7 +67,7 @@ typedef struct
     /** Pointer to flag ID - unique ID set by the user */
     uint8 *FlagID;
     /** Pointer to status flag */
-    boolean *StatusFlag;
+    bool *StatusFlag;
 } ECI_Flag_t;
 
 /**@ingroup eci_event
@@ -84,11 +84,11 @@ typedef struct
     /** Event Mask - filter set by user */
     uint32 *eventMask;
     /** Flag indicating simulink event has occurred */
-    boolean *eventFlag;
+    bool *eventFlag;
     /** Msgpoint to send with an event taken from observable signal */
-    uint8 *eventMsg;
+    const char *eventMsg;
     /** Location string */
-    char *loc;
+    const char *loc;
     /** First data point */
     double *data_1;
     /** Second data point */
@@ -112,15 +112,15 @@ typedef struct
     /** Pointer to table  */
     void **tblptr;
     /** Name of table  */
-    char *tblname;
+    const char *tblname;
     /** Description of table  */
-    char *tbldesc;
+    const char *tbldesc;
     /** Filename of table  */
-    char *tblfilename;
+    const char *tblfilename;
     /** Size of table */
     uint32 tblsize;
     /** Table validation func */
-    void *tblvalfunc;
+    int32_t (*tblvalfunc)(void *);
 } ECI_Tbl_t;
 /**@}*/
 
@@ -128,7 +128,7 @@ typedef struct
 typedef struct
 {
     /** Name of CDS block */
-    char *cdsname;
+    const char *cdsname;
     /** Size of CDS block */
     size_t cdssiz;
     /** Address of Critical Data  */

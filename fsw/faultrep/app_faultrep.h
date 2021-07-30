@@ -9,7 +9,8 @@
 **      be viewed as the Entity object being managed by the App_FaultRep
 **      interface. Because of the simplicity of the Report it was defined
 **      in this file rather than in a separate file.
-**   -# App_FaultRep_Constructor() must be called prior to any other App_FaultRep_ functions
+**   -# App_FaultRep_Constructor() must be called prior to any other
+*App_FaultRep_ functions
 **   -# A higher level object (typically the Application's "main" file) must
 **      register App_FaultRep_GenTlmMsg() with TlmGen.
 **   -# The telemetry generation requires that an even number of fault
@@ -22,9 +23,11 @@
 **      fault correction monitor point. This object assumes the combining
 **      of fault detection points is accomplished outside of this object.
 **   -# The ReportMode flag has the following definitions
-**      - APP_FAULTREP_NEW_REPORT - The ID notifications for the current control cycle
+**      - APP_FAULTREP_NEW_REPORT - The ID notifications for the current control
+*cycle
 **        are copied into the message.
-**      - APP_FAULTREP_MERGE_REPORT - The ID notifications for the current control cycle
+**      - APP_FAULTREP_MERGE_REPORT - The ID notifications for the current
+*control cycle
 **        are merged(logically ORed) with the message
 **   -# Each Application can customized the following macros:
 **      - APP_FAULTREP_ID_MAX
@@ -47,8 +50,8 @@
 ** Include Files
 */
 
-#include "common_types.h"
 #include "cfe_sb.h"
+#include "common_types.h"
 
 /*
 ** Macro Definitions
@@ -75,8 +78,10 @@
 ** FaultDetId.
 */
 
-#define APP_FAULTREP_SELECT_ALL 0xFFFF /* Used by functions to select all IDs */
-                                       /* Must not be a valid detector ID     */
+#define APP_FAULTREP_SELECT_ALL                   \
+    0xFFFF /* Used by functions to select all IDs \
+            */
+           /* Must not be a valid detector ID     */
 
 /*
 ** Define constants that are based on the total number of fault detection
@@ -138,7 +143,8 @@ typedef struct
 ** - A single bit is used for each fault detection point for the enable/disable
 **   configuration and for latched status.
 **
-** - A latched bit is set when an enabled fault detector notifies App_FaultRep of
+** - A latched bit is set when an enabled fault detector notifies App_FaultRep
+*of
 **   an error. The bit remains set until a command is received to clear the bit.
 **
 */

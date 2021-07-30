@@ -1,3 +1,23 @@
+/*
+**  GSC-18128-1, "Core Flight Executive Version 6.7"
+**
+**  Copyright (c) 2006-2019 United States Government as represented by
+**  the Administrator of the National Aeronautics and Space Administration.
+**  All Rights Reserved.
+**
+**  Licensed under the Apache License, Version 2.0 (the "License");
+**  you may not use this file except in compliance with the License.
+**  You may obtain a copy of the License at
+**
+**    http://www.apache.org/licenses/LICENSE-2.0
+**
+**  Unless required by applicable law or agreed to in writing, software
+**  distributed under the License is distributed on an "AS IS" BASIS,
+**  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+**  See the License for the specific language governing permissions and
+**  limitations under the License.
+*/
+
 /******************************************************************************
 ** File: cfe_msgids.h
 **
@@ -38,6 +58,8 @@
 #define CFE_TBL_SEND_HK_MID  CFE_MISSION_CMD_MID_BASE1 + CFE_MISSION_TBL_SEND_HK_MSG  /* 0x180C */
 #define CFE_TIME_SEND_HK_MID CFE_MISSION_CMD_MID_BASE1 + CFE_MISSION_TIME_SEND_HK_MSG /* 0x180D */
 
+#define CFE_SB_SUB_RPT_CTRL_MID CFE_MISSION_CMD_MID_BASE1 + CFE_MISSION_SB_SUB_RPT_CTRL_MSG /* 0x180E */
+
 #define CFE_TIME_TONE_CMD_MID CFE_MISSION_CMD_MID_BASE1 + CFE_MISSION_TIME_TONE_CMD_MSG /* 0x1810 */
 #define CFE_TIME_1HZ_CMD_MID  CFE_MISSION_CMD_MID_BASE1 + CFE_MISSION_TIME_1HZ_CMD_MSG  /* 0x1811 */
 
@@ -64,8 +86,12 @@
 #define CFE_TBL_REG_TLM_MID         CFE_MISSION_TLM_MID_BASE1 + CFE_MISSION_TBL_REG_TLM_MSG         /* 0x080C */
 #define CFE_SB_ALLSUBS_TLM_MID      CFE_MISSION_TLM_MID_BASE1 + CFE_MISSION_SB_ALLSUBS_TLM_MSG      /* 0x080D */
 #define CFE_SB_ONESUB_TLM_MID       CFE_MISSION_TLM_MID_BASE1 + CFE_MISSION_SB_ONESUB_TLM_MSG       /* 0x080E */
-#define CFE_ES_SHELL_TLM_MID        CFE_MISSION_TLM_MID_BASE1 + CFE_MISSION_ES_SHELL_TLM_MSG        /* 0x080F */
-#define CFE_ES_MEMSTATS_TLM_MID     CFE_MISSION_TLM_MID_BASE1 + CFE_MISSION_ES_MEMSTATS_TLM_MSG     /* 0x0810 */
+
+#ifndef CFE_OMIT_DEPRECATED_6_7
+#define CFE_ES_SHELL_TLM_MID CFE_MISSION_TLM_MID_BASE1 + CFE_MISSION_ES_SHELL_TLM_MSG /* 0x080F */
+#endif
+
+#define CFE_ES_MEMSTATS_TLM_MID CFE_MISSION_TLM_MID_BASE1 + CFE_MISSION_ES_MEMSTATS_TLM_MSG /* 0x0810 */
 
 /*
  * MID definitions by these older names are required to make some existing apps compile

@@ -107,8 +107,9 @@ void OP_Test_tableValidate()
              line1Check.expected);
     UtPrintf("Line2 Failed: %d, computed: %d, expected: %d\n", line2Check.failed, line2Check.computed,
              line2Check.expected);
-    // UtAssert_True(Ut_CFE_EVS_GetEventCount(ECI_PARAM_TBL_LOAD_ERR_EID, CFE_EVS_ERROR, "") == 0,
-    // "ECI_PARAM_TBL_LOAD_ERR_EID Event Counter did not increment");
+    // UtAssert_True(Ut_CFE_EVS_GetEventCount(ECI_PARAM_TBL_LOAD_ERR_EID,
+    // CFE_EVS_ERROR, "") == 0, "ECI_PARAM_TBL_LOAD_ERR_EID Event Counter did not
+    // increment");
 }
 
 void OP_Test_getTime()

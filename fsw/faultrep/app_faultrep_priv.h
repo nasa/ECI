@@ -1,6 +1,7 @@
 /*
 **
-** Purpose:  Define a class that provides a mechanism for objects to report faults
+** Purpose:  Define a class that provides a mechanism for objects to report
+*faults
 **
 ** $Id: app_faultrep_priv.h 1.1 2016/05/10 15:29:12EDT myang Exp  $
 **
@@ -41,8 +42,8 @@ typedef struct
 typedef struct
 {
 
-    uint16  FaultDetId; /* Single FD identifier or APP_FAULTREP_SELECT_ALL */
-    boolean Enable;     /* TRUE - Enable a FD; FALSE - Disable a FD        */
+    uint16 FaultDetId; /* Single FD identifier or APP_FAULTREP_SELECT_ALL */
+    bool   Enable;     /* TRUE - Enable a FD; FALSE - Disable a FD        */
 
 } App_FaultRep_ConfigFaultDetCmdParam;
 
@@ -66,8 +67,8 @@ typedef struct
 **   - FALSE - Command rejected: An event message is issued describing the
 **             cause of the failure.
 */
-boolean App_FaultRep_ClearFaultDetCmd(void *      CmdObjPtr,  /**< Pointer to an instance of a App_FaultRep_Class */
-                                      const void *CmdParamPtr /**< Pointer to a App_FaultRep_ClearCmd structure.  */
+bool App_FaultRep_ClearFaultDetCmd(void *      CmdObjPtr,  /**< Pointer to an instance of a App_FaultRep_Class */
+                                   const void *CmdParamPtr /**< Pointer to a App_FaultRep_ClearCmd structure.  */
 );
 
 /*
@@ -87,8 +88,8 @@ boolean App_FaultRep_ClearFaultDetCmd(void *      CmdObjPtr,  /**< Pointer to an
 **   - FALSE - Command rejected: An event message is issued describing the
 **             cause of the failure.
 */
-boolean App_FaultRep_ConfigFaultDetCmd(void *      CmdObjPtr,  /**< Pointer to an instance of a App_FaultRep_Class */
-                                       const void *CmdParamPtr /**< Pointer to a App_FaultRep_ConfigCmd structure. */
+bool App_FaultRep_ConfigFaultDetCmd(void *      CmdObjPtr,  /**< Pointer to an instance of a App_FaultRep_Class */
+                                    const void *CmdParamPtr /**< Pointer to a App_FaultRep_ConfigCmd structure. */
 );
 
 /*
@@ -106,8 +107,9 @@ boolean App_FaultRep_ConfigFaultDetCmd(void *      CmdObjPtr,  /**< Pointer to a
 **
 */
 void App_FaultRep_Constructor(App_FaultRep_Class *FaultRepObjParam, /**< Pointer to a App_FaultRep object */
-                              uint16  FaultIdCnt, /**< Number of fault detector IDs used (not an index, but a count) */
-                              uint16 *EvsIdBase   /**< Starting event message ID        */
+                              uint16              FaultIdCnt, /**< Number of fault detector IDs used (not an index, but
+                                                                 a count) */
+                              uint16 *EvsIdBase               /**< Starting event message ID        */
 );
 
 /*

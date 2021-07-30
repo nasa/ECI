@@ -1,21 +1,20 @@
 /* UT Test includes */
 #include "cfe.h"
 #include "ut_cfe_es_stubs.h"
-#include "ut_cfe_sb_stubs.h"
-#include "ut_cfe_sb_hooks.h"
-#include "ut_cfe_es_stubs.h"
 #include "ut_cfe_evs_stubs.h"
-#include "ut_cfe_time_stubs.h"
-#include "ut_cfe_tbl_stubs.h"
 #include "ut_cfe_fs_stubs.h"
+#include "ut_cfe_sb_hooks.h"
+#include "ut_cfe_sb_stubs.h"
 #include "ut_cfe_tbl_hooks.h"
+#include "ut_cfe_tbl_stubs.h"
+#include "ut_cfe_time_stubs.h"
 #include "ut_osfileapi_stubs.h"
 
 #include "ut_osapi_stubs.h"
 
-#include "sa_test_utils.h"
 #include "paramTable1_b.h"
 #include "paramTable2_b.h"
+#include "sa_test_utils.h"
 
 /* Global Data */
 extern paramTable1_b UT_param_TBL1;
@@ -84,7 +83,8 @@ void set_SA_Test_CFE_SB_RcvMsg(CFE_SB_MsgId_t MsgId)
 
 } /* End of set_SA_Test_CFE_SB_RcvMsg */
 
-/* When checking for messages on the data pipe, it will grab messages up until MsgIdStop received */
+/* When checking for messages on the data pipe, it will grab messages up until
+ * MsgIdStop received */
 int32 SA_Test_CFE_SB_RcvMsg(CFE_SB_MsgPtr_t *BufPtr, CFE_SB_PipeId_t PipeId, int32 TimeOut)
 {
 

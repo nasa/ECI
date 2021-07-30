@@ -21,14 +21,14 @@
 #include <string.h>
 #ifndef unitTestModel_COMMON_INCLUDES_
 #define unitTestModel_COMMON_INCLUDES_
-#include "rtwtypes.h"
 #include "eci_app.h"
+#include "rtwtypes.h"
 #endif /* unitTestModel_COMMON_INCLUDES_ */
 
-#include "unitTestModel_types.h"
 #include "eci_app.h" /* CSL Header file */
-#include "rt_nonfinite.h"
 #include "rtGetInf.h"
+#include "rt_nonfinite.h"
+#include "unitTestModel_types.h"
 
 /* Macros for accessing real-time model data structure */
 #ifndef rtmGetErrorStatus
@@ -265,9 +265,9 @@ extern RT_MODEL_unitTestModel_T *const unitTestModel_M;
  * Block '<S3>/Data Type Propagation' : Unused code path elimination
  * Block '<S20>/FixPt Data Type Duplicate' : Unused code path elimination
  * Block '<S21>/FixPt Data Type Duplicate1' : Unused code path elimination
- * Block '<S11>/Data Type Conversion6' : Eliminate redundant data type conversion
- * Block '<S9>/Data Type Conversion5' : Eliminate redundant data type conversion
- * Block '<S18>/ShiftBits' : Eliminated trivial shift
+ * Block '<S11>/Data Type Conversion6' : Eliminate redundant data type
+ * conversion Block '<S9>/Data Type Conversion5' : Eliminate redundant data type
+ * conversion Block '<S18>/ShiftBits' : Eliminated trivial shift
  */
 
 /*-
@@ -297,13 +297,20 @@ extern RT_MODEL_unitTestModel_T *const unitTestModel_M;
  * '<S10>'  : 'unitTestModel/CmdPreProcess/CmdOrNoCmd/DetectChange'
  * '<S11>'  : 'unitTestModel/CmdPreProcess/CmdOrNoCmd/ExtractCCSDSPriHeader'
  * '<S12>'  : 'unitTestModel/CmdPreProcess/CmdOrNoCmd/NoCmd'
- * '<S13>'  : 'unitTestModel/CmdPreProcess/CmdOrNoCmd/ExtractCCSDSPriHeader/IfLenZero'
- * '<S14>'  : 'unitTestModel/CmdPreProcess/CmdOrNoCmd/ExtractCCSDSPriHeader/RecombineLength'
- * '<S15>'  : 'unitTestModel/CmdPreProcess/CmdOrNoCmd/ExtractCCSDSPriHeader/RecombineSequence'
- * '<S16>'  : 'unitTestModel/CmdPreProcess/CmdOrNoCmd/ExtractCCSDSPriHeader/RecombineStreamID'
- * '<S17>'  : 'unitTestModel/CmdPreProcess/ExtractCCSDSCmdSecHeader/ExtractChecksumBits'
- * '<S18>'  : 'unitTestModel/CmdPreProcess/ExtractCCSDSCmdSecHeader/ExtractFcnCodeBits'
- * '<S19>'  : 'unitTestModel/CmdPreProcess/ExtractCCSDSCmdSecHeader/ExtractReservedBits'
+ * '<S13>'  :
+ * 'unitTestModel/CmdPreProcess/CmdOrNoCmd/ExtractCCSDSPriHeader/IfLenZero'
+ * '<S14>'  :
+ * 'unitTestModel/CmdPreProcess/CmdOrNoCmd/ExtractCCSDSPriHeader/RecombineLength'
+ * '<S15>'  :
+ * 'unitTestModel/CmdPreProcess/CmdOrNoCmd/ExtractCCSDSPriHeader/RecombineSequence'
+ * '<S16>'  :
+ * 'unitTestModel/CmdPreProcess/CmdOrNoCmd/ExtractCCSDSPriHeader/RecombineStreamID'
+ * '<S17>'  :
+ * 'unitTestModel/CmdPreProcess/ExtractCCSDSCmdSecHeader/ExtractChecksumBits'
+ * '<S18>'  :
+ * 'unitTestModel/CmdPreProcess/ExtractCCSDSCmdSecHeader/ExtractFcnCodeBits'
+ * '<S19>'  :
+ * 'unitTestModel/CmdPreProcess/ExtractCCSDSCmdSecHeader/ExtractReservedBits'
  * '<S20>'  : 'unitTestModel/Counter Limited/Increment Real World'
  * '<S21>'  : 'unitTestModel/Counter Limited/Wrap To Zero'
  */

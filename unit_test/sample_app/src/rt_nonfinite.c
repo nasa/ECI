@@ -19,8 +19,8 @@
  *      (Inf, NaN and -Inf).
  */
 #include "rt_nonfinite.h"
-#include "rtGetNaN.h"
 #include "rtGetInf.h"
+#include "rtGetNaN.h"
 #define NumBitsPerChar 8U
 
 real_T   rtInf;

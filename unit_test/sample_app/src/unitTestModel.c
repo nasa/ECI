@@ -471,17 +471,18 @@ void unitTestModel_initialize(void)
     inputTlmPkt2_s = unitTestModel_rtZinputTlmPkt2_b;
     inputCmdPkt_s  = unitTestModel_rtZinputCmdPkt_b;
 
-    /* InitializeConditions for S-Function (cfs_conditional_msg): '<Root>/sendOutputTlmPkt2' */
+    /* InitializeConditions for S-Function (cfs_conditional_msg):
+     * '<Root>/sendOutputTlmPkt2' */
     cmsgFlag_unitTestModel_117 = false;
 
-    /* InitializeConditions for S-Function (cfs_conditional_msg): '<Root>/sendOutputTlmPkt3' */
+    /* InitializeConditions for S-Function (cfs_conditional_msg):
+     * '<Root>/sendOutputTlmPkt3' */
     cmsgFlag_unitTestModel_126 = false;
 }
 
 /* Model terminate function */
 void unitTestModel_terminate(void)
-{
-    /* (no terminate code required) */
+{ /* (no terminate code required) */
 }
 
 /*

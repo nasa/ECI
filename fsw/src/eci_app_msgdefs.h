@@ -11,16 +11,15 @@
  */
 /**
  * Description:  No-Op Command<br>
- * Command Verification:  HK command counter increments and event# ECI_NOOP_INF_EID issued<br>
- * Error Condition:  None<br>
+ * Command Verification:  HK command counter increments and event#
+ * ECI_NOOP_INF_EID issued<br> Error Condition:  None<br>
  */
 #define ECI_NOOP_CC 0
 
 /**
  * Description:  HK Counters Reset<br>
- * Command Verification:  HK command, error, and Msg counters reset to zero, event#
- *                         ECI_RESET_HK_CTR_INF_EID issued<br>
- * Error Condition:  None<br>
+ * Command Verification:  HK command, error, and Msg counters reset to zero,
+ * event# ECI_RESET_HK_CTR_INF_EID issued<br> Error Condition:  None<br>
  */
 #define ECI_RESET_HK_COUNTER_CC 1
 

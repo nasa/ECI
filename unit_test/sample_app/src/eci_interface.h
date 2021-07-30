@@ -15,10 +15,10 @@
 
 #ifndef RTW_HEADER_eci_interface_h_
 #define RTW_HEADER_eci_interface_h_
-#include "eci_app.h"
-#include "eci_app_cfg.h"
 #include "app_msgids.h"
 #include "app_perfids.h"
+#include "eci_app.h"
+#include "eci_app_cfg.h"
 #include "unitTestModel.h" /* Model's header file */
 
 /* Code Revision Identifier */
@@ -99,8 +99,8 @@ static ECI_Msg_t ECI_MsgRcv[] = {
 
 /* End CSC_SL_RECV_Messages */
 
-/* Create array of structures with error type, pointer to observable signal location,
-   the location comment, and the event message */
+/* Create array of structures with error type, pointer to observable signal
+   location, the location comment, and the event message */
 #define ECI_EVENT_TABLE_DEFINED 1
 
 static const ECI_Evs_t ECI_Events[] = {

@@ -4,26 +4,24 @@
 /* Test framework includes */
 #include "cfe.h"
 #include "ut_cfe_es_stubs.h"
-#include "ut_cfe_sb_stubs.h"
-#include "ut_cfe_sb_hooks.h"
-#include "ut_cfe_es_stubs.h"
 #include "ut_cfe_evs_stubs.h"
-#include "ut_cfe_time_stubs.h"
-#include "ut_cfe_tbl_stubs.h"
 #include "ut_cfe_fs_stubs.h"
+#include "ut_cfe_sb_hooks.h"
+#include "ut_cfe_sb_stubs.h"
 #include "ut_cfe_tbl_hooks.h"
+#include "ut_cfe_tbl_stubs.h"
+#include "ut_cfe_time_stubs.h"
 #include "ut_osapi_stubs.h"
 #include "ut_osfileapi_stubs.h"
-#include "uttest.h"
 #include "utassert.h"
-#include "cfe.h"
 #include "utlist.h"
+#include "uttest.h"
 
 /* File Specific Includes */
 #include "eci_app_cfg.h"
-#include "unit_test/op_test_utils.h"
-#include "fsw/platform_inc/op_app_msgids.h"
 #include "fsw/eci_inc/sgp4Wrapper_test.h"
+#include "fsw/platform_inc/op_app_msgids.h"
+#include "unit_test/op_test_utils.h"
 
 #define CAT_TBL_PATH(PATH) PARAM_TBL_PATH_PREFIX PATH
 

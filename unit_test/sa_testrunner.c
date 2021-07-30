@@ -1,5 +1,5 @@
-#include "uttest.h"
 #include "sa_app_test.h"
+#include "uttest.h"
 
 int main(void)
 {

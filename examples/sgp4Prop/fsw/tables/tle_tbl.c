@@ -1,5 +1,5 @@
-#include "sgp4Wrapper.h"
 #include "eci_tbl_if.h"
+#include "sgp4Wrapper.h"
 
 tle_lines_t tle_lines_tbl = {
     "1 00005U 58002B   00179.78495062  .00000023  00000-0  28098-4 0  4753",

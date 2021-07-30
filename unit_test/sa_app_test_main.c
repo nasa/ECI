@@ -1,18 +1,21 @@
-#include "uttest.h"
-#include "sa_test_utils.h"
 #include "sa_app_test.h"
+#include "sa_test_utils.h"
+#include "uttest.h"
 
 void SA_App_Test_AddTestCases(void)
 {
 
     UtTest_Add(SA_AppMain_Test_ECI_1001_1050, SA_Test_Setup, SA_Test_TearDown,
-               "ECI receives a message on the command pipe with an unrecognized message ID");
+               "ECI receives a message on the command pipe with an unrecognized "
+               "message ID");
 
     UtTest_Add(SA_AppMain_Test_ECI_1010, SA_Test_Setup, SA_Test_TearDown,
-               "ECI receives a message on the data pipe with an unrecognized message ID");
+               "ECI receives a message on the data pipe with an unrecognized "
+               "message ID");
 
     UtTest_Add(SA_AppMain_Test_ECI_1020_1030_1050, SA_Test_Setup, SA_Test_TearDown,
-               "ECI receives messages on the command and data pipe with mismatched message lengths");
+               "ECI receives messages on the command and data pipe with "
+               "mismatched message lengths");
 
     UtTest_Add(SA_AppMain_Test_INIT_1001_TBL_1002, SA_Test_Setup, SA_Test_TearDown,
                "Test of Nominal ECI App Initialization");

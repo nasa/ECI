@@ -13,8 +13,8 @@
  * Validation result: Not run
  */
 
-#include "unitTestModel_types.h"
 #include "eci_tbl_if.h"
+#include "unitTestModel_types.h"
 
 paramTable1_b UT_param_TBL3 = {1U, 2U, 13U, 4U, 5U};
 

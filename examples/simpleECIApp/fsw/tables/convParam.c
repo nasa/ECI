@@ -1,5 +1,5 @@
-#include "external_code.h"
 #include "eci_tbl_if.h"
+#include "external_code.h"
 
 /* Empty table for initialization */
 convParamStruct_t conv_param_tbl = {};

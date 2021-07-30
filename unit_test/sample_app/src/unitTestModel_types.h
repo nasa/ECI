@@ -15,9 +15,9 @@
 
 #ifndef RTW_HEADER_unitTestModel_types_h_
 #define RTW_HEADER_unitTestModel_types_h_
-#include "rtwtypes.h"
 #include "buses.h"
 #include "paramTable2_b.h"
+#include "rtwtypes.h"
 #ifndef DEFINED_TYPEDEF_FOR_CFEEventType_
 #define DEFINED_TYPEDEF_FOR_CFEEventType_
 

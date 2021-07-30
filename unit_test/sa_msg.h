@@ -39,10 +39,13 @@ typedef struct
 typedef struct
 {
 
-    uint8 TlmHeader[CFE_SB_TLM_HDR_SIZE]; /* cFE Software Bus Telemetry Message Header */
+    uint8 TlmHeader[CFE_SB_TLM_HDR_SIZE]; /* cFE Software Bus Telemetry Message
+                                             Header */
 
-    uint8 CmdAcceptCounter; /* number of command messages accepted (excluding HK Resets) */
-    uint8 CmdErrorCounter;  /* number of command messages rejected (excluding HK Resets) */
+    uint8 CmdAcceptCounter; /* number of command messages accepted (excluding HK
+                               Resets) */
+    uint8 CmdErrorCounter;  /* number of command messages rejected (excluding HK
+                               Resets) */
 
 #ifdef ECI_FLAG_TABLE_DEFINED
     uint16 Enabled[5]; /* Fault Reporter Enable status */

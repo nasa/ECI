@@ -9,7 +9,8 @@
 /* Include top-level header for external code */
 #include "sgp4Wrapper.h"
 
-/* Include headers containing mission and platform-specific configs for this app */
+/* Include headers containing mission and platform-specific configs for this app
+ */
 #include "op_app_msgids.h"
 #include "op_app_perfids.h"
 
@@ -106,11 +107,11 @@ extern line_check_t line1Check;
 uint8               line2FailEventID = 2;
 extern line_check_t line2Check;
 uint8               timeOutOfRangeID = 3;
-uint8               errorEventType   = CFE_EVS_ERROR;
+uint8               errorEventType   = CFE_EVS_EventType_ERROR;
 uint32              filterOneEvent   = CFE_EVS_FIRST_ONE_STOP;
 
-/* Create array of structures with error type, pointer to observable signal location,
-   the location comment, and the event message */
+/* Create array of structures with error type, pointer to observable signal
+   location, the location comment, and the event message */
 static const ECI_Evs_t ECI_Events[] = {
     {ECI_EVENT_2_DATA,                   /* Macro defining type of ECI event,
                                           * in this case, event with two data points*/
@@ -121,16 +122,16 @@ static const ECI_Evs_t ECI_Events[] = {
                                           * validation is run, which would result in constantly
                                           * sending this event
                                           */
-     (boolean *)&line1Check.failed,      /* Pointer to flag */
-     "Checksum for line 1 failed to validate, computed %.0f does not match expected %.0f", /* fprintf-style format
-                                                                                              string */
+     (bool *)&line1Check.failed,         /* Pointer to flag */
+     "Checksum for line 1 failed to validate, computed %.0f does not match "
+     "expected %.0f",                /* fprintf-style format string */
      "validateTLE()",                /* (Optional) Location in code where event originated*/
      (double *)&line1Check.computed, /* Data values (not used here) */
      (double *)&line1Check.expected, 0, 0, 0},
 
-    {ECI_EVENT_2_DATA, &line2FailEventID, &errorEventType, &filterOneEvent, (boolean *)&line2Check.failed,
-     "Checksum for line 2 failed to validate, computed %.0f does not match expected %.0f", /* fprintf-style format
-                                                                                              string */
+    {ECI_EVENT_2_DATA, &line2FailEventID, &errorEventType, &filterOneEvent, (bool *)&line2Check.failed,
+     "Checksum for line 2 failed to validate, computed %.0f does not match "
+     "expected %.0f",                                 /* fprintf-style format string */
      "validateTLE()", (double *)&line2Check.computed, /* Data values (not used here) */
      (double *)&line2Check.expected, 0, 0, 0},
 
