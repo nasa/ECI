@@ -75,7 +75,7 @@ In general, its important these be set correctly for proper handling of the mess
 ECI allocates a queue for each command message defined. A third distinction will be made 
 in this table for performance IDs which will be denoted by PERF. Performance IDs are used 
 to track an apps system usage but aren't reference in the CCSDS standard.
-The CCSDS standard can be referenced [here](https://public.ccsds.org/Pubs/133x0b1c2.pdf).
+The CCSDS standard can be referenced [here](https://public.ccsds.org/Pubs/133x0b2e1.pdf).
 
 <table>
 <tr><th> Required <th> Macro <th> Type <th> Description
